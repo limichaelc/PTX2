@@ -15,4 +15,12 @@ def get_images(book_url):
     main_image = soup.find(id = "main-image")['src']
     print main_image
 
+#returns description (with html tags) given an amazon url
+def get_description(book_url):
+    soup = make_soup(book_url)
+    description = soup.find(id = "postBodyPS").contents
+    print description
+
 get_images("http://www.amazon.com/Practice-Programming-Addison-Wesley-Professional-Computing/dp/020161586X/ref=sr_1_1?s=books&ie=UTF8&qid=1396136819&sr=1-1&keywords=practice+of+programming")
+
+get_description("http://www.amazon.com/Practice-Programming-Addison-Wesley-Professional-Computing/dp/020161586X/ref=sr_1_1?s=books&ie=UTF8&qid=1396136819&sr=1-1&kywords=practice+of+programming")
