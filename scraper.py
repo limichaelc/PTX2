@@ -4,6 +4,7 @@ from time import sleep
 
 BASE_URL = "http://www.amazon.com/gp/product/"
 BASE_2 = "http://www.labyrinthbooks.com/all_detail.aspx?isbn="
+BASE_3 = "view-source:http://registrar.princeton.edu/course-offerings/search_results.xml?term=1144&coursetitle=&instructor=&distr_area=&level=&cat_number=&sort=SYN_PS_PU_ROXEN_SOC_VW.SUBJECT%2C+SYN_PS_PU_ROXEN_SOC_VW.CATALOG_NBR%2CSYN_PS_PU_ROXEN_SOC_VW.CLASS_SECTION%2CSYN_PS_PU_ROXEN_SOC_VW.CLASS_MTG_NBR&submit=Search"
 
 # returns the page source given a url
 def make_soup(url):
@@ -52,4 +53,4 @@ def get_lab_price(isbn):
 #get_description("020161586X")
 
 #test for price
-get_lab_price("9780471982326")
+#get_lab_price("9780471982326")
