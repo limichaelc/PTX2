@@ -7,5 +7,12 @@ from scrapy.item import Item, Field
 
 class BlackboardscrapeItem(Item):
     # define the fields for your item here like:
-    # name = Field()
+    course = Field()
+    title = Field()
+    author = Field()
+    ISBN = Field()
+    publisher = Field()
+    date = Field()
+    list_price = Field()
+    is_recommended = Field()
     pass
