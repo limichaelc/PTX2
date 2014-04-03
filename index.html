@@ -5,16 +5,18 @@
 <b>March 16:</b> Created Github project; distributed documentation for learning different systems being used; added timeline to repo in form of project page<br>
 <b>March 30:</b> Created mockups of site; drafted up database structure in Django; wrote scraper for Amazon and began work on scraping Blackboard data<br>
 <b>April 1:</b> Continued work on scraper. Ran into problems with the redirects from the Course Registrar to the Blackboard reading lists. Managed to work around the first redirect by scraping for first set of links and then scraping from those pages, but still unsure how to get around CAS login. Need to contact Help Desk again about consolidated database. Began putting together website using Bootstrap. Ran into issue where tutorial wasn't matching up with actual page, but overall looks correct. Add listing page essentially completed. Realized some more learning about Github required. (Merge? Oh wait, everything is gone...) Got a page running on AppEngine (ptonptx2.appspot.com), but may have some issues with SQL (we have to pay?). Looking into possibly switching to Heroku?<br>
-<b>April 3:</b> Realized existence of discrepancy between version of Bootstrap in tutorial and version being used. Have to use different classes, but things are looking more correct. Refer to Bootstrap's own documentation for future. Figure out how to have site wide elements (header, sidebar); thinking of using SSI, which seems straightforward.
+<b>April 3:</b> Realized existence of discrepancy between version of Bootstrap in tutorial and version being used. Have to use different classes, but things are looking more correct. Refer to Bootstrap's own documentation for future. Figure out how to have site wide elements (header, sidebar); thinking of using SSI, which seems straightforward. Got contact for registrar (Vicky Glossen, but she won't pick up...)
 
 <h2>This Week's Goals</h2>
-<u>Week of March 16</u><br>
-<body><i>Preliminary set up:</i> <del>Create project in Github</del> and make sure everyone has access and working knowledge of how to use it <i>(in progress)</i>. Get <a href="https://sqlite.org/index.html">SQLite</a>, <a href="https://www.djangoproject.com/download/">Django</a>, etc. on everyone's computer and learn basics.<br>
-
-<i>Make basics of a site:</i> Very minimal Django site; make sure we can retrieve and display data from the database.<br>
-
+<u>Carried over from Week of March 16</u><br>
+<body><i>Make basics of a site:</i> Very minimal Django site; make sure we can retrieve and display data from the database.<br>
 <i>Create and populate database for courses and course books:</i> Populate using Blackboard reading lists. Scrape prices from Amazon and Labyrinth for all books listed.<br>
 
-<i>Create database for listings:</i> Test using fake sales.
+<i><em>Test</em> database for listings</i>
+
+<u>Week of March 30</u>
+<i>Aesthetics:</i> <del>Finalize what information is available on each page and create skeleton frameworks for each one. Finalize layout and design and </del> create corresponding custom version of Bootstrap.
+<i>Search:</i> Write search parser/write SQL queries that get the right information for each page. Retrieve correct search results when searching by ISBN, course, title, and author. Be able to construct search results pages and drop down panels. Have autocomplete functionality (i.e. be able to dynamically fetch info from the database). Stress test the search feature.
+<i>Backend:</i> Set up server and software on AppEngine and get proof-of-concept webpage running there.
 </body><br><br>
 </body>
