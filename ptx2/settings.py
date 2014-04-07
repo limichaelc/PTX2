@@ -8,6 +8,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
+import dj_database_url  # add this to requirements.txt
+DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -55,8 +58,6 @@ WSGI_APPLICATION = 'ptx2.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
