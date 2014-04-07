@@ -12,7 +12,7 @@ class Book(models.Model):
 	edition = models.IntegerField()
 	isbn = models.CharField(max_length = 30)
 	isbn10 = models.CharField(max_length = 30)
-	course_usedin = models.Integerfield();
+	course_usedin = models.IntegerField();
 	amazon_price = models.DecimalField(max_digits = 5, decimal_places = 			2)
 	labyrinth_price = models.DecimalField(max_digits = 5, decimal_places 			= 2)
 	lowest_studentprice = models.DecimalField(max_digit=5,decimal_places 			= 2)
