@@ -36,10 +36,10 @@ class Listing(models.Model):
 	book = models.ForeignKey(Book)
 	owner = models.ForeignKey(User)
 	SELL_STATUSES = (
-		('O' = 'Currently offered'),
-		('P' = 'Sale pending'),
-		('S' = 'Sold'),
-		('C' = 'Cancelled'),
+		('O', 'Currently offered'),
+		('P', 'Sale pending'),
+		('S', 'Sold'),
+		('C', 'Cancelled'),
 	)
 	sell_status = models.CharField(max_length=1, choices=SELL_STATUSES, default='O')
 	condition = models.IntegerField()
