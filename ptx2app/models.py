@@ -18,7 +18,7 @@ class Book(models.Model):
 	title = models.CharField(max_length=100)
 	edition = models.IntegerField()
 	authors = models.ManyToManyField(Author)
-	course_used_in = models.ForeignKey(Course)
+	course_usedin = models.ForeignKey(Course)
 	amazon_price = models.DecimalField(max_digits = 10, decimal_places = 2)
 	labyrinth_price = models.DecimalField(max_digits = 10, decimal_places = 2)
 	lowest_studentprice = models.DecimalField(max_digits = 10, decimal_places = 2)
