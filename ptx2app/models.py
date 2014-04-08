@@ -57,7 +57,7 @@ class Transaction(models.Model):
 	seller = models.ForeignKey(User)
 	book = models.ForeignKey(Book)
 	paid = models.DecimalField()
-		SELL_STATUSES = (
+	SELL_STATUSES = (
 		('O' = 'Currently offered'),
 		('P' = 'Sale pending'),
 		('S' = 'Sold'),
