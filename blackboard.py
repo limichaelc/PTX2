@@ -16,6 +16,7 @@ recourselink2 = re.compile('https://blackboard.princeton.edu*')
 recoursetitle = re.compile('/webapps/blackboard/execute*')
 rebr = re.compile('^<.*')
 text = ""
+amazon = ""
 
 def make_soup(url):
     html = urlopen(url).read()
@@ -36,7 +37,8 @@ def get_labyrinth_price():
         price = j.find(class_="textElementRight")
         if price != None:
             price = str(price.contents).split('$')[1]
-            prices.append(price)
+            price2 = str(price).split('.')
+            prices.append(price2[0]+'.'+price2[1][0:2])
     return prices
 
 #get list of titles and isbn numbers (alternating) from blackboard
@@ -46,6 +48,42 @@ def get_titles_isbn():
     for i in txt:
         list.append(i.text)
     return list
+
+# returns the main-image given an amazon url
+def get_amazon_image():
+    main_image = amazon.find(id = "main-image")
+    if main_image == None:
+        main_image = amazon.find(id="imgBlkFront")
+    if main_image != None:
+        main_image = main_image['src']
+    return main_image
+
+#amazon price given isbn
+def get_amazon_price(isbn13):
+    url = BASE_URL+isbn13
+    global amazon
+    amazon = make_soup(url)
+    price = amazon.find(class_="a-size-medium a-color-price offer-price a-text-normal")
+    if price == None:
+        price = amazon.find(class_="bb_price")
+    if price != None:
+        price = price.contents[0]
+        price = re.sub(' +','', str(price))
+        price = re.sub('\n', '', str(price))
+    return price
+
+def get_amazon_edition():
+    edition = amazon.find(id='productDetailsTable').find(class_='content')
+    edition = edition.findAll('li')
+    editioncopy = edition
+    edition = edition[2]
+    edition = str(edition).split('</b>')[1]
+    edition = str(edition).split('</li>')[0]
+    if edition == ' English':
+        edition = editioncopy[1]
+        edition = str(edition).split('</b>')[1]
+        edition = str(edition).split('</li>')[0]
+    return edition
 
 def main():
     page = open('page.txt')
@@ -63,13 +101,15 @@ def main():
         classes = columns[1].find('u')
         course_desig = []
         for c in classes:
-            if c != '<br//>':
-                c = re.sub(' +','', str(c))
+            if str(c) != '<br/>':
+                c = re.sub(' +', '', c)
                 c = re.sub('\n', '', c)
                 course_desig.append(c)
-        
         currentrow.append(course_desig)
-        currentrow.append(columns[2].contents[0])
+        #course name
+        name = columns[2].contents[0]
+        name = str(name).strip()
+        currentrow.append(name)
         
         #get page url for reading lists
         pageurl = columns[11].find('a')['href']
@@ -77,29 +117,32 @@ def main():
         
         #get the required books information for this class
         thiscoursesbooks = []
-           #all labyrinth prices
+        #all labyrinth prices
         lab_prices = get_labyrinth_price()
-        print lab_prices
+        
            #all titles and isbns(alterating)
         titles = get_titles_isbn()
-        print titles
+        #print titles
         numbooks = len(lab_prices)
-        print "books " + str(numbooks)
+
         n = 0
         while n < numbooks:
             #each book is a dictionary that contains:
             #titles, isbn10, isbn13, lab_price, amazonprice, edition,
-            #author, course used in 
+            #author, picture 
             thisbook = []
             thisbook.append(titles[2*n])
             isbn10 = titles[(2*n)+1]
-            print isbn10
             thisbook.append(isbn10)
             isbn13 = pyisbn.convert(isbn10)
             thisbook.append(isbn13)
-            thisbook.append(lab_prices[n])
-            #amazon prices
-            
+            thisbook.append(lab_prices[n])        
+            thisbook.append(get_amazon_price(isbn13))
+            thisbook.append(get_amazon_image())
+            thisbook.append(get_amazon_edition())
             n = n+1
-
+            thiscoursesbooks.append(thisbook)
+        currentrow.append(thiscoursesbooks)
+        print currentrow
 main()
+
