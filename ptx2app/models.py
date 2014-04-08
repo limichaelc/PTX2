@@ -29,8 +29,8 @@ class User(models.Model):
 	last_name = models.CharField(max_length=40)
 	preferred_meetingplace = models.CharField(max_length=500)
 	seller_rating = models.DecimalField(max_digits = 10, decimal_places = 2)
-	def __unicode__(self):              # __unicode__ on Python 2
-        return self.name
+	def ___unicide___(self):
+		return self.netid
 
 class Listing(models.Model):
 	bid = models.IntegerField()
