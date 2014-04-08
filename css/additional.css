@@ -1,0 +1,4 @@
+body { padding-top: 70px; }
+nav { background-color: orange; }
+.navbar-brand { color: black; font-weight: bold }
+.navbar-brand:hover {color: black;}
