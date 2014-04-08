@@ -19,16 +19,16 @@ class Book(models.Model):
 	edition = models.IntegerField()
 	authors = models.ManyToManyField(Author)
 	course_used_in = models.ForeignKey(Course)
-	amazon_price = models.DecimalField()
-	labyrinth_price = models.DecimalField()
-	lowest_studentprice = models.DecimalField()
+	amazon_price = models.DecimalField(max_digits = 10, decimal_places = 2)
+	labyrinth_price = models.DecimalField(max_digits = 10, decimal_places = 2)
+	lowest_studentprice = models.DecimalField(max_digits = 10, decimal_places = 2)
 
 class User(models.Model):
 	netid = models.CharField(max_length=8)
 	first_name = models.CharField(max_length=30)
 	last_name = models.CharField(max_length=40)
 	preferred_meetingplace = models.CharField(max_length=500)
-	seller_rating = models.DecimalField()
+	seller_rating = models.DecimalField(max_digits = 10, decimal_places = 2)
 
 class Listing(models.Model):
 	book_id = models.IntegerField()
@@ -42,7 +42,7 @@ class Listing(models.Model):
 	)
 	sell_status = models.CharField(max_length=1, choices=SELL_STATUSES, default='O')
 	condition = models.IntegerField()
-	price = models.DecimalField()
+	price = models.DecimalField(max_digits = 10, decimal_places = 2)
 	comment = models.CharField(max_length=500)
 
 class Reading(models.Model):
@@ -52,10 +52,10 @@ class Reading(models.Model):
 
 class Transaction(models.Model):
 	tx_id = models.IntegerField()
-	buyer = models.ForeignKey(User)
-	seller = models.ForeignKey(User)
+	buyer = models.ForeignKey(User, related_name = "transcation_buyer")
+	seller = models.ForeignKey(User, related_name = "transcation_seller")
 	book = models.ForeignKey(Book)
-	paid = models.DecimalField()
+	paid = models.DecimalField(max_digits = 10, decimal_places = 2)
 	SELL_STATUSES = (
 		('O', 'Currently offered'),
 		('P', 'Sale pending'),
