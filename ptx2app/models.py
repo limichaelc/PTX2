@@ -31,7 +31,7 @@ class User(models.Model):
 	seller_rating = models.DecimalField(max_digits = 10, decimal_places = 2)
 
 class Listing(models.Model):
-	book_id = models.IntegerField()
+	bid = models.IntegerField()
 	book = models.ForeignKey(Book)
 	owner = models.ForeignKey(User)
 	SELL_STATUSES = (
