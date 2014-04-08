@@ -1,14 +1,21 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html>
-
     <head>
         <title>PTX2</title>
     </head>
 
     <body>
-        <h1>Welcome to PTX2!</h1>
-        Add a book: <strong>{{ boldmessage }}</strong><br />
-        <a href="/rango/about/">About</a><br />
-    </body>
+        <h1>All the users:</h1>
 
+        {% if users %}
+            <ul>
+                {% for user in users %}
+                <li>{{ user.netid}}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no users present.</strong>
+        {% endif %}
+
+    </body>
 </html>
