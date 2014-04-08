@@ -29,7 +29,6 @@ class User(models.Model):
 	last_name = models.CharField(max_length=40)
 	preferred_meetingplace = models.CharField(max_length=500)
 	seller_rating = models.DecimalField()
-	picture = models.ImageField()
 
 class Listing(models.Model):
 	book_id = models.IntegerField()
