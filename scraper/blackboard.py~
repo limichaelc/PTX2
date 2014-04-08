@@ -94,7 +94,7 @@ def get_amazon_edition():
     return edition
 
 def main():
-    page = open('page.txt')
+    page = open('page2.txt')
     soup = BeautifulSoup(page)
     table = soup.find('table')
     rows = table.findAll('tr')
@@ -159,7 +159,7 @@ def main():
         currentrow.append(thiscoursesbooks)
         #print currentrow
         finallist.append(currentrow)
-    f = open('database.txt', 'w')
+    f = open('database', 'w')
     f.write(finallist)
     f.close()
 
