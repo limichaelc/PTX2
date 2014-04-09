@@ -46,15 +46,8 @@ def get_titles_isbn():
     txt = text.findAll('td', {'width':'100%', 'class':'textBold'})
     list = []
     for i in txt:
-        if len(i.text) >= 3 :
+        if len(i.text) > 3 :
             list.append(i.text)
-    return list
-
-def get_author():
-    txt = text.findAll('td', {'class':'textItalic', 'width':'100%'})
-    list = []
-    for i in txt:
-        list.append(i.contents[0])
     return list
 
 # returns the main-image given an amazon url
@@ -72,8 +65,6 @@ def get_amazon_price(isbn13):
     global amazon
     amazon = make_soup(url)
     price = amazon.find(class_="a-size-medium a-color-price offer-price a-text-normal")
-    if price == None:
-        price = amazon.find(class_="rentPrice")
     if price == None:
         price = amazon.find(class_="bb_price")
     if price != None:
@@ -101,6 +92,14 @@ def get_amazon_edition():
         edition = str(edition).split('</b>')[1]
         edition = str(edition).split('</li>')[0]
     return edition
+
+def get_amazon_author():
+    author = amazon.find(class_="a-link-normal contributorNameID")
+    if author == None:
+        author = amazon.find(class_='a-link-normal')
+    if author != None:
+        author = author.contents
+    return author
 
 def main():
     page = open('page.txt')
@@ -140,8 +139,6 @@ def main():
         
         #all titles and isbns(alterating)
         titles = get_titles_isbn()
-        #authors
-        authors = get_author()
         #print titles
         numbooks = len(titles)/2
         #print numbooks
@@ -154,7 +151,6 @@ def main():
             thisbook = []
             thisbook.append(titles[2*n])
             isbn10 = titles[(2*n)+1]
-            thisbook.append(authors[n])
             thisbook.append(isbn10)
             isbn13 = pyisbn.convert(isbn10)
             thisbook.append(isbn13)
@@ -166,11 +162,12 @@ def main():
             thisbook.append(get_amazon_price(isbn13))
             thisbook.append(get_amazon_image())
             thisbook.append(get_amazon_edition())
+            thisbook.append(get_amazon_author())
             n = n+1
             thiscoursesbooks.append(thisbook)
         currentrow.append(thiscoursesbooks)
         print currentrow
-    #    finallist.append(currentrow)
-    
+        finallist.append(currentrow)
+    print finallist
 
 main()
