@@ -1,4 +1,8 @@
-body { padding-top: 70px; }
+body { padding-top: 50px; }
 nav { background-color: orange; }
 .navbar-brand { color: black; font-weight: bold }
+.navbar-nav { color: black; }
+.navbar-right > li > a { color: black;}
+.navbar-right > li > a:hover { background-color: orange ; color: black;}
 .navbar-brand:hover {color: black;}
+#sidebar { position: absolute; top: 50px; min-height: 100%;}

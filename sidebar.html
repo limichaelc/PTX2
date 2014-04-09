@@ -6,38 +6,49 @@
 	<link href="css/additional.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
-	<nav class="navbar navbar-fixed-top" role="navigation">
-		<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">PTX2</a>
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<nav class="navbar navbar-fixed-top" role="navigation">
+					<div class="container-fluid">
+						<!-- Brand and toggle get grouped for better mobile display -->
+						<div class="navbar-header">
+							<a class="navbar-brand" href="#">PTX2</a>
+						</div><!-- /.navbar-header -->
+						<form class="navbar-form navbar-left" role="search">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Search for books by title, author, course or ISBN..." style="width: 250%">
+							</div><!-- /.form-group -->
+						</form>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="/logout">Logout</a></li>
+						</ul>
+					</div><!-- /.container-fluid -->
+				</nav>
 			</div>
-				<form class="navbar-form navbar-left" role="search">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder=" Search for books by title, author, course or ISBN..." style="width: 250%">
-						</div>
-					</div>
-				</form>
-		</div><!-- /.container-fluid -->
-	</nav>
-	<div class="col-md-2" style="background-color: lightgrey">
-		<ul class="nav nav-pills nav-stacked">
-			<h3 style="font-variant:small-caps"> Bookshelf</h3>
-			<li class="active"><a href="#"><span class="badge pull-right">4</span>All Items</a></li>
-			<li><a href="bookshelf#needtobuy"><span class="badge pull-right">2</span>Need to Buy</a></li>
-			<li><a href="bookshelf#selling"><span class="badge pull-right">1</span>Selling</a></li>
-			<li><a href="bookshelf#owned"><span class="badge pull-right">1</span>Owned</a></li>
-			<h3 style="font-variant:small-caps">Courses</h3>
-			<li><a href="courses/cos/333"><span class="badge pull-right">0/1</span>COS 333</a></li>
-			<li><a href="courses/jpn/302"><span class="badge pull-right">1/2</span>JPN 302</a></li>
-			<li><a href="courses/vis/202"><span class="badge pull-right">0</span>VIS 202</a></li>
-			<li><a href="courses/other"><span class="badge pull-right">0</span>Other</a></li>
-			<h3 style="font-variant:small-caps">Account Info</h3>
-			<li><a href="/profile">My Profile</a></li>
-			<li><a href="/history">My History</a></li>
-			<li><a href="/watchlist">My Watch List</a></li>
-			<li><a href="/logout">Logout</a></li><br><br>
-		</ul>
+		</div>
+		<div class="row clearfix">
+			<div class="col-md-2 column" id="sidebar" style="background-color: lightgrey">
+				<ul class="nav nav-pills nav-stacked">
+					<h3 style="font-variant:small-caps"> Bookshelf</h3>
+					<li class="active"><a href="#"><span class="badge pull-right">4</span>All Items</a></li>
+					<li><a href="bookshelf#needtobuy"><span class="badge pull-right">2</span>Need to Buy</a></li>
+					<li><a href="bookshelf#selling"><span class="badge pull-right">1</span>Selling</a></li>
+					<li><a href="bookshelf#owned"><span class="badge pull-right">1</span>Owned</a></li>
+					<h3 style="font-variant:small-caps">Courses</h3>
+					<li><a href="courses/cos/333"><span class="badge pull-right">0/1</span>COS 333</a></li>
+					<li><a href="courses/jpn/302"><span class="badge pull-right">1/2</span>JPN 302</a></li>
+					<li><a href="courses/vis/202"><span class="badge pull-right">0</span>VIS 202</a></li>
+					<li><a href="courses/other"><span class="badge pull-right">0</span>Other</a></li>
+					<h3 style="font-variant:small-caps">Account Info</h3>
+					<li><a href="profile">My Profile</a></li>
+					<li><a href="history">My History</a></li>
+					<li><a href="watchlist">My Watch List</a></li>
+				</ul>
+			</div>
+			<div class="col-md-6 column">Hi
+			</div>
+		</div>
 	</div>
 </body>
 </html>
