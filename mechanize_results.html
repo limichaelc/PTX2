@@ -1,0 +1,570 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <title>Blackboard Learn</title>
+
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="Login page">
+	<meta name="viewport" content="width=500" /><style type="text/css">
+		body {
+			font-family: "Lucida Sans Unicode","Lucida Grande",Arial,Verdana,sans-serif;
+			font-size: 0.8em;
+			text-align: center; /* for ie, which does not respect 'margin: auto' centering on top level div */
+			margin: 0;
+			min-width: 500px; /* for mobile */
+		}
+
+		/* error */
+		div.error {  
+			color: #f00;
+			background-color: #fff;
+			text-align: left;
+			padding: 5px;
+		}
+		
+		/* to clear float */
+		div.clear {  
+			clear: both; 
+			display: block; 
+			visibility: hidden;
+		}
+
+		/* emulate hr */
+		div.hr,
+		div.hrMobile  {
+			background: url(/images/ci/logos/ccc.png) repeat-x ;
+			background-color: #fff;
+			height: 1px;
+		}
+		div.hr {
+			width: 500px;
+			margin: 0 auto;
+		}
+		div.hrMobile {
+			width: 100%;
+		}
+
+		/* vertical space */
+		div.vSpace {
+			height: 10px;
+		}
+
+		div.instructions {
+			padding: 5px;
+			text-align: left;
+		}
+		
+		#casLogoutBtn {
+			text-align: right;
+		}
+
+		/* links */
+		a {
+		 	text-decoration: none; 
+		 	color: #f80;
+		}
+		a:hover {
+		 	color: #444;
+		}
+
+		/* img */
+		img {
+			border: none;
+		}
+		
+		/* titles */
+		#titleMobile {
+			background: url(/images/ci/logos/bkgd_welcome.png) repeat-x ;
+			padding: 20px 0px 20px 0px;
+			font-size: 22px;
+			color: #fff;
+		}
+
+		/* btns */
+		div.btn {	
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			padding-top: 3px;
+			padding-bottom: 3px;
+			text-align: center;
+			cursor: pointer;
+		}	
+		#loginOptions div.btn,
+		#loginOptionsMobile div.btn {	
+			background: url(/images/ci/logos/bkgd_buttons.png) repeat-x ;
+			border: 1px solid #600;
+			color: #fff;
+			text-shadow: 1px 1px 0 #000;
+			width: 150px;
+		}	
+		#loginOptions div.btn {
+			margin: 4px;	
+			float: right;
+		}
+		#loginOptionsMobile div.btn {	
+			margin: 15px auto;
+		}		
+		#loginOptions div.btn:hover,
+		#loginOptionsMobile div.btn:hover {	
+			background: url(/images/ci/logos/bkgd_buttons_hover.png) repeat-x ;
+		}
+		#bbLogin div.btn {	
+			background-color: #ddd;
+			border: 1px solid #888;
+			color: #000;
+			width: 100px;
+			margin: 4px 4px 4px 10px;
+			float: right;
+		}
+		#bbLogin div.btn:hover {
+			background-color: #ccc;
+		}
+
+		/* top-level divs */
+		#loginOptions, 
+		#loginOptionsMobile, 
+		#bbLogin {
+			width: 500px;
+			text-align: center;
+			margin: 10px auto;
+		}	
+		
+		#casLogout {
+			width: 500px;
+			text-align: left;
+			margin: 10px auto;
+		}
+
+		/* inputs and labels */
+		div.label, div.input {
+			padding: 5px 2px;
+			float: left;
+		}
+		#loginOptions div div.label {
+			width: 460px;
+			text-align: left; 
+		}
+		#loginOptions div div.input {
+			width: 20px;
+			float: left;
+		}		
+
+		#bbLogin div div.label {
+			width: 180px;
+			text-align: right; 
+		}
+		#bbLogin div div.input {
+			width: 280px;
+			text-align: left;
+			float: left;
+		}		
+		
+		/* bbLogin */
+		#bbLogin {
+			background-color: #eee;
+			display: none;
+		}	
+		#bbLogin #title {
+			padding: 5px;
+			background-color: #ccc;
+			font-weight: bold;
+			text-align: left;
+		}
+		
+		#uaInfo {
+			text-align: left;
+			padding: 2px;
+		}
+		
+		div.announcements { 
+		    border-top		: solid #ccc 1px;
+		    padding-top		: 20px;
+		    width			: 500px;
+	    	margin-left		: auto;
+			margin-right	: auto;
+			text-align		: left;
+		}
+		div.announcementsHeading { 
+			font-size		: 1.4em;
+			font-style		: bold;
+			padding-bottom	: 5px;
+			text-align		: center;
+		}
+		div.announcementsWeek { 
+			font-style		: italic;
+			padding-bottom	: 5px;
+			text-align		: center;
+		}
+		ul.announcements {
+			padding-bottom	: 5px;
+			padding-left	: 20px;
+			margin-left		: 0px;
+			text-indent:	: 0px;
+		}
+		li.announcement {
+			padding-bottom	: 5px;
+			padding-left	: 0px;
+			margin-left		: 0px;			
+			text-indent:	: 0px;
+		}
+		div.announcementsArchive { 
+			padding-bottom	: 5px;
+			text-align		: center;
+		    border-bottom	: solid #ccc 1px;
+		}
+		
+	</style>
+
+	<script type='text/javascript' language='javascript' src='/javascript/i18n.js'></script>
+	
+	<script>
+		var LOCALE_SETTINGS = new Object();
+		function init_LOCALE_SETTINGS() {
+		    LOCALE_SETTINGS['number_format.thousands_sep'] = ',';
+		    LOCALE_SETTINGS['float.format'] = '^[0-9]*(\\.[0-9]+)?$';
+		    LOCALE_SETTINGS['efloat.format'] = '^[+-]?[0-9]*(\\.[0-9]+)?([eE][+-]?[0-9]+)?$';
+		    LOCALE_SETTINGS.getString = i18n_get_string;
+		}
+		init_LOCALE_SETTINGS();
+	</script>
+	
+	<script language='javascript' type='text/javascript' src='/javascript/validateForm.js'></script> 
+	<script language='javascript' type='text/javascript' src='/javascript/accessibleSelect.js'></script> 
+	<script language='javascript' type='text/javascript' src='/javascript/prototype.js'></script> 
+	<script language='javascript' type='text/javascript' src='/javascript/fastinit.js'></script> 
+	<script language='javascript' type='text/javascript' src='/javascript/ngui/page.js'></script> 
+
+	  
+	<SCRIPT language="JAVASCRIPT" SRC="/javascript/base64.js"></SCRIPT>   
+	<SCRIPT language="JAVASCRIPT" SRC="/javascript/md5.js"></SCRIPT>   
+	<SCRIPT language="JAVASCRIPT" SRC="/javascript/md5-legacy.js"></SCRIPT>   
+	<SCRIPT language="JAVASCRIPT" > 
+		document.cookie = "cookies_enabled=yes";
+	  	if (!document.cookie) {
+	    	document.location.href="/nocookies.html";
+	  	}
+	  	document.cookie = "cookies_enabled=yes;expires=Thu, 01-Jan-1970 00:00:01 GMT";
+	 
+		var _useChallenge = false;
+		function validate_form(form) {
+			form.user_id.value = form.user_id.value.replace(/^\s*|\s*$/g,"");
+			if ( form.user_id.value == "" || form.password.value == "" ) {
+				alert( "Enter a username and password." );
+			  	return false;
+			}
+			
+			createCookie("auth_type", "bb");
+			
+			//short-cut if challenge/response is disabled.
+			if (!_useChallenge) {
+			  	form.encoded_pw.value = base64encode(form.password.value);
+			  	form.encoded_pw_unicode.value = b64_unicode(form.password.value);
+			  	form.password.value = "";
+			  	return true;
+			}
+			
+			var passwd_enc = hex_md5(form.password.value);
+			var encoded_pw_unicode = calcMD5(form.password.value);
+			var final_to_encode = passwd_enc + form.one_time_token.value;
+			form.encoded_pw.value = hex_md5(final_to_encode);
+			final_to_encode = encoded_pw_unicode + form.one_time_token.value;
+			form.encoded_pw_unicode.value = calcMD5(final_to_encode);
+			form.password.value = "";
+			return true;
+		}
+	</SCRIPT>
+	
+	<script>
+		if (top.frames && top.frames.length) {
+			// probably due to session timeout the login screen has surfaced within 
+			// a bb plug-in frame, so redirect to top using a default login url
+			top.location.href = "https://blackboard.princeton.edu";
+		}
+
+		var newLoc 		= "";
+		var casLogout 	= false; 			// flag indicating that user requested cas logout
+		var isMobile	= false;
+
+		/* function to process user action */
+		function process(what) {
+			if (what == 'netId') {
+				// mobile 'Princeton NetID' btn clicked
+				loginByNetId();
+			} else if (what == 'other' || what == 'blackboardId') {
+				// mobile 'Other' btn or 'Blackboard ID' radio btn clicked
+				showBlackboardLogin();
+			} else if (what == 'guest') {
+				// mobile 'Guest' btn clicked
+				loginAsGuest();
+			} else if (what == 'continue') {
+				// 'Continue' btn clicked
+				selectLoginOption();
+			} else if (what == 'bbCancel') {
+				// bb login 'Cancel' btn clicked
+				cancelBlackboardLogin();
+			} else if (what == 'bbLogin') {
+				// bb login 'Login' btn clicked
+				submitBlackboardLogin();
+			} else {
+				alert("Error: unrecognized process parameter: " + what);
+			} 
+		}
+
+		/* function to determine which login action to perform based on radio 
+		   btn selection - applies to desktop only */
+ 		function selectLoginOption() {
+			var fm = $('loginOptionsForm');
+			var loginOption = "";
+			for (i = 0; i < fm.loginOption.length; i++) {
+				if (fm.loginOption[i].checked) {
+					loginOption = fm.loginOption[i].value;
+					break;
+				}
+			}
+
+			if (loginOption == "netId") {
+				loginByNetId();				
+			} else if (loginOption == "blackboardId") {
+				showBlackboardLogin();
+			} else if (loginOption == "guest") {
+				loginAsGuest();
+			} else {
+				// this scenario should not occur
+				alert("Please select a login option.");
+			}
+
+			return false;
+		}
+
+		/* function to login using netId */
+		function loginByNetId() {
+			// 'newLoc' is the url to redirect to after successful login. If newLoc is 
+			// not set, use a default value. Append the 'useCas=1' param to newLoc. This tells
+			// the CasAuthentication module to use CAS.
+			
+			if (newLoc == "") {
+				newLoc = "/webapps/portal/frameset.jsp?useCas=1"; // default url
+			} else if (newLoc.indexOf("?") > -1) {
+				// newLoc already has a queryString, so append param using '&'
+				newLoc += "&useCas=1"
+			} else {
+				// newLoc has no queryString, so add one using '?'
+				newLoc += "?useCas=1"
+			}
+			
+			createCookie("auth_type", "cas");
+			
+			window.location.href = newLoc;
+		}
+		
+		/* function to login as guest */
+		function loginAsGuest() {
+			createCookie("auth_type", "guest");
+			
+			$('bbGuestLoginForm').submit();					
+		}
+
+		/* function to submit the blackboard login form */
+		function submitBlackboardLogin() {
+			var fm = $('bbLoginForm');
+			if (validate_form(fm)) {
+				fm.submit();					
+			}
+		}
+
+		/* function to display the blackboard login form */
+		function showBlackboardLogin() {
+			if (isMobile) {
+				$('loginOptionsMobile').style.display = "none";
+			} else {
+				$('loginOptions').style.display = "none";
+			}
+			$('bbLogin').style.display = "block";
+
+			return false;
+		}		
+
+		/* function to cancel (hide) the blackboard login form */
+		function cancelBlackboardLogin() {
+			if (isMobile) {
+				$('loginOptionsMobile').style.display = "block";
+			} else {
+				$('loginOptions').style.display = "block";
+			}
+			$("bbLogin").style.display 		= "none";
+
+			return false;
+		}		
+
+		/* function to create cookie */
+		function createCookie(name, value, days) {
+			var expires = "";
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+				var expires = "; expires=" + date.toGMTString();
+			} 
+			document.cookie = name + "=" + value + expires + "; path=/";
+		}
+		
+		/* function to read cookie */
+		function readCookie(name) {
+			var nameEq = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1, c.length);
+				}
+				if (c.indexOf(nameEq) == 0) {
+					return c.substring(nameEq.length, c.length);
+				}
+			}
+			return null;
+		}
+		
+		/* function to erase cookie */
+		function clearCookie(name) {
+			createCookie(name, "", -1);
+		}
+
+		/* function to check if user hit enter key */
+		function checkEnter(evt) {
+			// TODO check this for mobile 
+	  		var evt = (evt) ? evt : ((event) ? event : null); 
+	  		if (evt.keyCode == 13)  {
+	  			if (isMobile) {
+	  			} else {
+					if ($('loginOptions') 
+							&& ($('loginOptions').style.display == "block" || $('loginOptions').style.display == "")) {
+						selectLoginOption();
+					} else if ($('bbLogin') && $('bbLogin').style.display == "block") {
+						submitBlackboardLogin();
+					} else if (casLogout) {
+						window.location.href = "https://fed.princeton.edu/cas/logout";
+						return false;
+					} else {
+						return false;
+					}	  			
+	  			}
+	  		}
+		} 
+
+		document.onkeypress = checkEnter; 
+
+		</script>
+
+</head>
+ 
+<body>
+
+	<a href="http://www.princeton.edu/" title="Princeton University">
+		<img src="/images/ci/logos/princeton-university.gif" 
+				alt="Princeton University"
+				width="266" height="48">
+	</a>
+	
+	<div>
+				<img src="/images/ci/logos/welcome_to_blackboard.png" 
+						alt="Welcome to Blackboard at Princeton"
+						width="500" height=248">
+			</div>	
+		<div id="bbLogin">
+			<form method="POST" action="/webapps/login/" name="bbLoginForm" id="bbLoginForm">		
+				<input value="login" name="action" type="hidden">
+				<input value="" name="remote-user" type="hidden">
+				<input value="" name="new_loc" type="hidden">
+				<input value="" name="auth_type" type="hidden">
+				<input value="" name="one_time_token" type="hidden">
+				<input value="" name="encoded_pw" type="hidden">
+				<input value="" name="encoded_pw_unicode" type="hidden">
+				<div id="title">Blackboard ID and Password</div>
+				<div class="instructions">
+					Enter login information here and click the 'Login' button below, 
+					or click the 'Cancel' button to return to the login options.
+				</div>
+				<div>
+					<div class="label">Blackboard ID:</div>
+					<div class="input"><input type="text" name="user_id" id="user_id" value="" size="25" maxlength="50"></div>
+					<div class="clear"></div>
+				</div>
+				<div>
+					<div class="label">Password:</div>
+					<div class="input"><input type="password"  maxlength="50" size="25" name="password" id="password"></div>
+					<div class="clear"></div>
+				</div>	
+				<div>
+					<div class="btn" onclick="process('bbLogin')">Login</div>
+					<div class="btn" onclick="process('bbCancel')">Cancel</div>
+					<div class="clear"></div>
+				</div>
+			</form>
+		</div>
+		<div id="loginOptions">
+				<form name="loginOptionsForm" id="loginOptionsForm">
+					<div class="instructions">
+						Please select from the following login options.
+					</div>
+					<div>
+						<div class="input">
+							<input type="radio" name="loginOption" value="netId" checked>	
+						</div>
+						<div class="label">
+							I have a valid Princeton University
+							<a href="http://helpdesk.princeton.edu/kb/display.plx?id=5240" 
+									target="_blank">NetID</a> and  
+							<a href="http://helpdesk.princeton.edu/kb/display.plx?id=9288" 
+								target="_blank">Password</a> 
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div>
+						<div class="input"><input type="radio" name="loginOption" value="blackboardId" onclick="process('blackboardId')"></div>
+						<div class="label">I have a Blackboard ID and Password (Community Auditor or other)</div>
+						<div class="clear"></div>
+					</div>
+					<div>
+						<div class="input"><input type="radio" name="loginOption" value="guest"></div>
+						<div class="label">I am a guest and wish to view areas that are open to the public</div>
+						<div class="clear"></div>
+					</div>
+					<div>
+						<div class="btn" onclick="process('continue')">Continue</div>
+						<div class="clear"></div>
+					</div>
+				</form>
+			</div>
+
+			<!-- ---------------------- test 20 ---------------------------- -->
+			
+			<div class="announcements">
+							<div class="announcementsHeading">This Week's Lessons</div>
+							<div class="announcementsWeek">March 30, 2014</div>
+							<ul class="announcements">
+								<li class="announcement"><p><strong>FACULTY/STAFF: </strong>Your<strong> Google Docs</strong> and <strong>Google Sites</strong> can now be<a title="Bb Google Integration" href="https://deptbedit.princeton.edu/bb/faq/content/#google" target="_blank"> integrated into your Blackboard course sites</a> for collaboration or simply sharing with your students.  <a title="Bb Google Integration video" href="https://mediacentral.princeton.edu/media/1_1iy27oel">Quick-start video</a>.  Be sure to follow Princeton's <a href="http://storagemigration.princeton.edu/google_acceptable_use_policy.html" target="_blank">Acceptable Use Policy</a> and <a href="http://storagemigration.princeton.edu/google_usage_guidelines.html" target="_blank">Usage Guidelines</a> for Google Apps.</p></li>
+								<li class="announcement"><p><strong>STUDENTS: </strong>Once your Princeton netID <b><a href="http://kb.princeton.edu/5855" target="_blank">account has been closed</a></b>, you will only have access to Blackboard as a "Guest," meaning you will be able to view little more than syllabi and course descriptions. Unfortunately, there is no way to mass package files from Blackboard to take with you.  It is best not to think of Blackboard as a storage space where files can be downloaded. You will have submitted files from your computer to Blackboard, so make sure that you are backing up your computer and saving your intelectual property in a place where you can reference them later.</p></li>
+								</ul>
+							<div class="announcementsArchive">
+								<a href="/webapps/pu-loginannouncement-bb_bb60/main.do?from=login" target="_blank">Archive</a>
+							</div>	
+						</div>
+						<div class="vSpace"></div>
+
+
+	<a href="http://www.princeton.edu/bb/index.xml" target="_blank">About Blackboard</a>
+	<div class="vSpace"></div>
+
+
+	<div id="bbLogin">
+		<form method="POST" action="/webapps/login/" name="bbGuestLoginForm" id="bbGuestLoginForm">		
+			<input value="guest_login" name="action" type="hidden">
+			<input value="" name="new_loc" type="hidden">
+		</form>
+	</div>
+	</body>
+</html>
+
+
