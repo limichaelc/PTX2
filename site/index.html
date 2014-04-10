@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Bootstrap 3, from LayoutIt!</title>
+	<title>PTX2 - Bookshelf</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
@@ -55,9 +55,9 @@
 				<ul class="nav nav-pills nav-stacked">
 					<h4 style="font-variant:small-caps"> Bookshelf</h4>
 					<li class="active"><a href="#"><span class="badge pull-right">4</span>All Items</a></li>
-					<li><a href="bookshelf#needtobuy"><span class="badge pull-right">2</span>Need to Buy</a></li>
-					<li><a href="bookshelf#selling"><span class="badge pull-right">1</span>Selling</a></li>
-					<li><a href="bookshelf#owned"><span class="badge pull-right">1</span>Owned</a></li>
+					<li><a href="#needtobuy"><span class="badge pull-right">2</span>Need to Buy</a></li>
+					<li><a href="#selling"><span class="badge pull-right">1</span>Selling</a></li>
+					<li><a href="#owned"><span class="badge pull-right">1</span>Owned</a></li>
 					<h4 style="font-variant:small-caps">Courses</h4>
 					<li><a href="courses/cos/333"><span class="badge pull-right">0/1</span>COS 333</a></li>
 					<li><a href="courses/jpn/302"><span class="badge pull-right">1/2</span>JPN 302</a></li>
@@ -70,12 +70,12 @@
 				</ul>
 			</div>
 			<div class="col-md-6 column">
-				<div class="row clearfix">
+				<div class="row clearfix" id="needtobuy">
 					<div class="col-md-4">
 						<div class="thumbnail">
-							<img src="img/9780201615869.jpg">
+							<img src="img/9780201615869.jpg" width="130">
 							<div class="caption">
-								<h5 class="pull-left"><a href="books/9780201615869"> The Practice of Programming</a></h5>
+								<h5><a href="books/9780201615869"> The Practice of Programming</a></h5>
 								<i><a href="courses/cos/333"> COS 333</a></i><br>
 								<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> $35.00<br>
 								<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> $35.78<br>
@@ -86,9 +86,9 @@
 					</div>
 					<div class="col-md-4 column">
 						<div class="thumbnail">
-							<img src="img/9784198614065.jpg">
+							<img src="img/9784198614065.jpg" width="130">
 							<div class="caption">
-								<h5 class="pull-left"><a href="books/9780201615869">Sen to Chihiro no Kamikakushi</a></h5>
+								<h5><a href="books/9780201615869">Sen to Chihiro no Kamikakushi</a></h5>
 								<i><a href="courses/jpn/302"> JPN 302</a></i><br>
 								<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> $19.60<br>
 								<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> $8.60<br>
@@ -100,8 +100,17 @@
 					<div class="col-md-4 column">
 					</div>
 				</div>
-				<div class="row clearfix">
+				<div class="row clearfix" id="needtobuy">
 					<div class="col-md-4 column">
+						<div class="thumbnail">
+							<img src="img/9780814251799.jpg" width="130">
+							<div class="caption">
+								<h5><a href="books/9780814251799">Language Files</a></h5>
+								<i><a href="courses/lin/201"> LIN 201</a></i><br>
+								Owned<br>
+								<a href="#" data-toggle="modal" data-target="#newlistingmodal">Sell?</a>
+							</div>
+						</div>
 					</div>
 					<div class="col-md-4 column">
 					</div>
@@ -132,7 +141,7 @@
 						<form id="addtowatchlistform" method="POST" name="addtowatchlistform">
 							<div class="form-group">
 								<div class="input-group">                               
-								<label for="price">Price to look for (currently available for $35.00)</label><br>
+									<label for="price">Price to look for (currently available for $35.00)</label><br>
 									<div class="input-group">
 										<span class="input-group-addon">$</span>
 										<input type="text" class="form-control" name="price">
@@ -150,5 +159,49 @@
 			</div>
 		</div>
 	</div>
-</body>
-</html>
+	<div class="modal fade newlistingmodal" tabindex="-1" role="dialog" aria-labelledby="newlistingmodal" aria-hidden="true" id="newlistingmodal">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Sell (book title)</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal" action="form.php" method="post">
+							<fieldset>
+								<legend>Your item's price</legend>
+								<div>
+									<label for="price">Your price</label><br>
+									<div class="input-group">
+										<span class="input-group-addon">$</span>
+										<input type="text" class="form-control" name="price">
+										<span class="input-group-addon">.00</span>
+									</div>
+								</div><br>
+							</fieldset>
+							<fieldset>
+								<legend>Your item's condition</legend>
+								<label for="condition">Condition</label><br>
+								<select name="condition" class="form-control">
+									<option selected="true" style="display:none;">- Select -</option>
+									<option value="new">New - Brand new, never been used, and in perfect condition. Still in shrink-wrap, if applicable.</option>
+									<option value="like_new">Like new - Looks new and in perfect condition. No markings whatsoever.</option>
+									<option value="very_good">Very good - Excellent condition with slight wear-and-tear. Very sparse markings.</option>
+									<option value="good">Good - Clean condition with moderate wear-and-tear. Limited markings.</option>
+									<option value="acceptable">Acceptable - Usable condition, with heavier signs of wear-and-tear and a considerable amount of markings.</option>
+								</select><br>
+								<label for="comments">Condition note</label><br>
+								<textarea class="form-control" name="comments" rows="4" placeholder="Any additional comments..."></textarea>
+							</fieldset><br>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary">Add listing</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+						</div>          
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	</html>
