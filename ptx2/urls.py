@@ -10,4 +10,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 	url(r'^index/', 'ptx2app.views.index', name = 'index'),
+	url(r'^', 'ptx2app.views.index', name = 'index'),
 )
