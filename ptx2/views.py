@@ -1,6 +1,4 @@
-from django.template.loader import get_template
-from django.template import Context
-from django.http import HttpResponse
+from django.shortcuts import render
 import datetime
 
 def current_datetime(request):
@@ -17,13 +15,13 @@ def course_lookup(request, dept, code):
 	return HttpResponse(html)
 
 def book_lookup(request):
-	book = {'title': 'Advanced Programming Techniques',
-	'course_usedin': 'COS 333',
+	testbook = {'title': 'The Practice of Programming',
+	'isbn': '9780201615869',
+	'course_usedin': {'dept': 'COS', 'course_code': '333'},
 	'labyrinth_price': '15.00',
 	'amazon_price': '12.20',
-	'student_price': '13.10'}
-	person = {'book': {'owned': True, 'selling': False}}
-	t = get_template('book_lookup.html')
-	html = t.render(Context({'book': book, 'person': person}))
-	return HttpResponse(html)
-
+	'student_price': '13.10',
+	'best_price': '12.20',
+	'best_seller': 'Amazon'}
+	testperson = {'book': {'owned': False }}
+	return render(request, 'book_lookup.html', {'book': testbook, 'person': testperson})
