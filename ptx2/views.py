@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from ptx2app import forms
+import datetime
 
 def current_datetime(request):
     now = datetime.datetime.now()
@@ -18,6 +18,19 @@ def sidebar(request):
 	cos333 = {'dept': 'cos', 'code': 333, 'books': 1}
 	person = {'books_total': 4, 'books_needed': 2, 'courses': [cos333]}
 	return render(request, 'sidebar.html', {'person': person})
+
+def book_lookup(request):
+	testlisting = {'price': 15.00, 'condition': 'New: Brand new, never been used, and in perfect condition. Still in shrink-wrap, if applicable.', 'comment': 'Mreh'}
+	testbook = {'title': 'The Practice of Programming',
+	'isbn': '9780201615869',
+	'course_usedin': {'dept': 'COS', 'course_code': '333'},
+	'labyrinth_price': '15.00',
+	'amazon_price': '12.20',
+	'student_price': '13.10',
+	'best_price': '12.20',
+	'best_seller': 'Amazon',
+	'listings':[testlisting]}
+	return render(request, 'book_lookup.html', {'book': testbook})
 
 def bookshelf(request):
 	needed_book1 = {'title': 'The Practice of Programming',
@@ -46,28 +59,3 @@ def bookshelf(request):
 	cos333 = {'dept': 'cos', 'code': 333, 'books': 1}
 	person = {'books_total': 4, 'books_needed': 2, 'books_selling': 1, 'books_owned': 1, 'courses': [cos333], 'first_name': 'Michael', 'last_name': 'Li'}
 	return render(request, 'bookshelf.html', {'books_needed': [needed_book1, needed_book2], 'books_selling': [selling_book1], 'books_owned': [owned_book1], 'person': person })
-
-def index(request):
-
-    context = Requestcontext(request)
-
-    return render(request, 'ptonptx2.index.html')
-
-def sellbook(request):
-    context = RequestContext(request)
-
-    if request.method == 'POST':
-        form = SellBookForm(request.POST)
-
-        if form.is_valid():
-            form.save(commit = TRUE)
-
-            return index(request)
-
-        else:
-            print form.errors
-
-    else:
-        form = SellBookForm()
-
-    return render_to_response('forms/newlisting.html', {'form': form}, context)

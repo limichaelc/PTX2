@@ -2,38 +2,58 @@
 
 {% load staticfiles %}
 
-{% block title %}PTX2 | Bookshelf{% endblock %}
+{% block title %}PTX2 | {{ book.title }}{% endblock %}
 
 {% block main %}
-<div class="col-md-6 column">
-	<div class="row clearfix" id="needtobuy">
-		<div class="col-md-4">
-			<div class="thumbnail">
-				<div class="caption">
-					<img src="{% static 'img/'|add:book.isbn|add:'.jpg' %}" width="130">
-					<h5><a href="/books/{{book.isbn}}"> {{ book.title }}</a></h5>
-					<p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.course_code }}</a></i><br>
-						{% if person.book.owned %}
-						{% if person.book.selling %}
-						Selling for ${{ person.book.sell_price }}<br>
-						{% else %}
-						Owned<br>
-						<a href="#" data-toggle="modal" data-target="#newlistingmodal">Sell?</a>
-						{% endif %}	
-						{% else %}
-					</p>
-					<p>
-						<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br>
-						<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ book.amazon_price }}<br>
-						<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> ${{ book.student_price }}<br>
-					</p>
-					<a href="#" data-toggle="modal" data-target="#watchlistmodal">Add to watch list?</a>
-					{% endif %}
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="col-md-9 column">
+    <div class="row clearfix">
+        <div class="col-md-2">
+            <img src="{% static 'img/'|add:book.isbn|add:'.jpg' %}" width="130">
+        </div>
+        <div class="col-md-6">
+            <h5><a href="/books/{{book.isbn}}"> {{ book.title }}</a></h5>
+            <p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.course_code }}</a></i><br>
+                {% if person.book.owned %}
+                {% if person.book.selling %}
+                Selling for ${{ person.book.sell_price }}<br>
+                {% else %}
+                Owned.
+                <a href="#" data-toggle="modal" data-target="#newlistingmodal"> Sell?</a>
+                {% endif %} 
+                {% else %}
+            </p>
+            <p>
+                <img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br>
+                <img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ book.amazon_price }}<br>
+            </p>
+            <a href="#" data-toggle="modal" data-target="#watchlistmodal">Add to watch list?</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row clearfix">
+        <br><h4>Student Offers</h4>
+        <table class="table table-hover">
+            <tr class="clickableRow" href="/buy">
+                <th>Price</th>
+                <th>Condition</th>
+                <th>Description</th>
+            </tr>
+            {% for listing in book.listings %}
+            <tr>
+                <td>${{ listing.price }}</td>
+                <td>{{ listing.condition }}</td>
+                <td>{{ listing.comment }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 {% include 'forms/newlisting.html' %}
 {% include 'forms/watchlist.html' %}
 {% endblock %}
+
+jQuery(document).ready(function($) {
+      $(".clickableRow").click(function() {
+            window.document.location = $(this).attr("href");
+      });
+});

@@ -23,12 +23,13 @@ def sell_book(request):
 	context = RequestContext(request)
 
 	if request.method == 'POST':
-		form = SellBookForm(request.POST)
-		if form.is_valid():
-			form.save(commit = True)
-
-			return index(request)
-		else:
+	    print "haha"
+	    form = SellBookForm(request.POST)
+	    if form.is_valid():
+	        form.save(commit = True)
+	        
+	        return index(request)
+	    else:
 			print form.errors
 	else:
 		form = SellBookForm()
