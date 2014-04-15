@@ -1,6 +1,6 @@
 from django import forms
 
-class SellBookForm(forms.Form):
+class SellBookForm(forms.modelForm):
     bookName = forms.CharField(max_length=128, help_text="What is the book you are trying to sell?")
     classId = forms.IntegerField(help_text = "What class is this for?")
     CONDITIONS_CHOICES = (
