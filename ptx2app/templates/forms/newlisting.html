@@ -7,7 +7,7 @@
 					<h4 class="modal-title" id="myModalLabel">Sell "{{ book.title }}"</h4>
 				</div>
 				<div class="modal-body">
-					<form class="sellBookForm" action="/ptx2app/sell_book" method="post">
+					<form class="sellBookForm" action="/ptx2app/sellbook" method="post">
 						{% csrf_token %}
            						 {% for hidden in form.hidden_fields %}
               							  {{ hidden }}
