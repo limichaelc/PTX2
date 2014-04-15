@@ -5,10 +5,12 @@ from time import sleep
 import re
 import bbscrape
 import pyisbn
+import json
 
 BASE_URL = "http://www.amazon.com/gp/product/"
 BASE_2 = "http://www.labyrinthbooks.com/all_detail.aspx?isbn="
 BASE_3 = "http://registrar.princeton.edu/course-offerings/search_results.xml?term=1144&coursetitle=&instructor=&distr_area=&level=&cat_number=&sort=SYN_PS_PU_ROXEN_SOC_VW.SUBJECT%2C+SYN_PS_PU_ROXEN_SOC_VW.CATALOG_NBR%2CSYN_PS_PU_ROXEN_SOC_VW.CLASS_SECTION%2CSYN_PS_PU_ROXEN_SOC_VW.CLASS_MTG_NBR&submit=Search"
+BASE_4 = "http://www.labyrinthbooks.com/all_detail.aspx?isbn="
 
 recoursenumber = re.compile('course_details*')
 recourselink = re.compile('http://blackboard.princeton.edu*')
@@ -33,12 +35,19 @@ def get_books_page(url):
 def get_labyrinth_price():
     txt = text.findAll(class_="shoppingCartInfo")
     prices = []
+    first = True
     for j in txt:
+        if first == True:
+            first = False
+            continue
         price = j.find(class_="textElementRight")
         if price != None:
             price = str(price.contents).split('$')[1]
             price2 = str(price).split('.')
             prices.append(price2[0]+'.'+price2[1][0:2])
+        elif j.find(class_='textElementItalic') != None:
+            prices.append(None)
+    #print prices
     return prices
 
 #get list of titles and isbn numbers (alternating) from blackboard
@@ -46,15 +55,17 @@ def get_titles_isbn():
     txt = text.findAll('td', {'width':'100%', 'class':'textBold'})
     list = []
     for i in txt:
-        if len(i.text) >= 3 :
-            list.append(i.text)
+        list.append(i.text)
     return list
 
 def get_author():
     txt = text.findAll('td', {'class':'textItalic', 'width':'100%'})
     list = []
     for i in txt:
-        list.append(i.contents[0])
+        if len(i.contents) != 0:
+            list.append(i.contents[0])
+        else:
+            list.append(None)
     return list
 
 # returns the main-image given an amazon url
@@ -110,8 +121,9 @@ def main():
     length = len(rows)
     #for each class
     finallist = []
+    first = True
     for i in range(1, length):
-        currentrow = []
+        currentrow = {}
         thisrow = rows[i]
         columns = thisrow.findAll('td')
         
@@ -123,11 +135,11 @@ def main():
                 c = re.sub(' +', '', c)
                 c = re.sub('\n', '', c)
                 course_desig.append(c)
-        currentrow.append(course_desig)
+        currentrow['coursedesig'] = (course_desig)
         #course name
         name = columns[2].contents[0]
         name = name.encode('utf-8').strip()
-        currentrow.append(name)
+        currentrow['coursename'] = (name)
         
         #get page url for reading lists
         pageurl = columns[11].find('a')['href']
@@ -143,34 +155,52 @@ def main():
         #authors
         authors = get_author()
         #print titles
-        numbooks = len(titles)/2
-        #print numbooks
-        numlabprices = len(lab_prices)
+        #print authors
+        #print lab_prices
         n = 0
-        while n < numbooks:
+        m = 0
+        o = 0
+        mismatch = False
+        while n < len(titles)-1:
             #each book is a dictionary that contains:
             #titles, isbn10, isbn13, lab_price, amazonprice, edition,
             #author, picture 
-            thisbook = []
-            thisbook.append(titles[2*n])
-            isbn10 = titles[(2*n)+1]
-            thisbook.append(authors[n])
-            thisbook.append(isbn10)
+            thisbook = {}
+            thisbook['title'] = (titles[n])
+            #print "title" + titles[n]
+            isbn10 = titles[n+1]
+            #print "isbn" +  titles[n+1]
+            if not isbn10.isdigit():
+                if n == 0:
+                    n+=1
+                    o+=1
+                    continue
+                else:
+                    thiscoursesbooks.append('error')
+                    break
+            thisbook['author'] = (authors[m])
+            #print "author" + authors[m]
+            m +=1
             isbn13 = pyisbn.convert(isbn10)
-            thisbook.append(isbn13)
-            if n >= numlabprices:
-                labprice = None
-            else:
-                labprice = lab_prices[n]
-            thisbook.append(labprice)
-            thisbook.append(get_amazon_price(isbn13))
-            thisbook.append(get_amazon_image())
-            thisbook.append(get_amazon_edition())
-            n = n+1
+            thisbook['isbn10'] = (isbn10)
+            thisbook['isbn13'] = (isbn13)
+            labprice = lab_prices[o]
+            o += 1
+            #print o
+            thisbook['labprice'] = labprice
+            thisbook['amazonprice']=(get_amazon_price(isbn13))
+            thisbook['image'] = (get_amazon_image())
+            thisbook['edition'] = (get_amazon_edition())
+            n = n+2
             thiscoursesbooks.append(thisbook)
-        currentrow.append(thiscoursesbooks)
+        currentrow['booklist'] = (thiscoursesbooks)
+        if (first == True):
+            f = open('text.txt', 'r+')
+            f.write( "[\n")
+            first = False
+        f.write(str(currentrow)+',\n')
         print currentrow
-    #    finallist.append(currentrow)
-    
+        finallist.append(currentrow)
+    f.write( "]")
 
 main()

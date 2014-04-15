@@ -14,7 +14,7 @@ DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'ptx2app/templates/ptonptx2')
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ptx2app',
+    'south'
 )
 
 MIDDLEWARE_CLASSES = (
