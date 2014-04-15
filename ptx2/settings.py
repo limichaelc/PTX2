@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ptx2app',
+    'south'
 )
 
 MIDDLEWARE_CLASSES = (
