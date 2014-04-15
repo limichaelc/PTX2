@@ -24,7 +24,7 @@ def sell_book(request):
 
 	if request.method == 'POST':
 	    print "haha"
-		form = SellBookForm(request.POST)
+	    form = SellBookForm(request.POST)
 		if form.is_valid():
 			form.save(commit = True)
 
