@@ -21,7 +21,7 @@ class Book(models.Model):
 	course_usedin = models.ForeignKey(Course)
 	amazon_price = models.DecimalField(max_digits = 10, decimal_places = 2)
 	labyrinth_price = models.DecimalField(max_digits = 10, decimal_places = 2)
-	lowest_studentprice = models.DecimalField(max_digits = 10, decimal_places = 2)
+	lowest_student_price = models.DecimalField(max_digits = 10, decimal_places = 2)
 
 class User(models.Model):
 	netid = models.CharField(max_length=8)

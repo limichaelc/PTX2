@@ -1,0 +1,30 @@
+<div class="modal fade watchlistmodal" tabindex="-1" role="dialog" aria-labelledby="watchlistmodal" aria-hidden="true" id="watchlistmodal">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Add "{{ book.title }}" to watch list</h4>
+				</div>
+				<div class="modal-body">
+					<form id="addtowatchlistform" method="POST" name="addtowatchlistform">
+						<div class="form-group">
+							<div class="input-group">                               
+								<label for="price">Price to look for (currently available for ${{ book.best_price }} from {{ book.best_seller}})</label><br>
+								<div class="input-group">
+									<span class="input-group-addon">$</span>
+									<input type="text" class="form-control" name="price">
+									<span class="input-group-addon">.00</span>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Add to watch list</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+				</div>          
+			</div>
+		</div>
+	</div>
+</div>
