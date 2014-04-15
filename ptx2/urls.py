@@ -13,7 +13,7 @@ urlpatterns = patterns('',
 	url(r'^$', 'ptx2app.views.index', name = 'index'),
 	url(r'^about/$', 'ptx2app.views.about', name = 'about'),
 	url(r'^courses/(?P<dept>\w+)/(?P<num>\d+)/$', 'ptx2app.templates.coursepage'),
-	url(r'^book/', book_lookup),
 	url(r'^bookshelf/', bookshelf),
+	url(r'^book/', book_lookup),
 	url(r'^*/sellbook/', 'ptx2app.views.sell_book', name = 'sell_book'),
 )

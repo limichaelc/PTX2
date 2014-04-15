@@ -19,6 +19,19 @@ def sidebar(request):
 	person = {'books_total': 4, 'books_needed': 2, 'courses': [cos333]}
 	return render(request, 'sidebar.html', {'person': person})
 
+def book_lookup(request):
+	testlisting = {'price': 15.00, 'condition': 'New: Brand new, never been used, and in perfect condition. Still in shrink-wrap, if applicable.', 'comment': 'Mreh'}
+	testbook = {'title': 'The Practice of Programming',
+	'isbn': '9780201615869',
+	'course_usedin': {'dept': 'COS', 'course_code': '333'},
+	'labyrinth_price': '15.00',
+	'amazon_price': '12.20',
+	'student_price': '13.10',
+	'best_price': '12.20',
+	'best_seller': 'Amazon',
+	'listings':[testlisting]}
+	return render(request, 'book_lookup.html', {'book': testbook})
+
 def bookshelf(request):
 	needed_book1 = {'title': 'The Practice of Programming',
 	'isbn': '9780201615869',
