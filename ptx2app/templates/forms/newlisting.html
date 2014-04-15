@@ -7,32 +7,17 @@
 					<h4 class="modal-title" id="myModalLabel">Sell "{{ book.title }}"</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" action="form.php" method="post">
-						<fieldset>
-							<legend>Your item's price</legend>
-							<div>
-								<label for="price">Your price</label><br>
-								<div class="input-group">
-									<span class="input-group-addon">$</span>
-									<input type="text" class="form-control" name="price">
-									<span class="input-group-addon">.00</span>
-								</div>
-							</div><br>
-						</fieldset>
-						<fieldset>
-							<legend>Your item's condition</legend>
-							<label for="condition">Condition</label><br>
-							<select name="condition" class="form-control">
-								<option selected="true" style="display:none;">- Select -</option>
-								<option value="new">New - Brand new, never been used, and in perfect condition. Still in shrink-wrap, if applicable.</option>
-								<option value="like_new">Like new - Looks new and in perfect condition. No markings whatsoever.</option>
-								<option value="very_good">Very good - Excellent condition with slight wear-and-tear. Very sparse markings.</option>
-								<option value="good">Good - Clean condition with moderate wear-and-tear. Limited markings.</option>
-								<option value="acceptable">Acceptable - Usable condition, with heavier signs of wear-and-tear and a considerable amount of markings.</option>
-							</select><br>
-							<label for="comments">Condition note</label><br>
-							<textarea class="form-control" name="comments" rows="4" placeholder="Any additional comments..."></textarea>
-						</fieldset><br>
+					<form class="sellBookForm" action="/forms/sell_book" method="post">
+						{% csrf_token %}
+           						 {% for hidden in form.hidden_fields %}
+              							  {{ hidden }}
+            						{% endfor %}
+
+            					{% for field in form.visible_fields %}
+                					{{ field.errors }}
+                					{{ field.help_text}}
+                					{{ field }}
+           					 {% endfor %}
 					</form>
 				</div>
 				<div class="modal-footer">
