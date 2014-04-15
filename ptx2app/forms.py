@@ -2,7 +2,6 @@ from django import forms
 from ptx2app.models import *
 
 class SellBookForm(forms.ModelForm):
-    bid = forms.IntegerField()
     book = forms.ModelChoiceField(queryset = Book.objects.all())
     author = forms.ModelChoiceField(queryset = Author.objects.all())
     owner = forms.ModelChoiceField(queryset = User.objects.all())
