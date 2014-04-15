@@ -21,6 +21,5 @@ class SellBookForm(forms.ModelForm):
     choicefield = forms.ChoiceField(choices = CONDITIONS_CHOICES)
     class Meta:
         model = Listing
-        fields = ('bookName', 'classId', 'choicefield')
 
 
