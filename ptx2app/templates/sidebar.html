@@ -1,14 +1,16 @@
 <div class="col-md-3 column">
 	<ul class="nav nav-pills nav-stacked">
 		<h4 style="font-variant:small-caps"> Bookshelf</h4>
-		<li class="active"><a href="#"><span class="badge pull-right">4</span>All Items</a></li>
-		<li><a href="#needtobuy"><span class="badge pull-right">2</span>Need to Buy</a></li>
-		<li><a href="#selling"><span class="badge pull-right">1</span>Selling</a></li>
-		<li><a href="#owned"><span class="badge pull-right">1</span>Owned</a></li>
+		<li class="active"><a href="/bookshelf"><span class="badge pull-right">{{ person.books_total }}</span>All Items</a></li>
+		<li><a href="/bookshelf/#needtobuy"><span class="badge pull-right">{{ person.books_needed }}</span>Need to Buy</a></li>
+		<li><a href="/bookshelf/#selling"><span class="badge pull-right">{{ person.books_selling }}</span>Selling</a></li>
+		<li><a href="/bookshelf/#owned"><span class="badge pull-right">{{ person.books_owned }}</span>Owned</a></li>
 		<h4 style="font-variant:small-caps">Courses</h4>
-		<li><a href="courses/cos/333"><span class="badge pull-right">0/1</span>COS 333</a></li>
-		<li><a href="courses/jpn/302"><span class="badge pull-right">1/2</span>JPN 302</a></li>
-		<li><a href="courses/vis/202"><span class="badge pull-right">0</span>VIS 202</a></li>
+
+		{% for course in person.courses %}
+		<li><a href="courses/{{course.dept}}/{{course.code}}"><span class="badge pull-right">0/{{course.books}}</span>{{course.dept.upper}} {{course.code}}</a></li>
+		{% endfor %}
+
 		<li><a href="courses/other"><span class="badge pull-right">0</span>Other</a></li>
 		<h4 style="font-variant:small-caps">Account Info</h4>
 		<li><a href="profile">My Profile</a></li>
