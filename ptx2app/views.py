@@ -22,7 +22,7 @@ def about(request):
 def sell_book(request):
 	context = RequestContext(request)
 
-	if request.method == 'POST':
+	if request.method == 'post':
 		form = SellBookForm(request.POST)
 		if form.is_valid():
 			form.save(commit = True)
