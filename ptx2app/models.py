@@ -5,18 +5,18 @@ class Author(models.Model):
 	first_name = models.CharField(max_length=30)
 	last_name = models.CharField(max_length=40)
 	def _unicode_(self):
-		return last_name + first_name
+		return self.last_name + self.first_name
 
 class Department(models.Model):
 	subject_code = models.CharField(max_length=3)
 	def _unicode_(self):
-		return subject_code
+		return self.subject_code
 
 class Course(models.Model):
 	department = models.ManyToManyField(Department)
 	course_code = models.IntegerField()
 	def _unicode_(self):
-		return department
+		return self.department
 
 class Book(models.Model):
 	isbn = models.CharField(max_length=13)
@@ -29,7 +29,7 @@ class Book(models.Model):
 	labyrinth_price = models.DecimalField(max_digits = 10, decimal_places = 2)
 	lowest_student_price = models.DecimalField(max_digits = 10, decimal_places = 2)
 	def _unicode_(self):
-		return title
+		return self.title
 
 class User(models.Model):
 	netid = models.CharField(max_length=8)
@@ -57,14 +57,14 @@ class Listing(models.Model):
     bookName = models.CharField(max_length=128, help_text="What is the book you are trying to sell?")
     classId = models.IntegerField(help_text = "What class is this for?")
     def _unicode_(self):
-    	return book + "at" + bid
+    	return self.book + "at" + self.bid
 
 class Reading(models.Model):
 	book = models.ForeignKey(Book)
 	course = models.ForeignKey(Course)
 	is_recommended = models.BooleanField()
 	def _unicode_(self):
-		return book
+		return self.book
 
 class Transaction(models.Model):
 	tx_id = models.IntegerField()
