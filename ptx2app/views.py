@@ -10,7 +10,10 @@ def index(request):
 	context = RequestContext(request)
 	
 	user_list = User.objects.all()
-	context_dict = {'users' : user_list}
+	form = SellBookForm()
+	context_dict = {'users' : user_list,
+					'form'  : form    }
+
 
 	return render_to_response('ptonptx2/index.html', context_dict, context)
 
