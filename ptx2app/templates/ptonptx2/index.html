@@ -74,32 +74,7 @@
 			</div>
 			<div class="col-md-6 column">
 				<div class="row clearfix" id="needtobuy">
-					<div class="col-md-4">
-						<div class="thumbnail">
-                            <img src="{% static "img/9780201615869.jpg" %}" width="130">
-							<div class="caption">
-								<h5><a href="books/9780201615869"> The Practice of Programming</a></h5>
-								<i><a href="courses/cos/333"> COS 333</a></i><br>
-								<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> $35.00<br>
-								<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> $35.78<br>
-								<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> $25.00<br>
-								<a href="#" data-toggle="modal" data-target="#watchlistmodal">Add to watch list?</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 column">
-						<div class="thumbnail">
-                            <img src="{% static "img/9784198614065.jpg" %}" width="130">
-							<div class="caption">
-								<h5><a href="books/9780201615869">Sen to Chihiro no Kamikakushi</a></h5>
-								<i><a href="courses/jpn/302"> JPN 302</a></i><br>
-								<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> $19.60<br>
-								<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> $8.60<br>
-								<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> No student offers<br>
-								<a href="#" data-toggle="modal" data-target="#watchlistmodal">Add to watch list?</a>
-							</div>
-						</div>
-					</div>
+					{% include ptx2app/needtobuy.html}
 					<div class="col-md-4 column">
 					</div>
 				</div>
