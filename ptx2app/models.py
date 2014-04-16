@@ -13,10 +13,9 @@ class Department(models.Model):
 		return self.subject_code
 
 class Course(models.Model):
-	department = models.ManyToManyField(Department)
-	course_code = models.IntegerField()
-	def __unicode__(self):
-		return self.department
+	coursename = models.CharField(max_length = 50)
+	coursenameid = models.CharField(max_length = 50)
+
 
 class Book(models.Model):
 	isbn = models.CharField(max_length=13)
@@ -28,6 +27,7 @@ class Book(models.Model):
 	amazon_price = models.DecimalField(max_digits = 10, decimal_places = 2)
 	labyrinth_price = models.DecimalField(max_digits = 10, decimal_places = 2)
 	lowest_student_price = models.DecimalField(max_digits = 10, decimal_places = 2)
+	picture_link = models.CharField(max_length = 200)
 	def __unicode__(self):
 		return self.title
 
@@ -57,7 +57,7 @@ class Listing(models.Model):
     bookName = models.CharField(max_length=128, help_text="What is the book you are trying to sell?")
     classId = models.IntegerField(help_text = "What class is this for?")
     def __unicode__(self):
-    	return self.book + "at" + self.bid
+    	return self.book + "at" + str(self.bid)
 
 class Reading(models.Model):
 	book = models.ForeignKey(Book)
