@@ -4,13 +4,19 @@ from django.db import models
 class Author(models.Model):
 	first_name = models.CharField(max_length=30)
 	last_name = models.CharField(max_length=40)
+	def _unicode_(self):
+		return last_name + first_name
 
 class Department(models.Model):
 	subject_code = models.CharField(max_length=3)
+	def _unicode_(self):
+		return subject_code
 
 class Course(models.Model):
 	department = models.ManyToManyField(Department)
 	course_code = models.IntegerField()
+	def _unicode_(self):
+		return department
 
 class Book(models.Model):
 	isbn = models.CharField(max_length=13)
@@ -22,6 +28,8 @@ class Book(models.Model):
 	amazon_price = models.DecimalField(max_digits = 10, decimal_places = 2)
 	labyrinth_price = models.DecimalField(max_digits = 10, decimal_places = 2)
 	lowest_student_price = models.DecimalField(max_digits = 10, decimal_places = 2)
+	def _unicode_(self):
+		return title
 
 class User(models.Model):
 	netid = models.CharField(max_length=8)
@@ -29,7 +37,7 @@ class User(models.Model):
 	last_name = models.CharField(max_length=40)
 	preferred_meetingplace = models.CharField(max_length=500)
 	seller_rating = models.DecimalField(max_digits = 10, decimal_places = 2)
-	def __unicode__(self):
+	def _unicode_(self):
 		return self.netid
 
 class Listing(models.Model):
@@ -48,11 +56,15 @@ class Listing(models.Model):
     comment = models.CharField(max_length=500)
     bookName = models.CharField(max_length=128, help_text="What is the book you are trying to sell?")
     classId = models.IntegerField(help_text = "What class is this for?")
+    def _unicode_(self):
+    	return book + "at" + bid
 
 class Reading(models.Model):
 	book = models.ForeignKey(Book)
 	course = models.ForeignKey(Course)
 	is_recommended = models.BooleanField()
+	def _unicode_(self):
+		return book
 
 class Transaction(models.Model):
 	tx_id = models.IntegerField()
