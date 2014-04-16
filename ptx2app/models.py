@@ -4,13 +4,18 @@ from django.db import models
 class Author(models.Model):
 	first_name = models.CharField(max_length=30)
 	last_name = models.CharField(max_length=40)
+	def __unicode__(self):
+		return self.last_name + self.first_name
 
 class Department(models.Model):
 	subject_code = models.CharField(max_length=3)
+	def __unicode__(self):
+		return self.subject_code
 
 class Course(models.Model):
-	department = models.ManyToManyField(Department)
-	course_code = models.IntegerField()
+	coursename = models.CharField(max_length = 50)
+	coursenameid = models.CharField(max_length = 50)
+
 
 class Book(models.Model):
 	isbn = models.CharField(max_length=13)
@@ -22,6 +27,9 @@ class Book(models.Model):
 	amazon_price = models.DecimalField(max_digits = 10, decimal_places = 2)
 	labyrinth_price = models.DecimalField(max_digits = 10, decimal_places = 2)
 	lowest_student_price = models.DecimalField(max_digits = 10, decimal_places = 2)
+	picture_link = models.CharField(max_length = 200)
+	def __unicode__(self):
+		return self.title
 
 class User(models.Model):
 	netid = models.CharField(max_length=8)
@@ -48,11 +56,15 @@ class Listing(models.Model):
     comment = models.CharField(max_length=500)
     bookName = models.CharField(max_length=128, help_text="What is the book you are trying to sell?")
     classId = models.IntegerField(help_text = "What class is this for?")
+    def __unicode__(self):
+    	return self.book + "at" + str(self.bid)
 
 class Reading(models.Model):
 	book = models.ForeignKey(Book)
 	course = models.ForeignKey(Course)
 	is_recommended = models.BooleanField()
+	def __unicode__(self):
+		return self.book
 
 class Transaction(models.Model):
 	tx_id = models.IntegerField()
