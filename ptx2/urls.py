@@ -17,8 +17,4 @@ urlpatterns = patterns('',
     url(r'^sellbook/', 'ptx2app.views.sell_book', name = 'sell_book'),
     
 	#url(r'^courses/(?P<dept>\w+)/(?P<num>\d+)/$', 'ptx2app.templates.coursepage'),
-<<<<<<< HEAD
 )
-=======
-)
->>>>>>> FETCH_HEAD
