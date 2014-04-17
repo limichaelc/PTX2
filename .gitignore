@@ -1,18 +1,4 @@
 venv
 *.pyc
 staticfiles
-<<<<<<< HEAD
-
-
 .DS_Store
-
-ptx2/.DS_Store
-
-ptx2/.DS_Store
-
-.DS_Store
-
-ptx2/.DS_Store
-=======
-.DS_Store
->>>>>>> ee0342229f1f1fa572db21d2bba6d082f65ac8ce
