@@ -17,7 +17,7 @@ def index(request):
 					'books' : books   }
 
 
-	return render_to_response('ptonptx2/index.html', context_dict, context)
+	return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
 def about(request):
 	context = RequestContext(request)

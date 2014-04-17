@@ -4,7 +4,7 @@
 
 					<div class="col-md-4">
 						<div class="thumbnail">
-                            <img src="{% static "{{book.picture_link}}" %}" width="130">
+                            <img src="{{STATIC_URL}} {{book.picture_link}} %}" width="130">
 							<div class="caption">
 								<h5><a href="books/{{book.isbn}}"> The Practice of Programming</a></h5>
 								<i><a href="courses/{{book.course_usedin.coursename}}"> {{book.course_usedin.coursename}}</a></i><br>
