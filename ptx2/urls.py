@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 	url(r'^$', 'ptx2app.views.index', name = 'index'),
 	url(r'^about/$', 'ptx2app.views.about', name = 'about'),
+<<<<<<< HEAD
 	url(r'^courses/(?P<dept>\w+)/(?P<num>\d+)/$', 'ptx2app.templates.coursepage'),
 	url(r'^bookshelf/', 'ptx2.views.bookshelf'),
 	url(r'^book/', 'ptx2.views.book_lookup'),
@@ -20,3 +21,8 @@ urlpatterns = patterns('',
 
     url(r'^sellbook/', 'ptx2app.views.sell_book', name = 'sell_book'),
     )
+=======
+	#url(r'^courses/(?P<dept>\w+)/(?P<num>\d+)/$', 'ptx2app.templates.coursepage'),
+	url(r'^sellbook/', 'ptx2app.views.sell_book',  name = 'sell_book'),
+)
+>>>>>>> FETCH_HEAD

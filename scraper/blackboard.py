@@ -5,6 +5,7 @@ from time import sleep
 import re
 import bbscrape
 import pyisbn
+import json
 
 BASE_URL = "http://www.amazon.com/gp/product/"
 BASE_2 = "http://www.labyrinthbooks.com/all_detail.aspx?isbn="
@@ -154,42 +155,52 @@ def main():
         #authors
         authors = get_author()
         #print titles
-        numbooks = len(titles)/2
-        numlabprices = len(lab_prices)
+        #print authors
+        #print lab_prices
         n = 0
+        m = 0
+        o = 0
         mismatch = False
-        while n < numbooks:
+        while n < len(titles)-1:
             #each book is a dictionary that contains:
             #titles, isbn10, isbn13, lab_price, amazonprice, edition,
             #author, picture 
             thisbook = {}
-            thisbook['title'] = (titles[2*n])
-            isbn10 = titles[(2*n)+1]
+            thisbook['title'] = (titles[n])
+            #print "title" + titles[n]
+            isbn10 = titles[n+1]
+            #print "isbn" +  titles[n+1]
             if not isbn10.isdigit():
-                thiscoursesbooks.append("error")
-                break
-            thisbook['author'] = (authors[n])
+                if n == 0:
+                    n+=1
+                    o+=1
+                    continue
+                else:
+                    thiscoursesbooks.append('error')
+                    break
+            thisbook['author'] = (authors[m])
+            #print "author" + authors[m]
+            m +=1
             isbn13 = pyisbn.convert(isbn10)
             thisbook['isbn10'] = (isbn10)
             thisbook['isbn13'] = (isbn13)
-            if n >= numlabprices:
-                labprice = None
-            else:
-                labprice = lab_prices[n]
+            labprice = lab_prices[o]
+            o += 1
+            #print o
             thisbook['labprice'] = labprice
             thisbook['amazonprice']=(get_amazon_price(isbn13))
             thisbook['image'] = (get_amazon_image())
             thisbook['edition'] = (get_amazon_edition())
-            n = n+1
+            n = n+2
             thiscoursesbooks.append(thisbook)
         currentrow['booklist'] = (thiscoursesbooks)
         if (first == True):
             f = open('text.txt', 'r+')
-            #f.write( "[\n")
+            f.write( "[\n")
             first = False
-        f.write(str(currentrow) + ",\n")
+        f.write(str(currentrow)+',\n')
         print currentrow
-    #    finallist.append(currentrow)
+        finallist.append(currentrow)
     f.write( "]")
 
 main()
