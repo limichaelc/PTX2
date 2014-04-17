@@ -7,13 +7,13 @@
 {% block main %}
 <div class="col-md-6 column">
 	<div class="row clearfix" id="needtobuy">
-	{% for book in books_needed %}
+	{% for book in books %}
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
 					<img src="{% static 'img/'|add:book.isbn|add:'.jpg' %}" width="130">
 					<h5><a href="/books/{{book.isbn}}"> {{ book.title }}</a></h5>
-					<p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.course_code }}</a></i><br>
+					<p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.coursename }}</a></i><br>
 						<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br>
 						<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ book.amazon_price }}<br>
 						<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
@@ -30,13 +30,13 @@
 	{% endfor %}
 	</div>
 		<div class="row clearfix" id="selling">
-		{% for book in books_selling %}
+		{% for book in books %}
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
 					<img src="{% static 'img/'|add:book.isbn|add:'.jpg' %}" width="130">
 					<h5><a href="/books/{{book.isbn}}"> {{ book.title }}</a></h5>
-					<p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.course_code }}</a></i><br>
+					<p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.coursename }}</a></i><br>
 					Selling for ${{ book.selling_for }}<br>
 					</p>
 				</div>
@@ -45,7 +45,7 @@
 		{% endfor %}
 	</div>
 		<div class="row clearfix" id="owned">
-		{% for book in books_owned %}
+		{% for book in books %}
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
