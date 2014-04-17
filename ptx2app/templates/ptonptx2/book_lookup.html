@@ -40,7 +40,7 @@
             </tr>
             {% for listing in book.listings %}
             <tr>
-                <td>${{ listing.price }}</td>
+                <td>${{ listing.price|floatformat:2 }}</td>
                 <td>{{ listing.condition }}</td>
                 <td>{{ listing.comment }}</td>
             </tr>
