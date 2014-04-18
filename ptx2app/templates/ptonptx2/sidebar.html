@@ -2,9 +2,9 @@
 	<ul class="nav nav-pills nav-stacked">
 		<h4 style="font-variant:small-caps"> Bookshelf</h4>
 		<li><a href="/bookshelf"><span class="badge pull-right">{{ user.books_needed|length + user.books_selling|length + user.books_owned|length }}</span>All Items</a></li>
-		<li><a href="/bookshelf/#needtobuy"><span class="badge pull-right">{{ user.books_needed }}</span>Need to Buy</a></li>
-		<li><a href="/bookshelf/#selling"><span class="badge pull-right">{{ user.books_selling }}</span>Selling</a></li>
-		<li><a href="/bookshelf/#owned"><span class="badge pull-right">{{ user.books_owned }}</span>Owned</a></li>
+		<li><a href="/bookshelf/#needtobuy"><span class="badge pull-right">{{ user.books_needed|length }}</span>Need to Buy</a></li>
+		<li><a href="/bookshelf/#selling"><span class="badge pull-right">{{ user.books_selling|length }}</span>Selling</a></li>
+		<li><a href="/bookshelf/#owned"><span class="badge pull-right">{{ user.books_owned|length }}</span>Owned</a></li>
 		<li><a href="#" data-toggle="modal" data-target="#watchlistmodal"><span class="glyphicon glyphicon-plus"></span> Add book</a></li>
 		<h4 style="font-variant:small-caps">Courses</h4>
 
