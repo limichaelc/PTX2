@@ -7,7 +7,7 @@
 {% block main %}
 <div class="col-md-6 column">
 	<div class="row clearfix" id="needtobuy">
-	{% for reading in Profile.objects.get(name={{user}}).books_needed %}
+	{% for reading in books_needed %}
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
@@ -30,7 +30,7 @@
 	{% endfor %}
 	</div>
 		<div class="row clearfix" id="selling">
-		{% for listing in Profile.objects.get(name={{user}})books_selling %}
+		{% for listing in books_selling %}
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
@@ -47,7 +47,7 @@
 		{% endfor %}
 	</div>
 		<div class="row clearfix" id="owned">
-		{% for book in Profile.objects.get(name={{user}})books_owned %}
+		{% for book in books_owned %}
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
