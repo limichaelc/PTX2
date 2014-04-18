@@ -55,7 +55,6 @@ class Review(models.Model):
 
 class Profile(models.Model):
     user = models.ForeignKey(User)
-    netid = models.CharField(max_length=8)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=40)
     preferred_meetingplace = models.CharField(max_length=500, blank=True)
