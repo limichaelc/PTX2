@@ -6,9 +6,11 @@ Making psql work:
     This turns off authentication for connections to the psql server from localhost.
 
 2.  Run 'sudo -u postgres psql'.
-    This will let you run psql by pretending to be the user named 'postgresql'.
+    This will let you run psql by pretending to be the user named 'postgres'.
 
 3.  In psql, run 'CREATE USER admin WITH PASSWORD password;'
     Don't forget the semicolon.
 
 4.  Still in psql, run 'CREATE DATABASE ptonptx2;'
+
+5.  Run 'sudo service postgresql restart'
