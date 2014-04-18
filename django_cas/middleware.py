@@ -42,11 +42,11 @@ class CASMiddleware(object):
             return None
 
         if request.user.is_authenticated():
-            # if request.user.is_staff:
+            if request.user.is_staff:
                 return None
-            # else:
-            #     error = ('<h1>Forbidden</h1><p>You do not have staff '
-            #              'privileges.</p>')
-            #     return HttpResponseForbidden(error)
+            else:
+                error = ('<h1>Forbidden</h1><p>You do not have staff '
+                         'privileges.</p>')
+                return HttpResponseForbidden(error)
         params = urlencode({REDIRECT_FIELD_NAME: request.get_full_path()})
         return HttpResponseRedirect(reverse(cas_login) + '?' + params)
