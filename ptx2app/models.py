@@ -54,7 +54,7 @@ class Review(models.Model):
     as_advertised = models.BooleanField()
 
 class Profile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.ForeignKey(User)
     netid = models.CharField(max_length=8)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=40)
