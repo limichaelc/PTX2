@@ -7,23 +7,28 @@ class Author(models.Model):
 	def __unicode__(self):
 		return self.last_name + self.first_name
 
-class Department(models.Model):
-	subject_code = models.CharField(max_length=3)
-	def __unicode__(self):
-		return self.subject_code
-
 class Course(models.Model):
-	coursename = models.CharField(max_length = 50)
-	coursenameid = models.CharField(max_length = 50)
+	name = models.CharField(max_length = 100)   # e.g. 'Advanced Programming Techniques'
+	dept = models.CharField(max_length = 3)     # e.g. 'COS'
+    num = models.IntegerField(max_digits = 3)   # e.g. 333
+    year = models.IntegerFiels(max_digits = 4)
+    TERMS = (
+            ('F', 'Fall'),
+            ('S', 'Spring')
+    )
+    term = models.CharField(max_length = 1, choices = TERMS)
+    bb_id = models.IntegerField()
+    readings = models.ManyToManyField(Reading)
+    def __unicode__(self):
+        return self.name + ' (' + self.dept + ' ' + self.num + ') ' + ' (' + self.term + ' ' + self.year + ') ' + self.bb_id
 
 
 class Book(models.Model):
 	isbn = models.CharField(max_length=13)
 	isbn10 = models.CharField(max_length=10)
 	title = models.CharField(max_length=100)
-	edition = models.IntegerField()
+	edition = models.CharField(max_length = 20)
 	authors = models.ManyToManyField(Author)
-	course_usedin = models.ForeignKey(Course)
 	amazon_price = models.DecimalField(max_digits = 10, decimal_places = 2)
 	labyrinth_price = models.DecimalField(max_digits = 10, decimal_places = 2)
 	lowest_student_price = models.DecimalField(max_digits = 10, decimal_places = 2)
@@ -31,51 +36,58 @@ class Book(models.Model):
 	def __unicode__(self):
 		return self.title
 
+class PhysBook(models.Model):
+    book = models.ForeignKey(Book)
+    missing_cover = models.BooleanField()
+    bent_corners = models.BooleanField()
+    has_markings = models.BooleanField()
+    has_scratches = models.BooleanField()
+    has_missing_pages = models.BooleanField()
+    has_creases = models.BooleanField()
+    comment = models.CharField(500)
+    def __unicode__(self):
+        return self.book.title
+
+class Review(models.Model):
+    on_time = models.BooleanField()
+    right_price = models.BooleanField()
+    as_advertised = models.BooleanField()
+
 class User(models.Model):
 	netid = models.CharField(max_length=8)
 	first_name = models.CharField(max_length=30)
 	last_name = models.CharField(max_length=40)
 	preferred_meetingplace = models.CharField(max_length=500)
-	seller_rating = models.DecimalField(max_digits = 10, decimal_places = 2)
+	reviews = models.ManyToMany(Review)
+    prof_pic = models.FileField()
+    books_needed = models.ManyToManyField(Reading)
+    books_owned = models.ManyToManyField(PhysBook)
+    books_selling = models.ManyToManyField(Listing)
+    course_list = models.ManyToManyField(Course)
 	def __unicode__(self):
 		return self.netid
 
 class Listing(models.Model):
-    bid = models.IntegerField()
-    book = models.ForeignKey(Book)
+    book = models.ForeignKey(PhysBook)
     owner = models.ForeignKey(User)
     SELL_STATUSES = (
 		('O', 'Currently offered'),
 		('P', 'Sale pending'),
-		('S', 'Sold'),
-		('C', 'Cancelled'),
 	)
     sell_status = models.CharField(max_length=1, choices=SELL_STATUSES, default='O')
-    condition = models.IntegerField()
-    price = models.DecimalField(max_digits = 10, decimal_places = 2)
-    comment = models.CharField(max_length=500)
-    bookName = models.CharField(max_length=128, help_text="What is the book you are trying to sell?")
-    classId = models.IntegerField(help_text = "What class is this for?")
+    price = models.DecimalField(max_digits = 3)
     def __unicode__(self):
-    	return self.book + "at" + str(self.bid)
+    	return self.book.book.title + " for $" + str(self.price)
 
 class Reading(models.Model):
 	book = models.ForeignKey(Book)
-	course = models.ForeignKey(Course)
 	is_recommended = models.BooleanField()
+    used_in = models.ManyToManyField(Course)
 	def __unicode__(self):
-		return self.book
+        return self.book + ' (recommended: ' + self.is_recommended + ')'
 
 class Transaction(models.Model):
-	tx_id = models.IntegerField()
 	buyer = models.ForeignKey(User, related_name = "transcation_buyer")
 	seller = models.ForeignKey(User, related_name = "transcation_seller")
-	book = models.ForeignKey(Book)
-	paid = models.DecimalField(max_digits = 10, decimal_places = 2)
-	SELL_STATUSES = (
-		('O', 'Currently offered'),
-		('P', 'Sale pending'),
-		('S', 'Sold'),
-		('C', 'Cancelled'),
-	)
-	sell_status = models.CharField(max_length=1, choices=SELL_STATUSES, default='O')
+	book = models.ForeignKey(PhysBook)
+	price = models.DecimalField(max_digits = 3)
