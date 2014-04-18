@@ -17,7 +17,7 @@ recourselink = re.compile('http://blackboard.princeton.edu*')
 recourselink2 = re.compile('https://blackboard.princeton.edu*')
 recoursetitle = re.compile('/webapps/blackboard/execute*')
 amazon = ""
-rebr = re.compile('^<.*')
+quote = re.compile('"*')
 text = ""
 
 def make_soup(url):
@@ -82,8 +82,13 @@ def get_amazon_edition():
     #print edition
     return edition
 
+<<<<<<< HEAD
+
+def scrape(name):
+=======
 def scrape(name):
     #page = open(name)
+>>>>>>> 304e582c0ce38ffe4e714a528338948b8a2d5905
     page = open('page.txt')
     soup = BeautifulSoup(page)
     table = soup.find('table')
@@ -93,8 +98,8 @@ def scrape(name):
     finallist = []
     first = True
     previous = []
-    p = 495
-    for i in range(495, length):
+    p = 1329
+    for i in range(1329, length):
         print p
         p += 1
         currentrow = {}
@@ -103,12 +108,15 @@ def scrape(name):
         
         #make list of course designations i.e. MAE 305
         classes = columns[1].find('u')
+        classes = classes.findAll(text = quote)
         course_desig = []
+        #print classes
         for c in classes:
-            if str(c) != '<br/>':
-                c = re.sub(' +', '', c)
-                c = re.sub('\n', '', c)
-                course_desig.append(c)
+            c = re.sub(' +', '', c)
+            c = re.sub('\n', '', c)
+            if (str(c) != '<br/>'):
+                if str(c) != "":
+                    course_desig.append(c)
         if course_desig == previous:
             continue
         else:
@@ -204,7 +212,7 @@ def scrape(name):
                 thiscoursesbooks.append(thisbook)            
         currentrow['booklist'] = (thiscoursesbooks)
         if (first == True):
-            f = open('text3.txt', 'r+')
+            f = open('text5.txt', 'r+')
             f.write( "[\n")
             first = False
         f.write(str(currentrow)+',\n')
