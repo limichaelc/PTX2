@@ -8,7 +8,7 @@
 <div class="col-md-6 column">
 	<div class="row clearfix" id="needtobuy">
 		{% for reading in user.books_needed.all %}
-		<div class="col-md-5">
+		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
 					<img src={{reading.book.picture_link}} width="130">
@@ -20,8 +20,7 @@
 						Required for 
 						{% endif %}
 						{% for course in reading.used_in.all %}
-						<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>
-						{% if not forloop.last %}, {% endif %}
+						<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>{% if not forloop.last %}, {% endif %}
 						{% endfor %}
 					<br></p>
 					<p>
@@ -42,7 +41,7 @@
 	</div>
 	<div class="row clearfix" id="selling">
 		{% for listing in user.books_selling.all %}
-		<div class="col-md-5">
+		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
 					<img src={{ listing.book.picture_link }} width="130">
@@ -59,7 +58,7 @@
 	</div>
 	<div class="row clearfix" id="owned">
 		{% for book in user.books_owned.all %}
-		<div class="col-md-5">
+		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
 					<img src="{% static 'img/'|add:book.isbn|add:'.jpg' %}" width="130">
@@ -71,8 +70,7 @@
 						Required for 
 						{% endif %}
 						{% for course in reading.used_in.all %}
-						<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>
-						{% if not forloop.last %}, {% endif %}
+						<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>{% if not forloop.last %}, {% endif %}
 						{% endfor %}
 					<br></p>
 					<p>
