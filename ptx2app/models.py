@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Author(models.Model):
@@ -52,7 +53,8 @@ class Review(models.Model):
     right_price = models.BooleanField()
     as_advertised = models.BooleanField()
 
-class User(models.Model):
+class Profile(models.Model):
+    user = models.OneToOneField(Profile)
     netid = models.CharField(max_length=8)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=40)
@@ -68,7 +70,7 @@ class User(models.Model):
 
 class Listing(models.Model):
     book = models.ForeignKey(PhysBook)
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(Profile)
     SELL_STATUSES = (
         ('O', 'Currently offered'),
         ('P', 'Sale pending'),
@@ -86,7 +88,7 @@ class Reading(models.Model):
         return self.book.__unicode__() + ' (recommended: ' + str(self.is_recommended) + ')'
 
 class Transaction(models.Model):
-    buyer = models.ForeignKey(User, related_name = "transcation_buyer")
-    seller = models.ForeignKey(User, related_name = "transcation_seller")
+    buyer = models.ForeignKey(Profile, related_name = "transcation_buyer")
+    seller = models.ForeignKey(Profile, related_name = "transcation_seller")
     book = models.ForeignKey(PhysBook)
     price = models.DecimalField(max_digits = 3, decimal_places = 2)
