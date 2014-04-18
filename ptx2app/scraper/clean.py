@@ -10,11 +10,7 @@ data.close()
 def main():
     previous = []
     newdict = []
-   # p = 0
     for i in dictionary:
-        if i.get('coursedesig') == previous:
-           # p += 1
-            continue
         #print i.get('booklist')
         #if len(i.get('booklist')) != 0:
          #   if i.get('booklist')[0] == 'error':
