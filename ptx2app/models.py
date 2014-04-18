@@ -43,7 +43,7 @@ class PhysBook(models.Model):
     has_scratches = models.BooleanField()
     has_missing_pages = models.BooleanField()
     has_creases = models.BooleanField()
-    comment = models.CharField(max_length = 500)
+    comment = models.CharField(max_length = 500, blank=True)
     def __unicode__(self):
         return self.book.title
 
@@ -56,13 +56,13 @@ class User(models.Model):
     netid = models.CharField(max_length=8)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=40)
-    preferred_meetingplace = models.CharField(max_length=500)
-    reviews = models.ManyToManyField(Review)
+    preferred_meetingplace = models.CharField(max_length=500, blank=True)
+    reviews = models.ManyToManyField(Review, blank=True)
     #prof_pic = models.FileField()
-    books_needed = models.ManyToManyField('Reading')
-    books_owned = models.ManyToManyField(PhysBook)
-    books_selling = models.ManyToManyField('Listing')
-    course_list = models.ManyToManyField(Course)
+    books_needed = models.ManyToManyField('Reading', blank=True)
+    books_owned = models.ManyToManyField(PhysBook, blank=True)
+    books_selling = models.ManyToManyField('Listing', blank=True)
+    course_list = models.ManyToManyField(Course, blank=True)
     def __unicode__(self):
         return self.netid
 
