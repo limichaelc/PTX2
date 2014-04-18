@@ -10,7 +10,7 @@ def index(request):
 	context = RequestContext(request)
 	
 	user_list = Profile.objects.get()
-	Profile.objects.get(name=request.user)
+	Profile.objects.get(user=request.user)
 	books = Book.objects.all()
 	form = SellBookForm()
 	context_dict = {'users' : user_list,
