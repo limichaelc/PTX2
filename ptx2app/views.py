@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from ptx2app.models import *
 from ptx2app.forms import *
-from scraper import pagewriter, blackboard
+from scraper import pagewriter, scrape
 
 # Create your views here.
 def index(request):
@@ -46,6 +46,6 @@ def scrape(request):
 
     if request.method == 'POST':
         pagewriter.write('page.txt')
-        blackboard.scrape('page.txt')
+        scrape.scrape('page.txt')
 
     return render_to_response('ptonptx2/scrape.html', {'form': None}, context)
