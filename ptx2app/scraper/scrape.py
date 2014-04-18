@@ -82,7 +82,8 @@ def get_amazon_edition():
     #print edition
     return edition
 
-def scrape():
+def scrape(name):
+    #page = open(name)
     page = open('page.txt')
     soup = BeautifulSoup(page)
     table = soup.find('table')
@@ -212,4 +213,5 @@ def scrape():
     f.write( "]")
 
 if __name__ == '__main__':
-    scrape()
+    #scrape()
+    scrape('page.txt')
