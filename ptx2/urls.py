@@ -18,5 +18,5 @@ urlpatterns = patterns('',
     
 	#url(r'^courses/(?P<dept>\w+)/(?P<num>\d+)/$', 'ptx2app.templates.coursepage'),
 
-    #url(r'^scrape/'. 'ptxapp.views.scrape', name = 'scrape'),
+    url(r'^scrape/', 'ptx2app.views.scrape', name = 'scrape'),
 )

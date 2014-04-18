@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from ptx2app.models import *
 from ptx2app.forms import *
-
+from scraper import pagewriter, blackboard
 
 # Create your views here.
 def index(request):
@@ -41,7 +41,11 @@ def sell_book(request):
 
 	return render_to_response('forms/newlisting.html', {'form': form}, context)
 	
-#def scrape(request):
-#    context = RequestContext(request)
-#
-#    return render_to_responce('
+def scrape(request):
+    context = RequestContext(request)
+
+    if request.method == 'POST':
+        pagewriter.write('page.txt')
+        blackboard.scrape('page.txt')
+
+    return render_to_response('ptonptx2/scrape.html', {'form': None}, context)
