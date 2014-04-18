@@ -17,8 +17,7 @@ class Course(models.Model):
             ('S', 'Spring')
     )
     term = models.CharField(max_length = 1, choices = TERMS)
-    bb_id = models.IntegerField()
-    readings = models.ManyToManyField('Reading') # use name since class Reading isn't defined yet
+    # readings = models.ManyToManyField('Reading', blank=true) # use name since class Reading isn't defined yet
     def __unicode__(self):
         return self.name + ' (' + self.dept + ' ' + self.num + ') ' + ' (' + self.term + ' ' + self.year + ') ' + self.bb_id
 
@@ -27,11 +26,11 @@ class Book(models.Model):
     isbn = models.CharField(max_length=13)
     isbn10 = models.CharField(max_length=10)
     title = models.CharField(max_length=100)
-    edition = models.CharField(max_length = 20)
+    edition = models.CharField(max_length = 20, blank=true)
     authors = models.ManyToManyField(Author)
-    amazon_price = models.DecimalField(max_digits = 10, decimal_places = 2)
-    labyrinth_price = models.DecimalField(max_digits = 10, decimal_places = 2)
-    lowest_student_price = models.DecimalField(max_digits = 10, decimal_places = 2)
+    amazon_price = models.DecimalField(max_digits = 3, decimal_places = 2)
+    labyrinth_price = models.DecimalField(max_digits = 3, decimal_places = 2)
+    lowest_student_price = models.DecimalField(max_digits = 3)
     picture_link = models.CharField(max_length = 200)
     def __unicode__(self):
         return self.title
