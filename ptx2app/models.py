@@ -30,7 +30,7 @@ class Book(models.Model):
     authors = models.ManyToManyField(Author)
     amazon_price = models.DecimalField(max_digits = 3, decimal_places = 2)
     labyrinth_price = models.DecimalField(max_digits = 3, decimal_places = 2)
-    lowest_student_price = models.IntegerField(max_digits = 3)
+    lowest_student_price = models.IntegerField()
     picture_link = models.CharField(max_length = 200)
     def __unicode__(self):
         return self.title
