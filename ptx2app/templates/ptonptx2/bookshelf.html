@@ -7,18 +7,18 @@
 {% block main %}
 <div class="col-md-6 column">
 	<div class="row clearfix" id="needtobuy">
-	{% for book in books %}
+	{% for reading in books_needed %}
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
-					<img src="{% static 'img/'|add:book.isbn|add:'.jpg' %}" width="130">
-					<h5><a href="/books/{{book.isbn}}"> {{ book.title }}</a></h5>
-					<p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.coursename }}</a></i><br>
-						<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br>
-						<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ book.amazon_price }}<br>
+					<img src={{reading.book.picture_link}} width="130">
+					<h5><a href="/books/{{reading.book.isbn}}"> {{ reading.book.title }}</a></h5>
+					<p><i><a href="/courses/{{ reading.used_in.dept }}/{{ reading.used_in.num }}"> {{ reading.used_in.dept }} {{ reading.used_in.coursename }}</a></i><br> <!-- May need to fix later -->
+						<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ reading.book.labyrinth_price }}<br>
+						<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ reading.book.amazon_price }}<br>
 						<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
-						{% if not book.student_price = 0 %}
-						${{ book.student_price }}<br>
+						{% if reading.book.lowest_student_price != 0 %}
+						${{ reading.book.lowest_student_price }}<br>
 						{% else %}
 						No student offers<br>
 						{% endif %}
@@ -30,14 +30,16 @@
 	{% endfor %}
 	</div>
 		<div class="row clearfix" id="selling">
-		{% for book in books %}
+		{% for listing in books_selling %}
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
-					<img src="{% static 'img/'|add:book.isbn|add:'.jpg' %}" width="130">
-					<h5><a href="/books/{{book.isbn}}"> {{ book.title }}</a></h5>
-					<p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.coursename }}</a></i><br>
-					Selling for ${{ book.selling_for }}<br>
+					<img src={{ listing.book.picture_link }} width="130">
+					<h5><a href="/books/{{listing.book.isbn}}"> {{ listing.book.title }}</a></h5>
+					<p>Selling for ${{ listing.price }}<br>
+					{% if listing.sell_status == 'P' %}
+					Offer made!<br>
+					{% endif %}
 					</p>
 				</div>
 			</div>
@@ -45,7 +47,7 @@
 		{% endfor %}
 	</div>
 		<div class="row clearfix" id="owned">
-		{% for book in books %}
+		{% for book in books_owned %}
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
