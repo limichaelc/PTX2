@@ -13,7 +13,7 @@
 				<div class="caption">
 					<img src={{reading.book.picture_link}} width="130">
 					<h5><a href="/books/{{reading.book.isbn}}"> {{ reading.book.title }}</a></h5>
-					<p>
+					<p class="course_list">
 					{% for course in reading.used_in.all %}
 					{% if reading.is_recommended == True %}
 					Recommended for <i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br> <!-- May need to fix later -->
@@ -60,7 +60,7 @@
 			<div class="caption">
 				<img src="{% static 'img/'|add:book.isbn|add:'.jpg' %}" width="130">
 				<h5><a href="/books/{{book.isbn}}"> {{ book.title }}</a></h5>
-				<p>
+				<p class="course_list">
 					{% for course in reading.used_in.all %}
 					{% if reading.is_recommended == True %}
 					Recommended for <i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br> <!-- May need to fix later -->
