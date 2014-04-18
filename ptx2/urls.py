@@ -23,4 +23,5 @@ urlpatterns = patterns('',
     #CAS
     url(r'^login/$', 'django_cas.views.login'),
     url(r'^logout/$', 'django_cas.views.logout'),
+    url(r'^index/$', 'django_cas.views.login', {'next_page' : ''}),
 )

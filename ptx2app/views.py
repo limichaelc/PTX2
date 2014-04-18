@@ -16,31 +16,30 @@ def index(request):
 					'form'  : form,
 					'books' : books   }
 
-
-	return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
+    return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
 def about(request):
-	context = RequestContext(request)
-	
-	return render_to_response('ptonptx2/about.html', context)
+    context = RequestContext(request)
+    
+    return render_to_response('ptonptx2/about.html', context)
 
 def sell_book(request):
-	context = RequestContext(request)
+    context = RequestContext(request)
 
-	if request.method == 'POST':
-	    print "haha"
-	    form = SellBookForm(request.POST)
-	    if form.is_valid():
-	        form.save(commit = True)
-	        
-	        return index(request)
-	    else:
-			print form.errors
-	else:
-		form = SellBookForm()
+    if request.method == 'POST':
+        print "haha"
+        form = SellBookForm(request.POST)
+        if form.is_valid():
+            form.save(commit = True)
+            
+            return index(request)
+        else:
+            print form.errors
+    else:
+        form = SellBookForm()
 
-	return render_to_response('forms/newlisting.html', {'form': form}, context)
-	
+    return render_to_response('forms/newlisting.html', {'form': form}, context)
+    
 def scrape(request):
     context = RequestContext(request)
 
