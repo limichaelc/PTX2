@@ -10,11 +10,12 @@
 					<i><a href="courses/{{book.course_usedin.coursename}}"> {{book.course_usedin.coursename}}</a></i><br>
 					<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> {{book.amazon_price}}<br>
 					<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> {{book.amazon_price}}<br>
-					<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> {% if book.lowest_student_price != 0 %}
-						${{ book.lowest_student_price }}<br>
-						{% else %}
+					<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12">
+						<!--{% if not book.lowest_student_price == '0' %}-->
+						<!--${{ book.lowest_student_price }}<br>-->
+						<!--{% else %}-->
 						No student offers<br>
-						{% endif %}<br>
+						<!--{% endif %}<br>-->
 					<a href="#" data-toggle="modal" data-target="#watchlistmodal">Add to watch list?</a>
 				</div>
 			</div>
