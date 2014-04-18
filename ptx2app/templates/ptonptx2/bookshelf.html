@@ -8,19 +8,22 @@
 <div class="col-md-6 column">
 	<div class="row clearfix" id="needtobuy">
 		{% for reading in user.books_needed.all %}
-		<div class="col-md-4">
+		<div class="col-md-5">
 			<div class="thumbnail">
 				<div class="caption">
 					<img src={{reading.book.picture_link}} width="130">
 					<h5><a href="/books/{{reading.book.isbn}}"> {{ reading.book.title }}</a></h5>
-					<p class="course_list">
-					{% for course in reading.used_in.all %}
+					<p>
 					{% if reading.is_recommended == True %}
-					Recommended for <i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br> <!-- May need to fix later -->
+					Recommended for 
 					{% else %}
-					Required for <i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br> 
+					Required for 
+					{% for course in reading.used_in.all %}<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br> <!-- May need to fix later -->
+					<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br> 
 					{% endif %}
 					{% endfor %}
+					</p>
+					<p>
 					<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ reading.book.labyrinth_price }}<br>
 					<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ reading.book.amazon_price }}<br>
 					<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
@@ -38,7 +41,7 @@
 </div>
 <div class="row clearfix" id="selling">
 	{% for listing in user.books_selling.all %}
-	<div class="col-md-4">
+	<div class="col-md-5">
 		<div class="thumbnail">
 			<div class="caption">
 				<img src={{ listing.book.picture_link }} width="130">
@@ -55,7 +58,7 @@
 </div>
 <div class="row clearfix" id="owned">
 	{% for book in user.books_owned.all %}
-	<div class="col-md-4">
+	<div class="col-md-5">
 		<div class="thumbnail">
 			<div class="caption">
 				<img src="{% static 'img/'|add:book.isbn|add:'.jpg' %}" width="130">
@@ -68,6 +71,8 @@
 					Required for <i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br> 
 					{% endif %}
 					{% endfor %}
+					</p>
+					<p>
 					Owned<br>
 					<a href="#" data-toggle="modal" data-target="#newlistingmodal">Sell?</a>
 				</p>
