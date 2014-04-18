@@ -13,13 +13,13 @@
 				<div class="caption">
 					<img src={{reading.book.picture_link}} width="130">
 					<h5><a href="/books/{{reading.book.isbn}}"> {{ reading.book.title }}</a></h5>
-					{{ for course in reading.used_in.all }}
-					{{ if reading.is_recommended == True }}
+					{% for course in reading.used_in.all %}
+					{% if reading.is_recommended == True %}
 					<p><i><a href="/courses/{{ reading.used_in.dept }}/{{ reading.used_in.num }}"> Recommended for {{ reading.used_in.dept }} {{ reading.used_in.num }}</a></i><br> <!-- May need to fix later -->
-					{{ else }}
+					{% else %}
 					<p><i><a href="/courses/{{ reading.used_in.dept }}/{{ reading.used_in.num }}"> Required for {{ reading.used_in.dept }} {{ reading.used_in.num }}</a></i><br> 
-					{{ endif }}
-					{{ endfor }}
+					{% endif %}
+					{% endfor %}
 						<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ reading.book.labyrinth_price }}<br>
 						<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ reading.book.amazon_price }}<br>
 						<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
