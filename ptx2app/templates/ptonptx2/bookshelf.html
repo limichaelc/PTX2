@@ -19,10 +19,12 @@
 						{% else %}
 						Required for 
 						{% endif %}
-						{% for course in reading.used_in.all %}<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br> <!-- May need to fix later -->
-						<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br> 
+						<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>
+						{% if not forloop.last}
+						, 
+						{% endif %}
 						{% endfor %}
-					</p>
+					<br></p>
 					<p>
 						<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ reading.book.labyrinth_price }}<br>
 						<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ reading.book.amazon_price }}<br>
@@ -70,10 +72,12 @@
 						Required for 
 						{% endif %}
 						{% for course in reading.used_in.all %}
-						<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br> <!-- May need to fix later -->
-						<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br> 
+						<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>
+						{% if not forloop.last}
+						, 
+						{% endif %}
 						{% endfor %}
-					</p>
+					<br></p>
 					<p>
 						Owned<br>
 						<a href="#" data-toggle="modal" data-target="#newlistingmodal">Sell?</a>
