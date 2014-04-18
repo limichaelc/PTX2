@@ -65,7 +65,7 @@ class Profile(models.Model):
     books_selling = models.ManyToManyField('Listing', blank=True)
     course_list = models.ManyToManyField(Course, blank=True)
     def __unicode__(self):
-        return self.netid
+        return self.user
 
 class Listing(models.Model):
     book = models.ForeignKey(PhysBook)
