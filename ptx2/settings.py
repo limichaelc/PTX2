@@ -66,7 +66,15 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'django_cas.middleware.CASMiddleware',
 )
+
+#CAS stuff
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'django_cas.vackends.CASBackend',
+)
+CAS_SERVER_URL = 'https://fed.princeton.edu/cas/'
 
 ROOT_URLCONF = 'ptx2.urls'
 
