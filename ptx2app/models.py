@@ -83,7 +83,7 @@ class Reading(models.Model):
     is_recommended = models.BooleanField()
     used_in = models.ManyToManyField(Course)
     def __unicode__(self):
-        return self.book.__unicode__() + ' (recommended: ' + self.is_recommended + ')'
+        return self.book.__unicode__() + ' (recommended: ' + str(self.is_recommended) + ')'
 
 class Transaction(models.Model):
     buyer = models.ForeignKey(User, related_name = "transcation_buyer")
