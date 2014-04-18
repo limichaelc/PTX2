@@ -19,7 +19,7 @@ class Course(models.Model):
     term = models.CharField(max_length = 1, choices = TERMS)
     # readings = models.ManyToManyField('Reading', blank=true) # use name since class Reading isn't defined yet
     def __unicode__(self):
-        return self.name + ' (' + self.dept + ' ' + self.num + ') ' + ' (' + self.term + ' ' + self.year + ') ' + self.bb_id
+        return self.name + ' (' + self.dept + ' ' + self.num + ') ' + ' (' + self.term + ' ' + self.year + ')'
 
 
 class Book(models.Model):
