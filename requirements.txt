@@ -5,8 +5,6 @@ dj-static==0.0.5
 gunicorn==18.0
 pyisbn==1.0.0
 pystache==0.5.3
-python-dateutil==2.2
-pytz==2014.2
 redis==2.9.1
 rq==0.3.13
 six==1.6.1
