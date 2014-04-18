@@ -7,12 +7,12 @@ from scraper import pagewriter, scrape
 
 # Create your views here.
 def index(request):
-	context = RequestContext(request)
+    context = RequestContext(request)
 	
-	user = Profile.objects.get(user=request.user)
-	books = Book.objects.all()
-	form = SellBookForm()
-	context_dict = {'user' : user,
+    user = Profile.objects.get(user=request.user)
+    books = Book.objects.all()
+    form = SellBookForm()
+    context_dict = {'user' : user,
 					'form'  : form,
 					'books' : books   }
 
