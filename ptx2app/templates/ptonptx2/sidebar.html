@@ -1,7 +1,7 @@
 <div class="col-md-3 column">
 	<ul class="nav nav-pills nav-stacked">
 		<h4 style="font-variant:small-caps"> Bookshelf</h4>
-		<li><a href="/bookshelf"><span class="badge pull-right">{{ user.books_needed|length + user.books_selling|length + user.books_owned|length }}</span>All Items</a></li>
+		<li><a href="/bookshelf"><span class="badge pull-right">{{ user.books_needed|length|add:user.books_selling|length|add:user.books_owned|length }}</span>All Items</a></li>
 		<li><a href="/bookshelf/#needtobuy"><span class="badge pull-right">{{ user.books_needed|length }}</span>Need to Buy</a></li>
 		<li><a href="/bookshelf/#selling"><span class="badge pull-right">{{ user.books_selling|length }}</span>Selling</a></li>
 		<li><a href="/bookshelf/#owned"><span class="badge pull-right">{{ user.books_owned|length }}</span>Owned</a></li>
