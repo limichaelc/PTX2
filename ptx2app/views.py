@@ -10,11 +10,11 @@ from django.http import HttpResponseRedirect
 def index(request):
     context = RequestContext(request)
 	
-	user = request.user
-	try:
-    	profile = request.user.get_profile()
+    user = request.user
+    try:
+        profile = request.user.get_profile()
     except UserProfile.DoesNotExist:
-    	return HttpResponseRedirect("/newprofile/")
+        return HttpResponseRedirect("/newprofile/")
     books = Book.objects.all()
     form = SellBookForm()
     context_dict = {'user' : user,
