@@ -20,7 +20,11 @@ def index(request):
     form = SellBookForm()
     context_dict = {'user' : profile,
 					'form'  : form,
-					'books' : books   }
+					'books' : books,
+                    'num_needed' : len(profile.books_needed.all()),
+                    'num_owned' : len(profile.books_owned.all()),
+                    'num_selling' : len(profile.books_selling.all()),
+                    'num_total' : num_needed + num_selling + num_total  }
 
     return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
