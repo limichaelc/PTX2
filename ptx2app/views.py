@@ -14,7 +14,7 @@ def index(request):
     try:
         profile = request.user.get_profile()
     except:
-        return HttpResponseRedirect("/newprofile/")
+        return HttpResponseRedirect("/addprofile/")
     books = Book.objects.all()
     form = SellBookForm()
     context_dict = {'user' : user,
