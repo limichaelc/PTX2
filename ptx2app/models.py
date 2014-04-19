@@ -54,7 +54,7 @@ class Review(models.Model):
     as_advertised = models.BooleanField()
 
 class Profile(models.Model):
-    user = models.ForeignKey(User)
+    user = models.OneToOneField(User)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=40)
     preferred_meetingplace = models.CharField(max_length=500, blank=True)

@@ -80,6 +80,8 @@ ROOT_URLCONF = 'ptx2.urls'
 
 WSGI_APPLICATION = 'ptx2.wsgi.application'
 
+AUTH_PROFILE_MODULE = 'ptx2app.Profile'
+
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
