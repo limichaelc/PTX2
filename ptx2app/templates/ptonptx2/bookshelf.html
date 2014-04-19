@@ -61,18 +61,8 @@
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
-					<img src="{% static 'img/'|add:book.isbn|add:'.jpg' %}" width="130">
-					<h5><a href="/books/{{book.isbn}}"> {{ book.title }}</a></h5>
-					<p class="course_list">
-						{% if reading.is_recommended == True %}
-						Recommended for 
-						{% else %}
-						Required for 
-						{% endif %}
-						{% for course in reading.used_in.all %}
-						<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>{% if not forloop.last %}, {% endif %}
-						{% endfor %}
-					<br></p>
+					<img src={{book.book.picture_link}} width="130">
+					<h5><a href="/books/{{book.book.isbn}}"> {{ book.book.title }}</a></h5>
 					<p>
 						Owned<br>
 						<a href="#" data-toggle="modal" data-target="#newlistingmodal">Sell?</a>
