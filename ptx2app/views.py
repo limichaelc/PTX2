@@ -52,7 +52,7 @@ def sell_book(request):
 
     return render_to_response('forms/newlisting.html', {'form': form}, context)
     
-def add_profile(request):
+def profile(request):
     context = RequestContext(request)
 
     if request.method == 'POST':
