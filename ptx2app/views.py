@@ -21,6 +21,9 @@ def index(request):
     context_dict = {'user' : profile,
 					'form'  : form,
 					'books' : books,
+                    'num_needed' : len(profile.books_needed.all()),
+                    'num_owned' : len(profile.books_owned.all()),
+                    'num_selling' : len(profile.books_selling.all()),
                     'num_total' : len(profile.books_needed.all())
                     + len(profile.books_owned.all())
                     + len(profile.books_selling.all())  }
