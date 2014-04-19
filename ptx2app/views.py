@@ -4,12 +4,15 @@ from django.shortcuts import render_to_response
 from ptx2app.models import *
 from ptx2app.forms import *
 from scraper import pagewriter, scrape
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 def index(request):
     context = RequestContext(request)
 	
     user = request.user.get_profile()
+    if not user:
+    	return HttpResponseRedirect("/newprofile/")
     books = Book.objects.all()
     form = SellBookForm()
     context_dict = {'user' : user,
@@ -39,6 +42,23 @@ def sell_book(request):
         form = SellBookForm()
 
     return render_to_response('forms/newlisting.html', {'form': form}, context)
+    
+def add_profile(request):
+    context = RequestContext(request)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            form.save(commit = True)
+            
+            return index(request)
+        else:
+            print form.errors
+    else:
+        form = ProfileForm()
+        form.user = context.user
+
+    return render_to_response('forms/newprofile.html', {'form': form}, context)
     
 def scrape(request):
     context = RequestContext(request)
