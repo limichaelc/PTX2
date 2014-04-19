@@ -117,6 +117,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+try:
+	HOSTNAME = socket.gethostname()
+except:
+	HOSTNAME = 'localhost'
+
 
 import dj_database_url
 
