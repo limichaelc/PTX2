@@ -17,7 +17,7 @@ def index(request):
         return HttpResponseRedirect("/addprofile/")
     books = Book.objects.all()
     form = SellBookForm()
-    context_dict = {'user' : user,
+    context_dict = {'user' : profile,
 					'form'  : form,
 					'books' : books   }
 
