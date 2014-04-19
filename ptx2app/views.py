@@ -13,7 +13,7 @@ def index(request):
     user = request.user
     try:
         profile = request.user.get_profile()
-    except UserProfile.DoesNotExist:
+    except:
         return HttpResponseRedirect("/newprofile/")
     books = Book.objects.all()
     form = SellBookForm()
