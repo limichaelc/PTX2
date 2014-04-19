@@ -58,7 +58,7 @@ def add_profile(request):
             print form.errors
     else:
         form = ProfileForm()
-        form.user = context.user
+        form.user = request.user
 
     return render_to_response('forms/newprofile.html', {'form': form}, context)
     
