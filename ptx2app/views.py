@@ -9,7 +9,7 @@ from scraper import pagewriter, scrape
 def index(request):
     context = RequestContext(request)
 	
-    user = Profile.objects.get(user=request.user)
+    user = request.user.get_profile()
     books = Book.objects.all()
     form = SellBookForm()
     context_dict = {'user' : user,
