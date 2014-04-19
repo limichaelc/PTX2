@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 	(r'^$', RedirectView.as_view(url='/bookshelf/')),
 	url(r'^bookshelf/', 'ptx2app.views.index'),
-	url(r'^addprofile/', 'ptx2app.views.add_profile'),
+	url(r'^profile/', 'ptx2app.views.profile'),
 	url(r'^about/$', 'ptx2app.views.about', name = 'about'),
 	url(r'^sellbook/', 'ptx2app.views.sell_book',  name = 'sell_book'),
 
