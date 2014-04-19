@@ -121,6 +121,8 @@ try:
 	HOSTNAME = socket.gethostname()
 except:
 	HOSTNAME = 'localhost'
+print HOSTNAME
+
 
 
 import dj_database_url
