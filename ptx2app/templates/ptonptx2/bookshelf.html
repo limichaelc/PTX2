@@ -20,9 +20,7 @@
 						Required for 
 						{% endif %}
 						{% for course in reading.used_in.all %}
-						{% if user.course_list.get(course) %}
 						<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>
-						{% endif %}
 						{% endfor %}
 					<br></p>
 					<p>

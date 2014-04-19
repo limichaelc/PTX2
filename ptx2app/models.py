@@ -29,8 +29,8 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     edition = models.CharField(max_length = 20, blank=True)
     authors = models.ManyToManyField(Author)
-    amazon_price = models.DecimalField(max_digits = 3, decimal_places = 2)
-    labyrinth_price = models.DecimalField(max_digits = 3, decimal_places = 2)
+    amazon_price = models.DecimalField(max_digits = 100, decimal_places = 2)
+    labyrinth_price = models.DecimalField(max_digits = 100, decimal_places = 2)
     lowest_student_price = models.IntegerField()
     picture_link = models.CharField(max_length = 200)
     def __unicode__(self):
