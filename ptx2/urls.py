@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from ptx2app import views
+from django.views.generic import RedirectView
 
 from django.contrib import admin
 admin.autodiscover()
@@ -10,7 +11,8 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-	url(r'^$', 'ptx2app.views.index', name = 'index'),
+	(r'^$', RedirectView.as_view(url='/bookshelf/')),
+	url(r'^bookshelf/', 'ptx2app.views.index'),
 	url(r'^about/$', 'ptx2app.views.about', name = 'about'),
 	url(r'^sellbook/', 'ptx2app.views.sell_book',  name = 'sell_book'),
 
