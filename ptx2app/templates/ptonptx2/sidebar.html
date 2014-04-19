@@ -1,17 +1,15 @@
 <div class="col-md-3 column">
 	<ul class="nav nav-pills nav-stacked">
-		<h4 style="font-variant:small-caps"> Bookshelf</h4>
-		<li><a href="/bookshelf"><span class="badge pull-right">{{ user.books_total }}</span>All Items</a></li>
-		<li><a href="/bookshelf/#needtobuy"><span class="badge pull-right">{{ user.books_needed }}</span>Need to Buy</a></li>
-		<li><a href="/bookshelf/#selling"><span class="badge pull-right">{{ user.books_selling }}</span>Selling</a></li>
-		<li><a href="/bookshelf/#owned"><span class="badge pull-right">{{ user.books_owned }}</span>Owned</a></li>
+		<h4 style="font-variant:small-caps">Bookshelf</h4>
+		<li><a href="/bookshelf"><span class="badge pull-right">{{ user.books_needed|length|add:user.books_selling|length|add:user.books_owned|length }}</span>All Items</a></li>
+		<li><a href="/bookshelf/#needtobuy"><span class="badge pull-right">{{ user.books_needed|length }}</span>Need to Buy</a></li>
+		<li><a href="/bookshelf/#selling"><span class="badge pull-right">{{ user.books_selling|length }}</span>Selling</a></li>
+		<li><a href="/bookshelf/#owned"><span class="badge pull-right">{{ user.books_owned|length }}</span>Owned</a></li>
 		<li><a href="#" data-toggle="modal" data-target="#watchlistmodal"><span class="glyphicon glyphicon-plus"></span> Add book</a></li>
 		<h4 style="font-variant:small-caps">Courses</h4>
-
-		{% for course in user.courses %}
+		{% for course in user.course_list.all %}
 		<li><a href="/courses/{{course.dept}}/{{course.code}}"><span class="badge pull-right">0/{{course.books}}</span>{{course.dept.upper}} {{course.code}}</a></li>
 		{% endfor %}
-
 		<li><a href="courses/other"><span class="badge pull-right">0</span>Other</a></li>
 		<li><a href="/bookshelf/addcourse"><span class="glyphicon glyphicon-plus"></span> Add course</a></li>
 		<h4 style="font-variant:small-caps">Account Info</h4>
