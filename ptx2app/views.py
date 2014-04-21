@@ -65,11 +65,8 @@ def profile(request):
         else:
             print form.errors
     else:
-        form = ProfileForm()
-        form = form.save(commit=False)
-        form.user = request.user
-        form.save()
-
+        form = ProfileForm.objects.get(user = request.user)
+        
     return render_to_response('forms/newprofile.html', {'form': form}, context)
     
 def scrape(request):
