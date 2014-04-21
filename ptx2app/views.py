@@ -58,6 +58,7 @@ def profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST)
         if form.is_valid():
+        	
             form.save(commit = True)
             
             return index(request)
@@ -65,7 +66,9 @@ def profile(request):
             print form.errors
     else:
         form = ProfileForm()
+        form = form.save(commit=False)
         form.user = request.user
+        form.save()
 
     return render_to_response('forms/newprofile.html', {'form': form}, context)
     
