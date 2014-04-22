@@ -60,9 +60,7 @@ def profile(request):
         form = ProfileForm(request.POST)
         if form.is_valid():
         	
-            link = form.save(commit=False)
-            link.user = request.user
-            link.save()            
+            link = form.save()    
             return index(request)
         else:
             print form.errors
