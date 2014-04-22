@@ -57,7 +57,7 @@ def profile(request):
     profile = request.user.get_profile()
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST)
+        form = ProfileForm(request.POST, instance = profile)
         if form.is_valid():
         	
             link = form.save()    
