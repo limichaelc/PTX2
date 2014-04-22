@@ -48,8 +48,8 @@ class Profile(models.Model):
     reviews = models.ManyToManyField(Review, blank=True)
     #prof_pic = models.FileField()
     books_needed = models.ManyToManyField(Book, blank=True)
-    books_owned = models.ManyToManyField(PhysBook, blank=True)
-    books_selling = models.ManyToManyField(PhysBook, blank=True)
+    books_owned = models.ManyToManyField(PhysBook, blank=True, related_name = 'books_owned')
+    books_selling = models.ManyToManyField(PhysBook, blank=True, related_name = 'books_selling')
     course_list = models.ManyToManyField(Course, blank=True)
     def __unicode__(self):
         return self.user.username
