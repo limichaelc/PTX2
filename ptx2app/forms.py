@@ -3,7 +3,6 @@ from ptx2app.models import *
 
 class SellBookForm(forms.ModelForm):
     book = forms.ModelChoiceField(queryset = Book.objects.all())
-    author = forms.ModelChoiceField(queryset = Author.objects.all())
     owner = forms.ModelChoiceField(queryset = User.objects.all())
     SELL_STATUSES = (
 		('O', 'Currently offered'),
