@@ -49,7 +49,7 @@ class Profile(models.Model):
     #prof_pic = models.FileField()
     books_needed = models.ManyToManyField(Book, blank=True)
     books_owned = models.ManyToManyField(PhysBook, blank=True)
-    books_selling = models.ManyToManyField(Physbook, blank=True)
+    books_selling = models.ManyToManyField(PhysBook, blank=True)
     course_list = models.ManyToManyField(Course, blank=True)
     def __unicode__(self):
         return self.user.username
