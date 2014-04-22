@@ -22,10 +22,7 @@ class SellBookForm(forms.ModelForm):
         model = Listing
         
 class ProfileForm(forms.ModelForm):
-	books_needed = forms.ModelChoiceField(queryset = Book.objects.all())
-	books_owned =  forms.ModelChoiceField(queryset = PhysBook.objects.all())
-	books_selling =  forms.ModelChoiceField(queryset = PhysBook.objects.all())
-	course_list =  forms.ModelChoiceField(queryset = Course.objects.all())
+
 	
 	class Meta:
 		model = Profile
