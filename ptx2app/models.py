@@ -47,7 +47,7 @@ class Profile(models.Model):
     preferred_meetingplace = models.CharField(max_length=500, blank=True)
     reviews = models.ManyToManyField(Review, blank=True)
     #prof_pic = models.FileField()
-    books_needed = models.ManyToManyField(Books, blank=True)
+    books_needed = models.ManyToManyField(Book, blank=True)
     books_owned = models.ManyToManyField(PhysBook, blank=True)
     books_selling = models.ManyToManyField(Physbook, blank=True)
     course_list = models.ManyToManyField(Course, blank=True)
