@@ -9,8 +9,10 @@ from django.http import HttpResponseRedirect
 # Create your views here.
 def index(request):
     context = RequestContext(request)
-	
-    user = request.user
+	try:
+    	user = request.user
+   	except:
+   		HttpResponseRedirect('/login/')
     try:
         profile = request.user.get_profile()
     except:
