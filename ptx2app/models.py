@@ -13,6 +13,7 @@ class Course(models.Model):
             ('S', 'Spring')
     )
     term = models.CharField(max_length = 1, choices = TERMS)
+    books = models.ManyToManyField(Book, blank=True)
     # readings = models.ManyToManyField('Reading', blank=true) # use name since class Reading isn't defined yet
     def __unicode__(self):
         return self.name + ' (' + self.dept + ' ' + str(self.num) + ') ' + ' (' + self.term + ' ' + str(self.year) + ')'
@@ -28,6 +29,7 @@ class Book(models.Model):
     labyrinth_price = models.DecimalField(max_digits = 100, decimal_places = 2)
     lowest_student_price = models.IntegerField()
     picture_link = models.CharField(max_length = 200)
+    course = models.ManyToManyField(Course, blank=True)
     def __unicode__(self):
         return self.title
 
@@ -62,7 +64,7 @@ class Listing(models.Model):
         ('P', 'Sale pending'),
     )
     sell_status = models.CharField(max_length=1, choices=SELL_STATUSES, default='O')
-    price = models.DecimalField(max_digits = 3, decimal_places = 2)
+    price = models.DecimalField(max_digits = 100, decimal_places = 2)
     def __unicode__(self):
         return self.book.book.title + " for $" + str(self.price)
 
@@ -70,5 +72,5 @@ class Transaction(models.Model):
     buyer = models.ForeignKey(Profile, related_name = "transcation_buyer")
     seller = models.ForeignKey(Profile, related_name = "transcation_seller")
     book = models.ForeignKey(PhysBook)
-    price = models.DecimalField(max_digits = 3, decimal_places = 2)
+    price = models.DecimalField(max_digits = 100, decimal_places = 2)
     review = models.ManyToManyField(Review)

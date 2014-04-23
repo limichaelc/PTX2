@@ -77,3 +77,15 @@ def scrape(request):
         scrape.scrape('page.txt')
 
     return render_to_response('ptonptx2/scrape.html', {'form': None}, context)
+    
+def coursepage(request, course_dpt, course_num):
+	context = RequestContext(request)
+	
+	course = Course.objects.all().filter(dept=course_dpt, num=course_num)
+	
+	books = course.books
+	
+	return render_to_respones('ptonptx2/coursepage.html', {'books': books}, context)
+	
+	
+	
