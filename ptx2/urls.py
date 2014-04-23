@@ -16,7 +16,7 @@ urlpatterns = patterns('',
 	url(r'^profile/', 'ptx2app.views.profile'),
 	url(r'^about/$', 'ptx2app.views.about', name = 'about'),
 	url(r'^sellbook/', 'ptx2app.views.sell_book',  name = 'sell_book'),
-	url(r'^courses/?P<course_dpt>\w+/?P<course_num>\d+/', 'ptxwapp.views.coursepage),
+	url(r'^courses/?P<course_dpt>\w+/?P<course_num>\d+/', 'ptxwapp.views.coursepage'),
 
     #url(r'^sellbook/', 'ptx2app.views.sell_book', name = 'sell_book'),
     
