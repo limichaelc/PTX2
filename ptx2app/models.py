@@ -3,20 +3,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Course(models.Model):
-    name = models.CharField(max_length = 100)
-    dept = models.CharField(max_length = 3)
-    num = models.IntegerField()
-    year = models.IntegerField()
-    TERMS = (
-            ('F', 'Fall'),
-            ('S', 'Spring')
-    )
-    term = models.CharField(max_length = 1, choices = TERMS)
-    books = models.ManyToManyField(Book, blank=True)
-    # readings = models.ManyToManyField('Reading', blank=true) # use name since class Reading isn't defined yet
-    def __unicode__(self):
-        return self.name + ' (' + self.dept + ' ' + str(self.num) + ') ' + ' (' + self.term + ' ' + str(self.year) + ')'
 
 
 class Book(models.Model):
@@ -32,6 +18,21 @@ class Book(models.Model):
     course = models.ManyToManyField(Course, blank=True)
     def __unicode__(self):
         return self.title
+        
+class Course(models.Model):
+    name = models.CharField(max_length = 100)
+    dept = models.CharField(max_length = 3)
+    num = models.IntegerField()
+    year = models.IntegerField()
+    TERMS = (
+            ('F', 'Fall'),
+            ('S', 'Spring')
+    )
+    term = models.CharField(max_length = 1, choices = TERMS)
+    books = models.ManyToManyField(Book, blank=True)
+    # readings = models.ManyToManyField('Reading', blank=true) # use name since class Reading isn't defined yet
+    def __unicode__(self):
+        return self.name + ' (' + self.dept + ' ' + str(self.num) + ') ' + ' (' + self.term + ' ' + str(self.year) + ')'
 
 class PhysBook(models.Model):
     book = models.ForeignKey(Book)
