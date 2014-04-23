@@ -15,7 +15,6 @@ class Book(models.Model):
     labyrinth_price = models.DecimalField(max_digits = 100, decimal_places = 2)
     lowest_student_price = models.IntegerField()
     picture_link = models.CharField(max_length = 200)
-    course = models.ManyToManyField(Course, blank=True)
     def __unicode__(self):
         return self.title
         
