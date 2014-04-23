@@ -87,7 +87,7 @@ def coursepage(request, course_dpt, course_num):
 	
 	books = course.books
 	
-	return render_to_respones('ptonptx2/coursepage.html', {'books': books}, context)
+	return render_to_response('ptonptx2/coursepage.html', {'books': books}, context)
 	
 	
 	
