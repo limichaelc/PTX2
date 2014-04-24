@@ -6,10 +6,8 @@ from ptx2app.forms import *
 from scraper import pagewriter, scrape
 from django.http import HttpResponseRedirect
 
-# Create your views here.
-def index(request):
-    context = RequestContext(request)
-    try:
+def get_context(request):
+        try:
         user = request.user
     except:
    	    HttpResponseRedirect('/login/')
@@ -38,6 +36,10 @@ def index(request):
                     + len(profile.books_owned.all())
                     + len(profile.books_selling.all()),
                     'nums_by_course' : nums_by_course  }
+
+# Create your views here.
+def index(request):
+    context = RequestContext(request)
 
     return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
@@ -114,8 +116,7 @@ def coursepage(request, course_dpt, course_num):
 	fields = Book._meta.fields
 
 	
-	return render_to_response('ptonptx2/course_page.html', {'course': course, 
-	                                                        'fields': fields},
+	return render_to_response('ptonptx2/course_page.html', context_dict,
 	                                                         context)
 	
 	
