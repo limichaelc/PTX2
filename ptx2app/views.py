@@ -7,7 +7,7 @@ from scraper import pagewriter, scrape
 from django.http import HttpResponseRedirect
 
 def get_context(request):
-        try:
+    try:
         user = request.user
     except:
    	    HttpResponseRedirect('/login/')
