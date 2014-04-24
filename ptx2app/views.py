@@ -53,6 +53,21 @@ def sell_book(request):
         form = SellBookForm()
 
     return render_to_response('forms/newlisting.html', {'form': form}, context)
+
+def add_course(request):
+    context = RequestContext(request)
+    if request.method == 'POST':
+        form = AddCourseForm(request.POST)
+        if form.is_valid():
+            form.save(commit = True)
+
+            return index(request)
+        else:
+            print form.errors
+    else:
+        form = AddCourseForm()
+
+    return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
     
 def profile(request):
     context = RequestContext(request)
