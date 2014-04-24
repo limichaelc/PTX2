@@ -28,4 +28,9 @@ class ProfileForm(forms.ModelForm):
 		model = Profile
 		exclude = ['reviews', 'user']
 
+class AddCourseForm(form.ModelForm):
+    course = forms.ModelChoiceField(queryset = Course.objects.all())
+    class Meta:
+        model = Profile
+        fields = ('course_list',)
 
