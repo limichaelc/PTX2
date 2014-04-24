@@ -7,20 +7,17 @@
 {% block main %}
 <div class="col-md-6 column">
 	<div class="row clearfix" id="needtobuy">
-		{% for reading in user.books_needed.all %}
+		{% for book in user.books_needed.all %}
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
-					<img src={{reading.book.picture_link}} width="130">
-					<h5><a href="/books/{{reading.book.isbn}}"> {{ reading.book.title }}</a></h5>
-					<p class="course_list">
-						{% if reading.is_recommended == True %}
-						Recommended for 
-						{% else %}
-						Required for 
-						{% endif %}
-						{% for course in reading.used_in.all %}
+					<img src={{ book.picture_link }} max-width="130">
+					<h5><a href="/books/{{book.isbn}}"> {{ book.title }}</a></h5>
+					<p class="course_list">Used in
+						{% for course in user.course_list.all %}
+						{% if course.books == book %}
 						<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>
+						{% endif %}
 						{% endfor %}
 					<br></p>
 					<p>
@@ -44,7 +41,7 @@
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
-					<img src={{ listing.book.picture_link }} width="130">
+					<img src={{ listing.book.picture_link }} max-width="130">
 					<h5><a href="/books/{{listing.book.isbn}}"> {{ listing.book.title }}</a></h5>
 					<p>Selling for ${{ listing.price }}<br>
 						{% if listing.sell_status == 'P' %}
@@ -61,7 +58,7 @@
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
-					<img src={{book.book.picture_link}} width="130">
+					<img src={{book.book.picture_link}} max-width="130">
 					<h5><a href="/books/{{book.book.isbn}}"> {{ book.book.title }}</a></h5>
 					<p>
 						Owned<br>
