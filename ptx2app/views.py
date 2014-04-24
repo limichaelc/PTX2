@@ -6,10 +6,8 @@ from ptx2app.forms import *
 from scraper import pagewriter, scrape
 from django.http import HttpResponseRedirect
 
-# Create your views here.
-def index(request):
-    context = RequestContext(request)
-    try:
+def get_context(request):
+        try:
         user = request.user
     except:
    	    HttpResponseRedirect('/login/')
@@ -20,13 +18,6 @@ def index(request):
         profile.save()
     books = Book.objects.all()
     form = SellBookForm()
-    nums_by_course = {}
-    for course in profile.course_list.all():
-        num = 0
-        for book in profile.books_owned.all():
-            if course.books.all() == book:
-                num += 1
-        nums_by_course[course] = num
 
     context_dict = {'user' : profile,
 					'form'  : form,
@@ -38,6 +29,17 @@ def index(request):
                     + len(profile.books_owned.all())
                     + len(profile.books_selling.all()),
                     'nums_by_course' : nums_by_course  }
+
+# Create your views here.
+def index(request):
+    context = RequestContext(request)
+        nums_by_course = {}
+    for course in profile.course_list.all():
+        num = 0
+        for book in profile.books_owned.all():
+            if course.books.all() == book:
+                num += 1
+        nums_by_course[course] = num
 
     return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
