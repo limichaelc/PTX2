@@ -20,14 +20,16 @@ def get_context(request):
     form = SellBookForm()
     nums_by_course = {}
     for course in profile.course_list.all():
-        num = 0
+        current_course = []
         for book in profile.books_owned.all():
-            if book in course.books.all():
-                num += 1
+            if book.book in course.books.all():
+                if book.book not in current_course:
+                    current_course.append(book.book)
         for book in profile.books_selling.all():
-            if book in course.books.all():
-                num += 1
-        nums_by_course[course] = num
+            if book.book in course.books.all():
+                if book.book not in current_course:
+                    current_course.append(book.book)
+        nums_by_course[course] = len(current_course)
 
     context_dict = {'user' : profile,
 					'form'  : form,
@@ -61,6 +63,17 @@ def index(request):
 
 
     return render_to_response('ptonptx2/bookshelf.html', context)
+
+def bookpage(request, isbn):
+    context = RequestContext(request)
+    
+    context_dict = get_context(request)
+    book = Book.objects.get(isbn=isbn)
+    
+    context_dict['book'] = book
+    
+    return render_to_response('ptonptx2/book_lookup.html', context_dict, context)
+    
 
 def about(request):
     context = RequestContext(request)
@@ -140,6 +153,8 @@ def coursepage(request, course_dpt, course_num):
 	
 	return render_to_response('ptonptx2/course_page.html', context_dict,
 	                                                         context)
+	                                                         
+	                                                         
 	
 	
 	
