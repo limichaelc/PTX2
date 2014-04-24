@@ -12,7 +12,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/scrape/$', 'ptx2app.views.scrape', name = 'scrape'),
     url(r'^admin/', include(admin.site.urls)),
-	url(r'^$', 'django_cas.views.login', {'next_page' : 'bookshelf'}), # RedirectView.as_view(url='/bookshelf/')),
+	#url(r'^$', 'django_cas.views.login', {'next_page' : 'bookshelf'}), # RedirectView.as_view(url='/bookshelf/')),
 	url(r'^bookshelf/', 'ptx2app.views.index'),
 	url(r'^profile/', 'ptx2app.views.profile'),
 	url(r'^about/$', 'ptx2app.views.about', name = 'about'),
