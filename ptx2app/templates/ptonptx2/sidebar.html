@@ -8,9 +8,8 @@
 		<li><a href="#" data-toggle="modal" data-target="#watchlistmodal"><span class="glyphicon glyphicon-plus"></span> Add book</a></li>
 		<h4 style="font-variant:small-caps">Courses</h4>
 		{% for course in user.course_list.all %}
-		<li><a href="/courses/{{course.dept}}/{{course.num}}"><span class="badge pull-right">0/{{course.books.all|length }}</span>{{course.dept.upper}} {{course.num}}</a></li>
+		<li><a href="/courses/{{course.dept}}/{{course.num}}"><span class="badge pull-right">{{ user.books_owned.get(course_list=course).all|length}}/{{course.books.all|length }}</span>{{course.dept.upper}} {{course.num}}</a></li>
 		{% endfor %}
-		<li><a href="courses/other"><span class="badge pull-right">0</span>Other</a></li>
 		<li><a href="/bookshelf/addcourse"><span class="glyphicon glyphicon-plus"></span> Add course</a></li>
 		<h4 style="font-variant:small-caps">Account Info</h4>
 		<li><a href="{{ BASE_URL }}/profile">My Profile</a></li>
