@@ -31,7 +31,7 @@ def get_context(request):
                     current_course.append(book.book)
         nums_by_course[course] = len(current_course)
     user_selling = []
-    for listing in Listing.objects.get(owner=profile):
+    for listing in Listing.objects.get(__owner=profile):
         user_selling.append(listing)
 
     context_dict = {'user' : profile,
