@@ -69,6 +69,17 @@ def index(request):
 
     return render_to_response('ptonptx2/bookshelf.html', context)
 
+def bookpage(request, isbn):
+    context = RequestContext(request)
+    
+    context_dict = get_context(request)
+    book = Book.objects.get(isbn=isbn)
+    
+    context_dict['book'] = book
+    
+    return render_to_response('ptonptx2/book_lookup.html', context_dict, context)
+    
+
 def about(request):
     context = RequestContext(request)
     
@@ -147,6 +158,8 @@ def coursepage(request, course_dpt, course_num):
 	
 	return render_to_response('ptonptx2/course_page.html', context_dict,
 	                                                         context)
+	                                                         
+	                                                         
 	
 	
 	

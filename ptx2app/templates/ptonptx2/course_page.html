@@ -9,7 +9,7 @@
     <div class="col-md-6 column">
         <div class="row clearfix" id="bookinfo">
         <ul>
-            {{ book.title }}
+            <a href="/{{book.isbn}}">{{ book.title }}</a>
         </ul>
     </div>
     {% endfor %}
