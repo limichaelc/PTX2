@@ -130,6 +130,9 @@ def coursepage(request, course_dpt, course_num):
 	books = course.books
 	
 	fields = Book._meta.fields
+	
+	context_dict = get_context(request)
+	context_dict['course'] = course
 
 	
 	return render_to_response('ptonptx2/course_page.html', context_dict,
