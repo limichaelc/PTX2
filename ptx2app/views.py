@@ -7,8 +7,8 @@ from scraper import pagewriter, scrape
 from django.http import HttpResponseRedirect
 
 # Create your views here.
-def index(request):
-    context = RequestContext(request)
+
+def get_context(request):
     try:
         user = request.user
     except:
@@ -29,6 +29,12 @@ def index(request):
                     'num_total' : len(profile.books_needed.all())
                     + len(profile.books_owned.all())
                     + len(profile.books_selling.all())  }
+                    
+    return context_dict
+
+def index(request):
+    context = RequestContext(request)
+    context_dict = get_context(request)
 
     return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
