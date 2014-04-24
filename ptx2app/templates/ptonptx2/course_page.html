@@ -5,8 +5,7 @@
 {% block title %}PTX2 | {{ course.name }}{% endblock %}
 
 {% block main %}
-{% for course_object in course %}
-    {% for book in course_object.books.all %}
+    {% for book in course.books.all %}
     <div class="col-md-6 column">
         <div class="row clearfix" id="bookinfo">
         <ul>
@@ -14,7 +13,6 @@
         </ul>
     </div>
     {% endfor %}
-{% endfor %}
 {% include 'forms/newlisting.html' %}
 {% include 'forms/watchlist.html' %}
 {% endblock %}
