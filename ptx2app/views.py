@@ -22,7 +22,11 @@ def get_context(request):
     form = SellBookForm()
     nums_by_course = {}
     for course in profile.course_list.all():
-        nums_by_course[course] = len(profile.books_owned.get(book.course_list = course).all())
+        num = 0
+        for book in profile.books_owned.all():
+            if course.books.all() == book:
+                num += 1
+        nums_by_course[course] = num
 
     context_dict = {'user' : profile,
 					'form'  : form,
