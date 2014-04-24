@@ -5,15 +5,15 @@
 {% block title %}PTX2 | {{ course.name }}{% endblock %}
 
 {% block main %}
-{% for book in course.books.all %}
-<div class="col-md-6 column">
-    <div class="row clearfix" id="bookinfo">
-    <ul>
-    {% for field in fields%}
-        <li>{{ field }}: {{book.field}}
+{% for course_object in course %}
+    {% for book in course_object.books.all %}
+    <div class="col-md-6 column">
+        <div class="row clearfix" id="bookinfo">
+        <ul>
+            {{ book.title }}
+        </ul>
+    </div>
     {% endfor %}
-    </ul>
-</div>
 {% endfor %}
 {% include 'forms/newlisting.html' %}
 {% include 'forms/watchlist.html' %}
