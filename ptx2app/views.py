@@ -24,7 +24,7 @@ def index(request):
     for course in profile.course_list.all():
         num = 0
         for book in profile.books_owned.all():
-            if book.course_list = course:
+            if book.course_list.all() = course:
                 num += 1
         nums_by_course[course] = num
 
