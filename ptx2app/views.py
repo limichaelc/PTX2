@@ -98,7 +98,7 @@ def scrape(request):
 def coursepage(request, course_dpt, course_num):
 	context = RequestContext(request)
 	
-	course = Course.objects.filter(dept=course_dpt, num=course_num)
+	course = Course.objects.get(dept=course_dpt, num=course_num)
 	
 	books = course.books
 	
