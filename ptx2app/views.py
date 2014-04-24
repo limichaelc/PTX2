@@ -33,7 +33,7 @@ def get_context(request):
 # Create your views here.
 def index(request):
     context = RequestContext(request)
-        nums_by_course = {}
+    nums_by_course = {}
     for course in profile.course_list.all():
         num = 0
         for book in profile.books_owned.all():
