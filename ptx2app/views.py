@@ -22,7 +22,7 @@ def get_context(request):
     for course in profile.course_list.all():
         num = 0
         for book in profile.books_owned.all():
-            if course.books.all() in book:
+            if book in course.books.all():
                 num += 1
         nums_by_course[course] = num
 
