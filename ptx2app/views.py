@@ -36,10 +36,11 @@ def get_context(request):
                     + len(profile.books_owned.all())
                     + len(profile.books_selling.all()),
                     'nums_by_course' : nums_by_course  }
+    return context_dict
 
 # Create your views here.
 def index(request):
-    context = RequestContext(request)
+    context = get_context(request)
 
     return render_to_response('ptonptx2/bookshelf.html', context)
 
