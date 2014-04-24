@@ -26,7 +26,7 @@ def index(request):
         for book in profile.books_owned.all():
             if course.books.all() == book:
                 num += 1
-        nums_by_course[str(course)] = num
+        nums_by_course[course] = num
 
     context_dict = {'user' : profile,
 					'form'  : form,
