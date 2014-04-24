@@ -40,7 +40,7 @@ def get_context(request):
 
 # Create your views here.
 def index(request):
-<<<<<<< HEAD
+
     context = RequestContext(request)
     
     context_dict = get_context(request)
@@ -53,9 +53,9 @@ def index(request):
             if course.books.all() == book:
                 num += 1
         nums_by_course[course] = num
-=======
+
     context = get_context(request)
->>>>>>> d5d5f6b11693827db0a71cf0d79dc963f4c07d97
+
 
     return render_to_response('ptonptx2/bookshelf.html', context)
 
