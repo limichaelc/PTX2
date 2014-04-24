@@ -84,10 +84,9 @@ def coursepage(request, course_dpt, course_num):
 	context = RequestContext(request)
 	
 	course = Course.objects.get(dept=course_dpt, num=course_num)
+
 	
-	books = course.books
-	
-	return render_to_response('ptonptx2/course_page.html', {'books': books}, context)
+	return render_to_response('ptonptx2/course_page.html', {'course': course}, context)
 	
 	
 	

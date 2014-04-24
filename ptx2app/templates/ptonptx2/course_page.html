@@ -5,7 +5,7 @@
 {% block title %}PTX2 | {{ course.name }}{% endblock %}
 
 {% block main %}
-{% for book in books %}
+{% for book in course.books.all %}
 <div class="col-md-6 column">
     <div class="row clearfix" id="bookinfo">
     <ul>
