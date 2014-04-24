@@ -20,13 +20,13 @@ def get_context(request):
         profile.save()
     books = Book.objects.all()
     form = SellBookForm()
-    nums_by_course = {}
-    for course in profile.course_list.all():
-        num = 0
-        for book in profile.books_owned.all():
-            if course.books.all() == book:
-                num += 1
-        nums_by_course[course] = num
+    nums_by_course = {'testcourse': 1}
+    # for course in profile.course_list.all():
+    #     num = 0
+    #     for book in profile.books_owned.all():
+    #         if course.books.all() == book:
+    #             num += 1
+    #     nums_by_course[course] = num
 
     context_dict = {'user' : profile,
 					'form'  : form,
