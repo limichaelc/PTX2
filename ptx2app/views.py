@@ -24,6 +24,9 @@ def get_context(request):
         for book in profile.books_owned.all():
             if book in course.books.all():
                 num += 1
+        for book in profile.books_selling.all():
+            if book in course.books.all():
+                num += 1
         nums_by_course[course] = num
 
     context_dict = {'user' : profile,
