@@ -7,8 +7,8 @@ from scraper import pagewriter, scrape
 from django.http import HttpResponseRedirect
 
 # Create your views here.
-
-def get_context(request):
+def index(request):
+    context = RequestContext(request)
     try:
         user = request.user
     except:
@@ -20,13 +20,13 @@ def get_context(request):
         profile.save()
     books = Book.objects.all()
     form = SellBookForm()
-    nums_by_course = {'testcourse': 1}
-    # for course in profile.course_list.all():
-    #     num = 0
-    #     for book in profile.books_owned.all():
-    #         if course.books.all() == book:
-    #             num += 1
-    #     nums_by_course[course] = num
+    nums_by_course = {}
+    for course in profile.course_list.all():
+        num = 0
+        for book in profile.books_owned.all():
+            if course.books.all() == book:
+                num += 1
+        nums_by_course[str(course)] = num
 
     context_dict = {'user' : profile,
 					'form'  : form,
@@ -37,13 +37,7 @@ def get_context(request):
                     'num_total' : len(profile.books_needed.all())
                     + len(profile.books_owned.all())
                     + len(profile.books_selling.all()),
-                    'nums_by_course' : nums_by_course   }
-                    
-    return context_dict
-
-def index(request):
-    context = RequestContext(request)
-    context_dict = get_context(request)
+                    'nums_by_course' : nums_by_course  }
 
     return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
@@ -113,9 +107,7 @@ def scrape(request):
 def coursepage(request, course_dpt, course_num):
 	context = RequestContext(request)
 	
-	context_dict = get_context(request)
 	course = Course.objects.get(dept=course_dpt, num=course_num)
-	context_dict['course'] = course
 	
 	books = course.books
 	
