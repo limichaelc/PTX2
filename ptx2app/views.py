@@ -31,7 +31,7 @@ def get_context(request):
                     current_course.append(book.book)
         nums_by_course[course] = len(current_course)
     user_selling = []
-    for listing in Listings.all():
+    for listing in Listing.all():
         if listing.owner == profile:
             user_selling.append(listing)
 
