@@ -30,6 +30,10 @@ def get_context(request):
                 if book.book not in current_course:
                     current_course.append(book.book)
         nums_by_course[course] = len(current_course)
+    user_selling = []
+    for listing in Listings.all():
+        if listing.owner = profile:
+            user_selling.append(listing)
 
     context_dict = {'user' : profile,
 					'form'  : form,
@@ -40,7 +44,8 @@ def get_context(request):
                     'num_total' : len(profile.books_needed.all())
                     + len(profile.books_owned.all())
                     + len(profile.books_selling.all()),
-                    'nums_by_course' : nums_by_course  }
+                    'nums_by_course' : nums_by_course,
+                    'user_selling': user_selling  }
     return context_dict
 
 # Create your views here.
