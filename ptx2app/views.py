@@ -33,6 +33,10 @@ def get_context(request):
 # Create your views here.
 def index(request):
     context = RequestContext(request)
+    
+    context_dict = get_context(request)
+    
+    profile = context_dict['user']
     nums_by_course = {}
     for course in profile.course_list.all():
         num = 0
