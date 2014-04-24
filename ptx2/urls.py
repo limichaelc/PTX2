@@ -10,8 +10,9 @@ urlpatterns = patterns('',
     # url(r'^$', 'ptx2.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
+    url(r'^admin/scrape/$', 'ptx2app.views.scrape', name = 'scrape'),
     url(r'^admin/', include(admin.site.urls)),
-	(r'^$', RedirectView.as_view(url='/bookshelf/')),
+	url(r'^$', 'django_cas.views.login', {'next_page' : 'bookshelf'}), # RedirectView.as_view(url='/bookshelf/')),
 	url(r'^bookshelf/', 'ptx2app.views.index'),
 	url(r'^profile/', 'ptx2app.views.profile'),
 	url(r'^about/$', 'ptx2app.views.about', name = 'about'),
@@ -22,10 +23,9 @@ urlpatterns = patterns('',
     
 	#url(r'^courses/(?P<dept>\w+)/(?P<num>\d+)/$', 'ptx2app.templates.coursepage'),
 
-    url(r'^scrape/', 'ptx2app.views.scrape', name = 'scrape'),
 
     #CAS
     url(r'^login/$', 'django_cas.views.login'),
     url(r'^logout/$', 'django_cas.views.logout'),
-    url(r'^index/$', 'django_cas.views.login', {'next_page' : ''}),
+    #url(r'^index/$', 'django_cas.views.login', {'next_page' : ''}),
 )
