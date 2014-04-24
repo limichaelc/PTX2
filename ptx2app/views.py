@@ -113,7 +113,9 @@ def scrape(request):
 def coursepage(request, course_dpt, course_num):
 	context = RequestContext(request)
 	
+	context_dict = get_context(request)
 	course = Course.objects.get(dept=course_dpt, num=course_num)
+	context_dict['course'] = course
 	
 	books = course.books
 	
