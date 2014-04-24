@@ -41,7 +41,7 @@ def get_context(request):
 def index(request):
     context = RequestContext(request)
 
-    return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
+    return render_to_response('ptonptx2/bookshelf.html', context)
 
 def about(request):
     context = RequestContext(request)
