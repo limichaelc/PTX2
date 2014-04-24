@@ -5,12 +5,17 @@
 <b>March 16:</b> Created Github project; distributed documentation for learning different systems being used; added timeline to repo in form of project page<br>
 <b>March 30:</b> Created mockups of site; drafted up database structure in Django; wrote scraper for Amazon and began work on scraping Blackboard data<br>
 <b>April 1:</b> Continued work on scraper. Ran into problems with the redirects from the Course Registrar to the Blackboard reading lists. Managed to work around the first redirect by scraping for first set of links and then scraping from those pages, but still unsure how to get around CAS login. Need to contact Help Desk again about consolidated database. Began putting together website using Bootstrap. Ran into issue where tutorial wasn't matching up with actual page, but overall looks correct. Add listing page essentially completed. Realized some more learning about Github required. (Merge? Oh wait, everything is gone...) Got a page running on AppEngine (ptonptx2.appspot.com), but may have some issues with SQL (we have to pay?). Looking into possibly switching to Heroku?<br>
-<b>April 3:</b> Realized existence of discrepancy between version of Bootstrap in tutorial and version being used. Have to use different classes, but things are looking more correct. Refer to Bootstrap's own documentation for future. Figure out how to have site wide elements (header, sidebar); thinking of using SSI, which seems straightforward. Got contact for registrar (Vicky Glossen, but she won't pick up...)
-<b>April 4:</b> Successfully got Blackboard scraping to work, and ported into Python. The issue was with cookies, and being able to stay logged into Blackboard.
+<b>April 3:</b> Realized existence of discrepancy between version of Bootstrap in tutorial and version being used. Have to use different classes, but things are looking more correct. Refer to Bootstrap's own documentation for future. Figure out how to have site wide elements (header, sidebar); thinking of using SSI, which seems straightforward. Got contact for registrar (Vicky Glossen, but she won't pick up...)<br>
+<b>April 4:</b> Successfully got Blackboard scraping to work, and ported into Python. The issue was with cookies, and being able to stay logged into Blackboard.<br>
 <b>April 9:</b> Integrated Michael's pages into the Django environment, allowing them to be displayed with CSS locally and theoretically on Heroku (though we didn't commit there yet). Realized that we need to standardize how we use Git to prevent confusion/losing work.<br>
-<b>April 11:</b> Restructured file hierarchy. <br>
-<b>April 18:</b> <br>
-<b>April 24:</b> Fixed course badges in sidebar. Accurately determines how many books from a course a user has. Made add course form, but still cosmetic issues and not actually functional yet. Fixed bookshelf to match new models.
+<b>April 10:</b> Restructured file hierarchy. Templates and static files now in the app folder, where Django wants them to be.<br>
+<b>April 11:</b> Added templates and about page.<br>
+<b>April 14:</b> Began experimenting with URLS. Figured out how to get URLs to load content from different views.<br>
+<b>April 15:</b> Added more URLs. Updated the scraper to get required/recommended status.<br>
+<b>April 17:</b> Moved scraper into the app directory, added a simple webpage to initiate scraping. Continued creating/updating templates for webpages.<br>
+<b>April 18:</b> Integrated CAS. Still need to figure out how to get entire site behind CAS, instead of just the /index dummy page.<br>
+
+<b>April 24:</b> Fixed course badges in sidebar. Accurately determines how many books from a course a user has. Made add course form, but still cosmetic issues and not actually functional yet. Fixed bookshelf to match new models.<br>
 
 
 
