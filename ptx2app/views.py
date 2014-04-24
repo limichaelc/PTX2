@@ -18,6 +18,13 @@ def get_context(request):
         profile.save()
     books = Book.objects.all()
     form = SellBookForm()
+    nums_by_course = {}
+    for course in profile.course_list.all():
+        num = 0
+        for book in profile.books_owned.all():
+            if course.books.all() in book:
+                num += 1
+        nums_by_course[course] = num
 
     context_dict = {'user' : profile,
 					'form'  : form,
@@ -45,7 +52,7 @@ def index(request):
                 num += 1
         nums_by_course[course] = num
 
-    return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
+    return render_to_response('ptonptx2/bookshelf.html', context)
 
 def about(request):
     context = RequestContext(request)
