@@ -22,7 +22,7 @@ def index(request):
     form = SellBookForm()
     nums_by_course = {}
     for course in profile.course_list.all():
-        nums_by_course[course] = len(profile.books_owned.get(course_list = course).all())
+        nums_by_course[course] = len(profile.books_owned.get(book.course_list = course).all())
 
     context_dict = {'user' : profile,
 					'form'  : form,
