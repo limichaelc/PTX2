@@ -72,7 +72,7 @@ def bookpage(request, isbn):
     
     context_dict['book'] = book
     
-    return render_to_response('ptonptx2/course_look.html', context_dict, context)
+    return render_to_response('ptonptx2/book_lookup.html', context_dict, context)
     
 
 def about(request):
