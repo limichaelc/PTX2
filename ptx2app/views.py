@@ -7,6 +7,8 @@ from scraper import pagewriter, scrape
 from django.http import HttpResponseRedirect
 
 def get_context(request):
+    if not request.user.is_authenticated():
+        HttpResponseRedirect("/login/")
     try:
         user = request.user
     except:
