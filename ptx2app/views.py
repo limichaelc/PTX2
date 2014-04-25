@@ -7,6 +7,7 @@ from scraper import pagewriter, scrape
 from django.http import HttpResponseRedirect
 
 def get_context(request):
+    context = RequestContext(request)
     if not request.user.is_authenticated():
         return render_to_response('ptonptx2/about.html', context)
     try:
