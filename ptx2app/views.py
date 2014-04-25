@@ -79,6 +79,8 @@ def index(request):
 
 def bookpage(request, isbn):
     context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
     
     context_dict = get_context(request)
     book = Book.objects.get(isbn=isbn)
@@ -90,12 +92,15 @@ def bookpage(request, isbn):
 
 def about(request):
     context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
     
     return render_to_response('ptonptx2/about.html', context)
 
 def sell_book(request):
     context = RequestContext(request)
-
+    if not request.user.is_authenticated():
+        return redirect('/login/')
     if request.method == 'POST':
         print "haha"
         form = SellBookForm(request.POST)
@@ -112,6 +117,8 @@ def sell_book(request):
 
 def add_course(request):
     context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
     if request.method == 'POST':
         form = AddCourseForm(request.POST)
         if form.is_valid():
@@ -127,6 +134,8 @@ def add_course(request):
     
 def profile(request):
     context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
     profile = request.user.get_profile()
 
     if request.method == 'POST':
@@ -144,7 +153,8 @@ def profile(request):
     
 def scrape(request):
     context = RequestContext(request)
-
+    if not request.user.is_authenticated():
+        return redirect('/login/')
     if request.method == 'POST':
         pagewriter.write('page.txt')
         scrape.scrape('page.txt')
@@ -153,7 +163,8 @@ def scrape(request):
     
 def coursepage(request, course_dpt, course_num):
 	context = RequestContext(request)
-	
+    if not request.user.is_authenticated():
+        return redirect('/login/')
 	course = Course.objects.get(dept=course_dpt, num=course_num)
 	
 	books = course.books
