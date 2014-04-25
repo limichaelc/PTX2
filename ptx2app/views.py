@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 
 def get_context(request):
     if request.user.is_authenticated():
+        user = request.user
     else:
         HttpResponseRedirect("/login")
     try:
