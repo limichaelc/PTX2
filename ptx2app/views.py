@@ -5,6 +5,7 @@ from ptx2app.models import *
 from ptx2app.forms import *
 from scraper import pagewriter, scrape
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 
 
 def get_context(request):
