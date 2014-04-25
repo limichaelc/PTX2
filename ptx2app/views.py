@@ -8,6 +8,10 @@ from django.http import HttpResponseRedirect
 
 def get_context(request):
     try:
+        user = request.user
+    else:
+        HttpResponseRedirect("/login/")
+    try:
         profile = request.user.get_profile()
     except:
         profile = Profile.objects.create(user = user)
