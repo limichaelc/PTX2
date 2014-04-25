@@ -6,7 +6,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">Sell "{{ book.title }}"</h4>
 				</div>
-				<form action="/sellbook/" method="post">{% csrf_token %}
+				<form action="/sellbook/" method="post" class="form-group">{% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="Submit" />
 </form>
