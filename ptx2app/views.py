@@ -10,8 +10,6 @@ from django.shortcuts import redirect
 
 def get_context(request):
     context = RequestContext(request)
-    if not request.user.is_authenticated():
-        return redirect('/login/')
     try:
         user = request.user
     except:
@@ -61,6 +59,8 @@ def index(request):
 
     context = RequestContext(request)
     
+    if not request.user.is_authenticated():
+        return redirect('/login/')
     context_dict = get_context(request)
     
     profile = context_dict['user']
