@@ -37,7 +37,7 @@ def get_context(request):
     user_selling = []
 
     listings = Listing.objects.get(owner=profile)
-    for listing in listings.all():
+    for listing in listings:
         user_selling.append(listing)
 
 
