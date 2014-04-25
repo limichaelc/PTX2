@@ -36,7 +36,7 @@ def get_context(request):
 
     user_selling = []
 
-    listings = Listing.objects.get(owner=profile)
+    listings = Listing.objects.filter(owner=profile)
     for listing in listings:
         user_selling.append(listing)
 
@@ -83,7 +83,7 @@ def bookpage(request, isbn):
         return redirect('/login/')
     
     context_dict = get_context(request)
-    book = Book.objects.get(isbn=isbn)
+    book = Book.objects.filter(isbn=isbn)
     
     context_dict['book'] = book
     
