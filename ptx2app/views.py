@@ -162,20 +162,20 @@ def scrape(request):
     return render_to_response('ptonptx2/scrape.html', {'form': None}, context)
     
 def coursepage(request, course_dpt, course_num):
-	context = RequestContext(request)
-    if not request.user.is_authenticated():
+    context = RequestContext(request)
+	if not request.user.is_authenticated():
         return redirect('/login/')
-	course = Course.objects.get(dept=course_dpt, num=course_num)
+    course = Course.objects.get(dept=course_dpt, num=course_num)
 	
-	books = course.books
+    books = course.books
 	
-	fields = Book._meta.fields
+    fields = Book._meta.fields
 	
-	context_dict = get_context(request)
-	context_dict['course'] = course
+    context_dict = get_context(request)
+    context_dict['course'] = course
 
 	
-	return render_to_response('ptonptx2/course_page.html', context_dict,
+    return render_to_response('ptonptx2/course_page.html', context_dict,
 	                                                         context)
 	                                                         
 	                                                         
