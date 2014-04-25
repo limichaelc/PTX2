@@ -36,9 +36,6 @@ def get_context(request):
 
     user_selling = []
 
-    listings = Listing.objects.filter(owner=profile)
-    for listing in listings:
-        user_selling.append(listing)
 
 
     context_dict = {'user' : profile,
