@@ -11,6 +11,7 @@ def get_context(request):
         user = request.user
     else:
         HttpResponseRedirect("/login")
+    user = request.user
     try:
         profile = request.user.get_profile()
     except:
