@@ -163,7 +163,7 @@ def scrape(request):
     
 def coursepage(request, course_dpt, course_num):
     context = RequestContext(request)
-	if not request.user.is_authenticated():
+    if not request.user.is_authenticated():
         return redirect('/login/')
     course = Course.objects.get(dept=course_dpt, num=course_num)
 	
