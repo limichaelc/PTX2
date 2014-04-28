@@ -5,11 +5,11 @@
 {% block title %}PTX2 | Bookshelf{% endblock %}
 
 {% block main %}
-<div class="col-md-6 column" padding-left="2cm">
+<div class="col-md-6 column">
 	<div class="row clearfix" id="needtobuy">
 	{% if user.books_need.all %}
-        <div class="col-md-4">                                         
-	<h4> Books Needed </h4>
+                                               
+	<h4 padding-left="5px"> Books Needed </h4>
 	  {% for book in user.books_needed.all %}
 		<div class="col-md-4">
 			<div class="thumbnail">
@@ -43,8 +43,8 @@
 {% endif %}
 		<div class="row clearfix" id="selling">
 		{% if user_selling.all %}
-        <div class="col-md-4">
-		<h4>Selling </h4>
+        
+		<h4 padding-left="5px">Selling </h4>
 		  {% for listing in user_selling.all %}
 			<div class="col-md-4">
 				<div class="thumbnail">
@@ -64,8 +64,8 @@
 		{% endif %} 
 		<div class="row clearfix" id="owned">
 		{% if user.books_owned.all %}
-        <div class="col-md-4">
-		<h4>Owned</h4>
+        
+		<h4 padding-left="5px">Owned</h4>
 		  {% for book in user.books_owned.all %}
 			<div class="col-md-4">
 				<div class="thumbnail">
