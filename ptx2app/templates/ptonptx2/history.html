@@ -7,12 +7,15 @@
 {% block main %}
 	<h4> Transaction History </h4>
 	<table class="table table-striped">
-	<tr>
+	 <thead>
+	 <tr>
 	  <th>Seller</th>
 	  <th>Buyer</th>
 	  <th>Title</th>
 	  <th>Price</th>
 	</tr>
+	</thead>
+	<tbody>
 	{% for transaction in history %}
 	<tr>
 	  <td> {{transaction.buyer.user.username}} </td>
@@ -21,6 +24,7 @@
 	  <td> {{transaction.price}}</td>
 	</tr>
 	{% endfor %}
+</tbody>
 </table>
 
 {% include 'forms/newlisting.html' %}
