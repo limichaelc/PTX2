@@ -6,14 +6,14 @@
 
 {% block main %}
 	<h4> Transaction History </h4>
-	<div class="col-md-6 column">
-	<div class="row clearfix">
+	<ul>
 	{% for transaction in history.all %}
-	<div> {{transaction.buyer}} {{transaction.seller}}
-	  {{transaction.book.title}} {{transaction.price}} {{transaction.review}}
+	<li> {{transaction.buyer}} {{transaction.seller}}
+	  {{transaction.book.title}} {{transaction.price}} {{transaction.review}} </li
 			{% endfor %}
+</ul>
+{% endblock %}
 
-    </div>
-    </div>
-
+{% include 'forms/newlisting.html' %}
+{% include 'forms/watchlist.html' %}
 {% endblock %}
