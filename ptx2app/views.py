@@ -20,6 +20,7 @@ def get_context(request):
         profile = Profile.objects.create(user = user)
         profile.save()
     books = Book.objects.all()
+    transactions = Transaction.objects.all()
     form = SellBookForm()
     nums_by_course = {}
     for course in profile.course_list.all():
@@ -41,6 +42,7 @@ def get_context(request):
     context_dict = {'user' : profile,
 					'form'  : form,
 					'books' : books,
+                    'transaction': transaction,
                     'num_needed' : len(profile.books_needed.all()),
                     'num_owned' : len(profile.books_owned.all()),
                     'num_selling' : len(profile.books_selling.all()),
