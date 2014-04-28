@@ -69,8 +69,8 @@ class Listing(models.Model):
         return self.book.book.title + " for $" + str(self.price)
 
 class Transaction(models.Model):
-    buyer = models.ForeignKey(Profile, related_name = "transcation_buyer")
-    seller = models.ForeignKey(Profile, related_name = "transcation_seller")
+    buyer = models.ForeignKey(Profile, related_name = "transaction_buyer")
+    seller = models.ForeignKey(Profile, related_name = "transaction_seller")
     book = models.ForeignKey(PhysBook)
     price = models.DecimalField(max_digits = 100, decimal_places = 2)
     review = models.ManyToManyField(Review)

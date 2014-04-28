@@ -171,6 +171,17 @@ def history(request):
     
     return render_to_response('ptonptx2/history.html', context_dict, context)
 
+def selling(request):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    profile = request.user.get_profile()
+    context_dict = get_context(request)
+    books_selling = profile.books_selling.objects.all()
+    context_dict['selling'] = books_selling
+
+    return render_to_response('ptonptx2/selling.html', context_dict, context)
+
 def scrape(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
