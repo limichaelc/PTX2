@@ -39,6 +39,7 @@
 			</div>
 			{% endfor %}
 		</div>
+{% endif %}
 		<div class="row clearfix" id="selling">
 		{% if user_selling.all %}
 		<h4>Selling </h4>
@@ -58,7 +59,7 @@
 			</div>
 			{% endfor %}
 		</div>
-		
+		{% endif %} 
 		<div class="row clearfix" id="owned">
 		{% if user.books_owned.all %}
 		<h4>Owned</h4>
@@ -78,5 +79,6 @@
 			{% endfor %}
 		</div>
 	</div>
+{% endif %}
 	{% include 'forms/newlisting.html' %}
 	{% endblock %}
