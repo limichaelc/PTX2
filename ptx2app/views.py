@@ -150,6 +150,14 @@ def profile(request):
         
     return render_to_response('forms/newprofile.html', {'form': form}, context)
     
+def history(request):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    profile = request.user.get_profile()
+
+    print "hi"
+
 def scrape(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
