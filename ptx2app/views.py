@@ -187,8 +187,8 @@ def buybook(request, isbn, listingid):
     
     context_dict = RequestContext(request)
 	
-	listing = Listing.objects.get(id=listingid)
+    listing = Listing.objects.get(id=listingid)
 	
-	context_dict['listing'] = listing
+    context_dict['listing'] = listing
 	
-	return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
+    return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
