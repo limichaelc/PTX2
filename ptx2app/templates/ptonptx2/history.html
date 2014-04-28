@@ -10,7 +10,7 @@
 	<div class="row clearfix">
 	{% for transaction in history.all %}
 	<div> {{transaction.buyer}} {{transaction.seller}}
-	  {{transaction.book.__unicode__()}} {{transaction.price}} {{transaction.review}}
+	  {{transaction.book.title}} {{transaction.price}} {{transaction.review}}
 			{% endfor %}
 
     </div>
