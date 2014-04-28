@@ -83,7 +83,7 @@ def bookpage(request, isbn):
     book = Book.objects.get(isbn=isbn)
     listings = Listing.objects.filter(book__book__isbn = isbn)
     
-    context_dict['listing'] = listings
+    context_dict['listings'] = listings
     context_dict['book'] = book
     
     return render_to_response('ptonptx2/book_lookup.html', context_dict, context)
