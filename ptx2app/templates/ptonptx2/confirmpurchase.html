@@ -13,13 +13,13 @@
             <img src={{ listing.book.book.picture_link }} width="130">
         </div>
         <div class="col-md-6">
-            <h5><a href="/books/{{book.isbn}}"> {{ book.title }}</a></h5>
+            <h5><a href="/{{book.isbn}}"> {{ book.title }}</a></h5>
             <p>Price: ${{ listing.price }}<br>
             Condition: {{ listing.condition }}
             Seller's comment: {{ listing.book.comment }}
             </p>
         </div>
-        <button type="button" class="btn btn-primary"><a href = "/confirmed/">Confirm Purchase</a></button>
+        <button type="button" class="btn btn-primary" href="confirmed/">Confirm Purchase</button>
     </div>
 </div>
 {% include 'forms/newlisting.html' %}
