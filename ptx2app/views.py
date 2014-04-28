@@ -187,15 +187,16 @@ def coursepage(request, course_dpt, course_num):
 	                                                         
 	                                                         
 	
-def buybook(request, isbn, id):
+def buybook(request, isbn, listingid):
     context = RequestContext(request)
     
-    context_dict = RequestContext(request)
     if not request.user.is_authenticated():
         return redirect('/login/')
+    
+    context_dict = RequestContext(request)
 	
-	listing = Listing.objects.get(id=id)
+    listing = Listing.objects.get(id=listingid)
 	
-	context_dict['listing'] = listing
+    context_dict['listing'] = listing
 	
-	return render_to_response('ptonptx2/confirmpurchase.html', context_dict, context)
+    return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
