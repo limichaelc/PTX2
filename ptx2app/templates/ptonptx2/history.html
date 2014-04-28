@@ -7,7 +7,7 @@
 {% block main %}
 	<h4> Transaction History </h4>
 	<ul>
-	{% for transaction in history.all %}
+	{% for transaction in history %}
 	<li> {{transaction.buyer}} {{transaction.seller}}
 	  {{transaction.book.title}} {{transaction.price}} {{transaction.review}} </li
 			{% endfor %}
