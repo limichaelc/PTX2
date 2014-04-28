@@ -179,7 +179,7 @@ def coursepage(request, course_dpt, course_num):
 	                                                         
 	                                                         
 	
-def buybook(request, isbn, id):
+def buybook(request, isbn, listingid):
     context = RequestContext(request)
     
      if not request.user.is_authenticated():
@@ -187,7 +187,7 @@ def buybook(request, isbn, id):
     
     context_dict = RequestContext(request)
 	
-	listing = Listing.objects.get(id=id)
+	listing = Listing.objects.get(id=listingid)
 	
 	context_dict['listing'] = listing
 	
