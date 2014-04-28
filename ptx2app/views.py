@@ -80,9 +80,11 @@ def bookpage(request, isbn):
         return redirect('/login/')
     
     context_dict = get_context(request)
-    book = Book.objects.filter(isbn=isbn)
+    book = Book.objects.get(isbn=isbn)
+    listings = Listings.objects.filter(book.book.isbn = isbn)
     
-    context_dict['listing'] = book
+    context_dict['listing'] = listings
+    context_book['book'] = book
     
     return render_to_response('ptonptx2/book_lookup.html', context_dict, context)
     
