@@ -82,7 +82,7 @@ def bookpage(request, isbn):
     context_dict = get_context(request)
     book = Book.objects.filter(isbn=isbn)
     
-    context_dict['book'] = book
+    context_dict['listing'] = book
     
     return render_to_response('ptonptx2/book_lookup.html', context_dict, context)
     
