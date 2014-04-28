@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}PTX2 {% endblock %}
+
+{% block main %}
+	<h4> Transaction History </h4>
+	<div class="col-md-6 column">
+	<div class="row clearfix">
+	{% for transaction in history.all %}
+	<div> {{transaction.buyer}} {{transaction.seller}}
+	  {{transaction.book.__unicode__()}} {{transaction.price}} {{transaction.review}}
+			{% endfor %}
+
+    </div>
+    </div>
+
+{% endblock %}
