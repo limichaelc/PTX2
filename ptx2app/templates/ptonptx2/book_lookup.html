@@ -38,7 +38,7 @@
                 <th>Condition</th>
                 <th>Description</th>
             </tr>
-            {% for listing in book.listings %}
+            {% for listing in listings %}
             <tr>
                 <td>${{ listing.price|floatformat:2 }}</td>
                 <td>{{ listing.condition }}</td>
