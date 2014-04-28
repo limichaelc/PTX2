@@ -167,7 +167,7 @@ def history(request):
             past_transactions.append(instance)
             
     context_dict['history'] = past_transactions
-    html = "<html><body>" past_transactions "</body></html>"
+    html = "<html><body> %s " % profile
     return HttpResponse(html)
     #return render_to_response('ptonptx2/history.html', context_dict, context)
 
