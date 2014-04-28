@@ -41,6 +41,7 @@
             <tr>
                 <td>${{ listing.price|floatformat:2 }}</td>
                 <td>{{ listing.book.comment }}</td>
+                <td>{% url 'ptx2app.views.buybook' listing=listing %}}</td>
             </tr>
             {% endfor %}
         </table>

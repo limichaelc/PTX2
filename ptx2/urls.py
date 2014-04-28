@@ -20,6 +20,7 @@ urlpatterns = patterns('',
 	url(r'^sellbook/', 'ptx2app.views.sell_book',  name = 'sell_book'),
 	url(r'^(?P<isbn>\d+)/', 'ptx2app.views.bookpage'),
 	url(r'^courses/(?P<course_dpt>\w+)/(?P<course_num>\d+)/', 'ptx2app.views.coursepage'),
+	url(r'^(?P<isbn>\d+)/buy', 'ptx2app.views.buybook'),
 
     #url(r'^sellbook/', 'ptx2app.views.sell_book', name = 'sell_book'),
     

@@ -179,5 +179,8 @@ def coursepage(request, course_dpt, course_num):
 	                                                         
 	                                                         
 	
-	
+def buybook(request, listing):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
 	
