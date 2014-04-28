@@ -5,7 +5,7 @@
 		<h4 style="font-variant:small-caps">Bookshelf</h4>
 		<li><a href="/bookshelf"><span class="badge pull-right">{{ num_total }}</span>All Items</a></li>
 		<li><a href="/bookshelf/#needtobuy"><span class="badge pull-right">{{ num_needed }}</span>Need to Buy</a></li>
-		<li><a href="/bookshelf/#selling"><span class="badge pull-right">{{ num_selling }}</span>Selling</a></li>
+		<li><a href="/selling"><span class="badge pull-right">{{ num_selling }}</span>Selling</a></li>
 		<li><a href="/bookshelf/#owned"><span class="badge pull-right">{{ num_owned }}</span>Owned</a></li>
 		<li><a href="#" data-toggle="modal" data-target="#newbookmodal"><span class="glyphicon glyphicon-plus"></span> Add book</a></li>
 		<h4 style="font-variant:small-caps">Courses</h4>
