@@ -41,7 +41,7 @@
             <tr>
                 <td>${{ listing.price|floatformat:2 }}</td>
                 <td>{{ listing.book.comment }}</td>
-                <td>{% url 'ptx2app.views.buybook' listing %}</td>
+                <td><a href="{% url 'buybook' listing %}"Buy</a></td>
             </tr>
             {% endfor %}
         </table>
