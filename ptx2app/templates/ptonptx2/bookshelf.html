@@ -43,7 +43,7 @@
 				<div class="thumbnail">
 					<div class="caption">
 						<img src={{ listing.book.book.picture_link }} width="130">
-						<h5><a href="/books/{{listing.book.book.isbn}}"> {{ listing.book.book.title }}</a></h5>
+						<h5><a href="/{{listing.book.book.isbn}}"> {{ listing.book.book.title }}</a></h5>
 						<p>Selling for ${{ listing.price }}<br>
 							{% if listing.sell_status == 'P' %}
 							Offer made!<br>
