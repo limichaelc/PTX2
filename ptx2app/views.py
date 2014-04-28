@@ -164,7 +164,7 @@ def history(request):
     for instance in transaction:
         if profile == instance.buyer:
             past_transactions.append(instance)
-        elif profile == instance.seller():
+        elif profile == instance.seller:
             past_transactions.append(instance)
         
     context_dict['history'] = past_transactions
