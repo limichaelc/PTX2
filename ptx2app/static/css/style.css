@@ -1,3 +1,10 @@
 .caption {
 	font-size: small
 }
+
+#footer {
+	position: absolute;
+	bottom: 0;
+	height: 60px;
+	background-color: #f5f5f5;
+}
