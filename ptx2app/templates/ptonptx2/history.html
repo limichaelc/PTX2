@@ -9,7 +9,7 @@
 	<ul>
 	{% for transaction in history %}
 	<li> {{transaction.buyer.user.username}} {{transaction.seller.user.username}} </li>
-	 <li> {{transaction.book.title}} {{transaction.price}} {{transaction.review.comment}} </li
+	 <li> {{transaction.book.book.title}} {{transaction.price}}</li>
 			{% endfor %}
 </ul>
 
