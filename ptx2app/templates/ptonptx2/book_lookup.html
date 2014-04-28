@@ -41,7 +41,7 @@
             <tr>
                 <td>${{ listing.price|floatformat:2 }}</td>
                 <td>{{ listing.book.comment }}</td>
-                <td><a href="{% url 'ptx2app.views.buybook' isbn=book.isbn id=listing.id %}">Buy</a></td>
+                <td><a href="{% url 'ptx2app.views.buybook' isbn=book.isbn listingid=listing.id %}">Buy</a></td>
             </tr>
             {% endfor %}
         </table>
