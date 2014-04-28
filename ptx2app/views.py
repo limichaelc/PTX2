@@ -199,4 +199,4 @@ def buybook(request, isbn, listingid):
 	
     context_dict['listing'] = listing
 	
-    return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
+    return render_to_response('ptonptx2/confirmpurchase.html', context_dict, context)
