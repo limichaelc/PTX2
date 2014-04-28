@@ -5,6 +5,7 @@
 {% block title %}PTX2 | Bookshelf{% endblock %}
 
 {% block main %}
+<h4>Need to Buy</h4>
 <div class="col-md-6 column">
 	<div class="row clearfix" id="needtobuy">
 		{% for book in user.books_needed.all %}
@@ -12,7 +13,7 @@
 			<div class="thumbnail">
 				<div class="caption">
 					<img src={{ book.picture_link }} width="130">
-					<h5><a href="/books/{{book.isbn}}"> {{ book.title }}</a></h5>
+					<h5><a href="/{{book.isbn}}"> {{ book.title }}</a></h5>
 					<p class="course_list">Used in
 						{% for course in user.course_list.all %}
 						{% for reading in course.books.all %}
@@ -37,6 +38,7 @@
 			</div>
 			{% endfor %}
 		</div>
+	<h4> Selling</h4>
 		<div class="row clearfix" id="selling">
 			{% for listing in user_selling.all %}
 			<div class="col-md-4">
@@ -54,13 +56,14 @@
 			</div>
 			{% endfor %}
 		</div>
+		<h4> Owned</h4>
 		<div class="row clearfix" id="owned">
 			{% for book in user.books_owned.all %}
 			<div class="col-md-4">
 				<div class="thumbnail">
 					<div class="caption">
 						<img src={{book.book.picture_link}} width="130">
-						<h5><a href="/books/{{book.book.isbn}}"> {{ book.book.title }}</a></h5>
+						<h5><a href="/{{book.book.isbn}}"> {{ book.book.title }}</a></h5>
 						<p>
 							Owned<br>
 							<a href="#" data-toggle="modal" data-target="#newlistingmodal">Sell?</a>
