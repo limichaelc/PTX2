@@ -182,12 +182,13 @@ def coursepage(request, course_dpt, course_num):
 def buybook(request, isbn, id):
     context = RequestContext(request)
     
-    context_dict = RequestContext(request)
-    if not request.user.is_authenticated():
+     if not request.user.is_authenticated():
         return redirect('/login/')
+    
+    context_dict = RequestContext(request)
 	
 	listing = Listing.objects.get(id=id)
 	
 	context_dict['listing'] = listing
 	
-	return render_to_response('ptonptx2/confirmpurchase.html', context_dict, context)
+	return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
