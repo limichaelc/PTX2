@@ -8,7 +8,7 @@
 	<h4> Transaction History </h4>
 	<ul>
 	{% for transaction in history %}
-	<li> {{transaction.buyer}} {{transaction.seller}}
+	<li> {{transaction.buyer.user.username}} {{transaction.seller.user.username}}
 	  {{transaction.book.title}} {{transaction.price}} {{transaction.review}} </li
 			{% endfor %}
 </ul>
