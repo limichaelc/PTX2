@@ -5,8 +5,8 @@
 {% block title %}PTX2 | {{ course.name }}{% endblock %}
 
 {% block main %}
-	<h4>{{course.name}} ({{course.dept}} {{course.num}})</h4>
-	<div class="col-md-6 column">
+<h4>{{course.name}} ({{course.dept}} {{course.num}})</h4>
+<div class="col-md-6 column">
 	<div class="row clearfix">
 	{% for book in course.books.all %}
 		<div class="col-md-4">
@@ -39,7 +39,7 @@
     </div>
     {% endfor %} -->
     </div>
-    </div>
+</div>
 {% include 'forms/newlisting.html' %}
 {% include 'forms/newcourse.html' %}
 {% endblock %}
