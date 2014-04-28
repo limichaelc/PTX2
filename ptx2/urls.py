@@ -18,9 +18,9 @@ urlpatterns = patterns('',
 	url(r'^profile/', 'ptx2app.views.profile'),
 	url(r'^about/$', 'ptx2app.views.about', name = 'about'),
 	url(r'^sellbook/', 'ptx2app.views.sell_book',  name = 'sell_book'),
-	url(r'^(?P<isbn>\d+)/', 'ptx2app.views.bookpage'),
+	url(r'^(?P<isbn>\d+)/$', 'ptx2app.views.bookpage'),
 	url(r'^courses/(?P<course_dpt>\w+)/(?P<course_num>\d+)/', 'ptx2app.views.coursepage'),
-	url(r'^(?P<isbn>\d+)/(?P<listingid>\d+)/', 'ptx2app.views.buybook', name='buybook'),
+	url(r'^(?P<isbn>\d+)/(?P<listingid>\d+)/$', 'ptx2app.views.buybook'),
 
     #url(r'^sellbook/', 'ptx2app.views.sell_book', name = 'sell_book'),
     
