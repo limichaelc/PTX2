@@ -42,7 +42,6 @@ def get_context(request):
     context_dict = {'user' : profile,
 					'form'  : form,
 					'books' : books,
-                    'transaction': transaction,
                     'num_needed' : len(profile.books_needed.all()),
                     'num_owned' : len(profile.books_owned.all()),
                     'num_selling' : len(profile.books_selling.all()),
@@ -158,7 +157,7 @@ def history(request):
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    transaction = context_dict['transaction']
+    transaction = Transaction.objects.all()
     past_transactions = []
     for instance in transaction:
         if profile == instance.buyer:
