@@ -157,8 +157,10 @@ def history(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     profile = request.user.get_profile()
+    context_dict = get_context(request)
+    transaction = context_dict['transaction']
     past_transactions = []
-    for instance in transaction.all():
+    for instance in transaction:
         if profile == instance.buyer:
             past_transactions.append(instance)
         elif profile == instance.seller():
