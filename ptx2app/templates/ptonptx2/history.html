@@ -5,6 +5,8 @@
 {% block title %}PTX2 {% endblock %}
 
 {% block main %}
+        <div class="col-md-6 column">
+        <div class="row clearfix">
 	<h4> Transaction History </h4>
 	<table class="table table-striped">
 	 <thead>
@@ -26,6 +28,8 @@
 	{% endfor %}
 </tbody>
 </table>
+</div>
+</div>
 
 {% include 'forms/newlisting.html' %}
 {% include 'forms/watchlist.html' %}
