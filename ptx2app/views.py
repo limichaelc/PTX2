@@ -159,6 +159,7 @@ def history(request):
     context_dict = get_context(request)
     transaction = Transaction.objects.all()
     past_transactions = []
+    
     for instance in transaction:
         if profile == instance.buyer:
             past_transactions.append(instance)
@@ -166,8 +167,9 @@ def history(request):
             past_transactions.append(instance)
             
     context_dict['history'] = past_transactions
-
-    return render_to_response('ptonptx2/history.html', context_dict, context)
+    html = "<html><body>" past_transactions "</body></html>"
+    return HttpResponse(html)
+    #return render_to_response('ptonptx2/history.html', context_dict, context)
 
 def scrape(request):
     context = RequestContext(request)
