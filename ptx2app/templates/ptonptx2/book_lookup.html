@@ -35,14 +35,12 @@
         <table class="table table-hover">
             <tr class="clickableRow" href="/buy">
                 <th>Price</th>
-                <th>Condition</th>
-                <th>Description</th>
+                <th>Owner's comments</th>
             </tr>
             {% for listing in listings %}
             <tr>
                 <td>${{ listing.price|floatformat:2 }}</td>
-                <td>{{ listing.condition }}</td>
-                <td>{{ listing.comment }}</td>
+                <td>{{ listing.book.comment }}</td>
             </tr>
             {% endfor %}
         </table>
