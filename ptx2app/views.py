@@ -81,7 +81,7 @@ def bookpage(request, isbn):
     
     context_dict = get_context(request)
     book = Book.objects.get(isbn=isbn)
-    listings = Listings.objects.filter(book__book__isbn = isbn)
+    listings = Listing.objects.filter(book__book__isbn = isbn)
     
     context_dict['listing'] = listings
     context_book['book'] = book
