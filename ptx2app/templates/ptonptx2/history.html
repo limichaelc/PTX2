@@ -20,8 +20,8 @@
 	<tbody>
 	{% for transaction in history %}
 	<tr>
-	  <td> {{transaction.seller.first_name}} {{transaction.seller.last_name</td>
-	  <td> {{transaction.buyer.user.first_name}} {{transaction.buyer.user.last_name}}</td>
+	  <td> {{transaction.seller.user.username}}</td>
+	  <td> {{transaction.buyer.user.username}}</td>
 	  <td>  {{transaction.book.book.title}} </td>
 	  <td> {{transaction.price}}</td>
 	</tr>
