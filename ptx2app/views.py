@@ -239,7 +239,5 @@ def confirmbuybook(request, isbn, listingid):
 	
     context_dict['listing'] = listing
     context_dict['sellerprofile'] = sellerprofile
-    
-    trans = Transaction(buyer=context_dict['profile'], seller=context_dict['sellerprofile'], 
 	
     return render_to_response('ptonptx2/confirmpurchase.html', context_dict, context)
