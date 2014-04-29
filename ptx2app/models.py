@@ -41,6 +41,8 @@ class PhysBook(models.Model):
 
 class Review(models.Model):
 	comment = models.CharField(max_length = 500, blank = True)
+    def __unicode__(self):
+        return self.comment
 
 class Profile(models.Model):
     user = models.ForeignKey(User)
@@ -74,4 +76,7 @@ class Transaction(models.Model):
     book = models.ForeignKey(PhysBook)
     price = models.DecimalField(max_digits = 100, decimal_places = 2)
     review = models.ManyToManyField(Review)
+    
+    def __unicode__(self):
+        return self.buyer.user.username + " sold to " + self.seller.user.username "for " + self.price
   
