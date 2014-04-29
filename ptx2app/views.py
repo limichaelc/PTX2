@@ -291,7 +291,7 @@ def pending(request):
         return redirect('/login/')
     context_dict = get_context(request)
     
-    transactions = Transaction.objects.filter(Q(buyer = context_dict['user'])|Q(seller=context_dict['user']), Q(buyerreview=""), Q(sellerreview=""))
+    transactions = Transaction.objects.filter(Q(buyer = context_dict['user'])|Q(seller=context_dict['user']), Q(buyerreview=None), Q(sellerreview=None))
     
     context_dict['transactions'] = transactions
     
