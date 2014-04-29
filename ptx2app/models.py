@@ -75,7 +75,8 @@ class Transaction(models.Model):
     seller = models.ForeignKey(Profile, related_name = "transaction_seller")
     book = models.ForeignKey(PhysBook)
     price = models.DecimalField(max_digits = 100, decimal_places = 2)
-    review = models.ManyToManyField(Review)
+    buyerreview = models.ManyToManyField(Review)
+    sellerreview
     
     def __unicode__(self):
         return self.seller.user.username + " sold to " + self.buyer.user.username + "for " + str(self.price)
