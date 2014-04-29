@@ -6,10 +6,10 @@
 
 {% block main %}
 <div class="col-md-6 column">
-	<div class="row clearfix" id="needtobuy">
 	{% if first_visit %}
-	<p class="text-muted text-center" padding-top="50px">This appears to be your first visit. Get started by adding a new course!</p>
+	<div class="alert alert-info">This appears to be your first visit. Get started by adding a new course!</div>
 	{% endif %}
+	<div class="row clearfix" id="needtobuy">
 	{% if user.books_needed.all %}
 
 		<h4 padding-left="5px"> Books Needed </h4>
