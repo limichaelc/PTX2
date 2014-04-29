@@ -60,7 +60,8 @@ class Profile(models.Model):
 
 class Listing(models.Model):
     book = models.ForeignKey(PhysBook)
-    owner = models.ForeignKey(Profile)
+    owner = models.ForeignKey(Profile, related_name = "owner")
+    buyer = models.ForeignKey(Profile, related_name = "buyer")
     SELL_STATUSES = (
         ('O', 'Currently offered'),
         ('P', 'Sale pending'),
@@ -78,5 +79,5 @@ class Transaction(models.Model):
     review = models.ManyToManyField(Review)
     
     def __unicode__(self):
-        return self.buyer.user.username + " sold to " + self.seller.user.username + "for " + str(self.price)
+        return self.seller.user.username + " sold to " + self.buyer.user.username + "for " + str(self.price)
   
