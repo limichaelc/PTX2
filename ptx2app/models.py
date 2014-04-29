@@ -78,5 +78,5 @@ class Transaction(models.Model):
     review = models.ManyToManyField(Review)
     
     def __unicode__(self):
-        return self.buyer.user.username + " sold to " + self.seller.user.username "for " + self.price
+        return self.buyer.user.username + " sold to " + self.seller.user.username + "for " + str(self.price)
   
