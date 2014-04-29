@@ -187,9 +187,9 @@ def search(request):
         for f in Course.objects.all():
             if q.upper().replace(" ", "") == (f.dept + f.num):
                 finallist.append(f)
-        context_dict['course'] = finallist
         if len(finallist) == 0:
             return HttpResponse ("No matching query")
+        context_dict['course'] = finallist[0]
     else:
         return HttpResponse('You submitted an empty form.')
     return render_to_response('ptonptx2/course_page.html', context_dict, context)
