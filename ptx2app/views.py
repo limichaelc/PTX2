@@ -39,8 +39,6 @@ def get_context(request):
 
     user_selling = []
 
-
-
     context_dict = {'user' : profile,
 					'form'  : form,
 					'books' : books,
@@ -51,7 +49,8 @@ def get_context(request):
                     + len(profile.books_owned.all())
                     + len(profile.books_selling.all()),
                     'nums_by_course' : nums_by_course,
-                    'user_selling': Listing.objects.filter(owner = profile) }
+                    'user_selling': Listing.objects.filter(owner = profile),
+                    'first_visit': len(profile.course_list.all()) == 0 }
     return context_dict
 
 def index(request):
