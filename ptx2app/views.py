@@ -298,5 +298,5 @@ def pending(request):
     
     context_dict['transactions'] = transactions
     
-    return render_to_response('ptonptx2/pending.html', {'form': form}, context)
+    return render_to_response('ptonptx2/pending.html', context_dict, context)
     
