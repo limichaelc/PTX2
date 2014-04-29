@@ -189,7 +189,7 @@ def search(request):
             return HttpResponse ("No matching query")
     else:
         return HttpResponse('You submitted an empty form.')
-    return render_to_response('ptonptx2/course_page.html', context_dict, 
+    return render_to_response('ptonptx2/course_page.html', context_dict, context)
 
 def selling(request):
     context = RequestContext(request)
