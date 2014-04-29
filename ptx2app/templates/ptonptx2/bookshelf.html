@@ -44,10 +44,10 @@
 		</div>
 		{% endif %}
 		<div class="row clearfix" id="selling">
-			{% if user.books_selling.all %}
+			{% if user_selling.all %}
 
 			<h4 padding-left="5px">Selling </h4>
-			{% for listing in user.books_selling.all %}
+			{% for listing in user_selling.all %}
 			<div class="col-md-4">
 				<div class="thumbnail">
 					<div class="caption">
