@@ -40,7 +40,7 @@ class PhysBook(models.Model):
         return self.book.title
 
 class Review(models.Model):
-	comment = models.CharField(max_length = 500, blank = True)
+    comment = models.CharField(max_length = 500, blank = True)
     def __unicode__(self):
         return self.comment
 
