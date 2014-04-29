@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}PTX2 | Pending transaction of {{ listing.book.book.title }} for ${{ listing.price }} {% endblock %}
+
+{% block main %}
+<h3>How did your transaction go?</h3>
+<form action="pending//{{listing.book.isbn}}/{{listing.id}}/" method="post" class="form-group">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+
+{% include 'forms/newlisting.html' %}
+{% include 'forms/watchlist.html' %}
+{% endblock %}
+
+jQuery(document).ready(function($) {
+      $(".clickableRow").click(function() {
+            window.document.location = $(this).attr("href");
+      });
+});

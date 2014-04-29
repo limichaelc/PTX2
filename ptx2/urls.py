@@ -15,13 +15,20 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     #everything else
-	url(r'^$', 'django_cas.views.login', {'next_page' : 'bookshelf'}), # RedirectView.as_view(url='/bookshelf/')),
-	url(r'^bookshelf/', 'django_cas.views.login'), #'ptx2app.views.index'),
+    url(r'^$', RedirectView.as_view(url='/bookshelf/')),
+	#url(r'^$', 'django_cas.views.login', {'next_page' : 'bookshelf'}), # RedirectView.as_view(url='/bookshelf/')),
+	url(r'^bookshelf/', 'ptx2app.views.index'),
 	url(r'^profile/', 'ptx2app.views.profile'),
+    url(r'^history/', 'ptx2app.views.history'),
+    url(r'^pending/$', 'ptx2app.views.pending'),
 	url(r'^about/$', 'ptx2app.views.about', name = 'about'),
 	url(r'^sellbook/', 'ptx2app.views.sell_book',  name = 'sell_book'),
-	url(r'^(?P<isbn>\d+)/', 'ptx2app.views.bookpage'),
+	url(r'^(?P<isbn>\d+)/$', 'ptx2app.views.bookpage'),
 	url(r'^courses/(?P<course_dpt>\w+)/(?P<course_num>\d+)/', 'ptx2app.views.coursepage'),
+	url(r'^(?P<isbn>\d+)/(?P<listingid>\d+)/$', 'ptx2app.views.buybook'),
+    url(r'^(?P<isbn>\d+)/(?P<listingid>\d+)/confirmed/$', 'ptx2app.views.confirmbuybook'),
+    #url(r'^searchform/$', 'ptx2app.views.search_form'),
+    url(r'^search/', 'ptx2app.views.search'),
 
     #url(r'^sellbook/', 'ptx2app.views.sell_book', name = 'sell_book'),
     

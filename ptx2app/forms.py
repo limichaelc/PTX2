@@ -32,5 +32,9 @@ class AddCourseForm(forms.ModelForm):
     course = forms.ModelChoiceField(queryset = Course.objects.all())
     class Meta:
         model = Profile
-        fields = ('course_list',)
+        fields = ['course_list',]
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
 

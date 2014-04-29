@@ -5,14 +5,20 @@
 {% block title %}PTX2 | Bookshelf{% endblock %}
 
 {% block main %}
-<div class="col-md-6 column">
+<div class="col-md-8 column">
+	{% if first_visit %}
+	<div class="alert alert-info alert-dismissable text-center"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Welcome!</strong> This appears to be your first visit. Get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.</div>
+	{% endif %}
 	<div class="row clearfix" id="needtobuy">
+	{% if user.books_needed.all %}
+
+		<h4 padding-left="5px"> Books Needed </h4>
 		{% for book in user.books_needed.all %}
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
 					<img src={{ book.picture_link }} width="130">
-					<h5><a href="/books/{{book.isbn}}"> {{ book.title }}</a></h5>
+					<h5><a href="/{{book.isbn}}"> {{ book.title }}</a></h5>
 					<p class="course_list">Used in
 						{% for course in user.course_list.all %}
 						{% for reading in course.books.all %}
@@ -23,8 +29,10 @@
 						{% endfor %}
 						<br></p>
 						<p>
-							<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br>
-							<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ book.amazon_price }}<br>
+						  <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
+							<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br></a>
+<a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}">
+						  <img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ book.amazon_price }}<br></a>
 							<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
 							{% if book.lowest_student_price != 0 %}
 							${{ book.lowest_student_price }}.00<br>
@@ -37,13 +45,17 @@
 			</div>
 			{% endfor %}
 		</div>
+		{% endif %}
 		<div class="row clearfix" id="selling">
-			{% for listing in user.books_selling.all %}
+			{% if user_selling.all %}
+
+			<h4 padding-left="5px">Selling </h4>
+			{% for listing in user_selling.all %}
 			<div class="col-md-4">
 				<div class="thumbnail">
 					<div class="caption">
-						<img src={{ listing.book.picture_link }} width="130">
-						<h5><a href="/books/{{listing.book.isbn}}"> {{ listing.book.title }}</a></h5>
+						<img src={{ listing.book.book.picture_link }} width="130">
+						<h5><a href="/{{listing.book.book.isbn}}"> {{ listing.book.book.title }}</a></h5>
 						<p>Selling for ${{ listing.price }}<br>
 							{% if listing.sell_status == 'P' %}
 							Offer made!<br>
@@ -54,13 +66,17 @@
 			</div>
 			{% endfor %}
 		</div>
+		{% endif %} 
 		<div class="row clearfix" id="owned">
+			{% if user.books_owned.all %}
+
+			<h4 padding-left="5px">Owned</h4>
 			{% for book in user.books_owned.all %}
 			<div class="col-md-4">
 				<div class="thumbnail">
 					<div class="caption">
 						<img src={{book.book.picture_link}} width="130">
-						<h5><a href="/books/{{book.book.isbn}}"> {{ book.book.title }}</a></h5>
+						<h5><a href="/{{book.book.isbn}}"> {{ book.book.title }}</a></h5>
 						<p>
 							Owned<br>
 							<a href="#" data-toggle="modal" data-target="#newlistingmodal">Sell?</a>
@@ -71,5 +87,6 @@
 			{% endfor %}
 		</div>
 	</div>
+	{% endif %}
 	{% include 'forms/newlisting.html' %}
 	{% endblock %}

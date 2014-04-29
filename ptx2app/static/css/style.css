@@ -1,3 +1,11 @@
 .caption {
 	font-size: small
 }
+
+body { 
+	padding-bottom: 70px;
+}
+
+.navbar-fixed-bottom {
+	padding-top: 15px;
+}

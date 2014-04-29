@@ -40,7 +40,9 @@ class PhysBook(models.Model):
         return self.book.title
 
 class Review(models.Model):
-	comment = models.CharField(max_length = 500, blank = True)
+    comment = models.CharField(max_length = 500, blank = True)
+    def __unicode__(self):
+        return self.comment
 
 class Profile(models.Model):
     user = models.ForeignKey(User)
@@ -69,8 +71,13 @@ class Listing(models.Model):
         return self.book.book.title + " for $" + str(self.price)
 
 class Transaction(models.Model):
-    buyer = models.ForeignKey(Profile, related_name = "transcation_buyer")
-    seller = models.ForeignKey(Profile, related_name = "transcation_seller")
+    buyer = models.ForeignKey(Profile, related_name = "transaction_buyer")
+    seller = models.ForeignKey(Profile, related_name = "transaction_seller")
     book = models.ForeignKey(PhysBook)
     price = models.DecimalField(max_digits = 100, decimal_places = 2)
-    review = models.ManyToManyField(Review)
+    buyerreview = models.ForeignKey(Review, blank=True, null=True, related_name = "buyerreview")
+    sellerreview = models.ForeignKey(Review, blank=True, null=True, related_name = "sellerreview")
+    
+    def __unicode__(self):
+        return self.seller.user.username + " sold to " + self.buyer.user.username + "for " + str(self.price)
+  

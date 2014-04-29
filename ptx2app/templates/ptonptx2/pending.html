@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}PTX2 | Pending transaction of {{ listing.book.book.title }} for ${{ listing.price }} {% endblock %}
+
+{% block main %}
+        <div class="col-md-9 column">
+        <div class="row clearfix">
+	<h4> Pending Transaction </h4>
+	<table class="table table-striped table-bordered">
+	 <thead>
+	 <tr>
+	  <th>Seller</th>
+	  <th>Buyer</th>
+	  <th>Title</th>
+	  <th>Price</th>
+	</tr>
+	</thead>
+	<tbody>
+	{% for transaction in transactions %}
+	<tr>
+	  <td> {{transaction.seller.user.username}}</td>
+	  <td> {{transaction.buyer.user.username}}</td>
+	  <td>  {{transaction.book.book.title}} </td>
+	  <td> {{transaction.price}}</td>
+	</tr>
+	{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+
+{% include 'forms/newlisting.html' %}
+{% include 'forms/watchlist.html' %}
+{% endblock %}
+
+jQuery(document).ready(function($) {
+      $(".clickableRow").click(function() {
+            window.document.location = $(this).attr("href");
+      });
+});

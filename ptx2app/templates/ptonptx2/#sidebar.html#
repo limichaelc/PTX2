@@ -5,9 +5,9 @@
 		<h4 style="font-variant:small-caps">Bookshelf</h4>
 		<li><a href="/bookshelf"><span class="badge pull-right">{{ num_total }}</span>All Items</a></li>
 		<li><a href="/bookshelf/#needtobuy"><span class="badge pull-right">{{ num_needed }}</span>Need to Buy</a></li>
-		<li><a href="/bookshelf/#selling"><span class="badge pull-right">{{ num_selling }}</span>Selling</a></li>
+		<li><a href="/selling"><span class="badge pull-right">{{ num_selling }}</span>Selling</a></li>
 		<li><a href="/bookshelf/#owned"><span class="badge pull-right">{{ num_owned }}</span>Owned</a></li>
-		<!-- <li><a href="#" data-toggle="modal" data-target="#newbookmodal"><span class="glyphicon glyphicon-plus"></span> Add book</a></li> -->
+		<li><a href="#" data-toggle="modal" data-target="#newbookmodal"><span class="glyphicon glyphicon-plus"></span> Add book</a></li>
 		<h4 style="font-variant:small-caps">Courses</h4>
 		{% for course in user.course_list.all %}
 		<li><a href="/courses/{{course.dept}}/{{course.num}}"><span class="badge pull-right">{% for key, value in nums_by_course.items %}{% if key == course %}{{value}}{%endif%}{%endfor%}{{ nums_by_course.items.course }}/{{course.books.all|length }}</span>{{course.dept.upper}} {{course.num}}</a></li>
@@ -17,4 +17,10 @@
 		<li><a href="{{ BASE_URL }}/profile">My Profile</a></li>
 		<li><a href="{{ BASE_URL }}/history">My History</a></li>
 	</ul>
+</div>
+<div class="col-md-6 column">
+	<div class="row clearfix" id="needtobuy">
+		<div class="col-md-4">
+		</div>
+	</div>
 </div>
