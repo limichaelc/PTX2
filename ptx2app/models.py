@@ -21,7 +21,7 @@ class Book(models.Model):
 class Course(models.Model):
     name = models.CharField(max_length = 100)
     dept = models.CharField(max_length = 3)
-    num = models.IntegerField()
+    num = model.CharField(max_length = 50)
     year = models.IntegerField()
     TERMS = (
             ('F', 'Fall'),
