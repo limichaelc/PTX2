@@ -185,7 +185,7 @@ def search(request):
             if q.upper().replace(" ", "") == (f.dept + f.num):
                 finallist.append(f)
         context_dict['course'] = finallist
-        if len(message) == 0:
+        if len(finallist) == 0:
             return HttpResponse ("No matching query")
     else:
         return HttpResponse('You submitted an empty form.')
