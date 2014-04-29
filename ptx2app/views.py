@@ -169,8 +169,28 @@ def history(request):
     
     return render_to_response('ptonptx2/history.html', context_dict, context)
 
-#def search_form(request):
- #   return render(request, 'nav.html')
+def searchcourses(request):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    profile = request.user.get_profile()
+    context_dict = get_context(request)
+    if request.GET['q']:
+        q = request.GET['q']
+        finallist = []
+        for f in Course.objects.all():
+            if q.upper().replace(" ", "") == (f.dept + f.num):
+                finallist.append(f)
+        if len(finallist) == 0:
+            for f in Course.objects.all():
+                if q.upper().replace(" ", "") == f.dept:
+                    finallist.append(f)
+                if q == f.num:
+                    finallist.append()
+
+        context_dict['course'] = finallist
+    else:
+    return render_to_response('ptonptx2/course_page.html', context_dict, context)
 
 def search(request):
     context = RequestContext(request)
