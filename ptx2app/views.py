@@ -54,7 +54,6 @@ def get_context(request):
                     'user_selling': Listing.objects.filter(owner = profile) }
     return context_dict
 
-# Create your views here.
 def index(request):
 
     context = RequestContext(request)
