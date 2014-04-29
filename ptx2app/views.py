@@ -171,6 +171,13 @@ def history(request):
     
     return render_to_response('ptonptx2/history.html', context_dict, context)
 
+def search(request):
+    if 'q' in request.GET:
+        message = 'You searched for: %r' % request.GET['q']
+    else:
+        message = 'You submitted an empty form.'
+    return HttpResponse(message)
+
 def selling(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -239,6 +246,7 @@ def confirmbuybook(request, isbn, listingid):
 	
     context_dict['listing'] = listing
     context_dict['sellerprofile'] = sellerprofile
+
     
     transaction = Transaction(buyer = request.user.get_profile(), seller=listing.owner, price=listing.price, book = listing.book)
     transaction.save()
