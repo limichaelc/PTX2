@@ -7,9 +7,9 @@
 					<h4 class="modal-title" id="myModalLabel">Add new course(s)</h4>
 				</div>
 				<div class="modal-body">
-					<form id="addnewcourseform" method="get" name="addnewcourseform" action="/search/"> {% csrf_token %}
+					<form id="addnewcourseform" method="get" name="addnewcourseform" action="/searchcourses/"> {% csrf_token %}
 					<div class="form-group">
-						<input type="text" class="form-control" data-provide="typeahead" placeholder="List courses to add, separated by a semicolon (e.g. 'COS226; COS333')" name="q"> 
+						<input type="text" class="form-control" data-provide="typeahead" placeholder="Search for courses to add (e.g. 'COS333; COS')" name="q"> 
 					</div>
 					</form>
 				</div>
