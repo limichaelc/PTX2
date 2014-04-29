@@ -17,9 +17,9 @@
             <p>Price: ${{ listing.price }}<br>
             Condition: {{ listing.condition }}
             Seller's comment: {{ listing.book.comment }}
-            Seller's name: {{ profile.first_name}} {{profile.last_name}}
-            Seller's email: {{profile.user.username}}@princeton.edu
-            Seller's preferred location: {{profile.preferred_meetingplace}}
+            Seller's name: {{ sellerprofile.first_name}} {{sellerprofile.last_name}}
+            Seller's email: {{sellerprofile.user.username}}@princeton.edu
+            Seller's preferred location: {{sellerprofile.preferred_meetingplace}}
             </p>
         </div>
         <button type="button" class="btn btn-primary">Back to home</button>
