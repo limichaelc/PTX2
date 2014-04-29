@@ -8,7 +8,7 @@ from scraper import pagewriter, scrape
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.db.models import Q
-
+from django.core.paginator import Paginator
 
 def get_context(request):
     context = RequestContext(request)
