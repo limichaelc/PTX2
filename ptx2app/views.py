@@ -175,9 +175,9 @@ def searchcourses(request):
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
+    finallist = []
     if request.GET['q']:
         q = request.GET['q']
-        finallist = []
         for f in Course.objects.all():
             if q.upper().replace(" ", "") == (f.dept + f.num):
                 finallist.append(f)
@@ -188,8 +188,7 @@ def searchcourses(request):
                 if q == f.num:
                     finallist.append()
 
-        context_dict['course'] = finallist
-    else:
+    context_dict['course'] = finallist
     return render_to_response('ptonptx2/course_page.html', context_dict, context)
 
 def search(request):
