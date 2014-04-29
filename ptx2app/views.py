@@ -179,7 +179,7 @@ def search(request):
         q = request.GET['q']
         finallist = []
         for f in Course.objects.all():
-            if q == (f.dept + " " + f.num):
+            if q.upper() == (f.dept + " " + f.num):
                 finallist.append(f)
         message = finallist
         if len(message) == 0:
