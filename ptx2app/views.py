@@ -176,7 +176,7 @@ def history(request):
  #   return render(request, 'nav.html')
 
 def search(request):
-    contex = RequestContext(request)
+    context = RequestContext(request)
     context_dict = get_context(request)
     if request.GET['q']:
         q = request.GET['q']
