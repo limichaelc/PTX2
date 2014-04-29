@@ -60,8 +60,7 @@ class Profile(models.Model):
 
 class Listing(models.Model):
     book = models.ForeignKey(PhysBook)
-    owner = models.ForeignKey(Profile, related_name = "owner")
-    buyer = models.ForeignKey(Profile, related_name = "buyer")
+    owner = models.ForeignKey(Profile)
     SELL_STATUSES = (
         ('O', 'Currently offered'),
         ('P', 'Sale pending'),
