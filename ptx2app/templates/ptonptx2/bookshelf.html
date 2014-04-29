@@ -5,13 +5,10 @@
 {% block title %}PTX2 | Bookshelf{% endblock %}
 
 {% block main %}
-<div class="container-fluid">
-	<div class="row">
-		{% if first_visit %}
-		<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Welcome!</strong>This appears to be your first visit. Get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a></div>
-		{% endif %}
-	</div>
-</div>
+<div class="col-md-12 column">
+	{% if first_visit %}
+	<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Welcome!</strong> This appears to be your first visit. Get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.</div>
+	{% endif %}
 	<div class="row clearfix" id="needtobuy">
 	{% if user.books_needed.all %}
 
