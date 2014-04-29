@@ -189,7 +189,7 @@ def searchcourses(request):
                     finallist.append()
 
     context_dict['course'] = finallist
-    return render_to_response('ptonptx2/course_page.html', context_dict, context)
+    return render_to_response('ptonptx2/course_list_page.html', context_dict, context)
 
 def search(request):
     context = RequestContext(request)
