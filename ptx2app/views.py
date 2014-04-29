@@ -171,8 +171,11 @@ def history(request):
     
     return render_to_response('ptonptx2/history.html', context_dict, context)
 
+#def search_form(request):
+ #   return render(request, 'nav.html')
+
 def search(request):
-    if 'q' in request.GET:
+    if request.GET['q']:
         message = 'You searched for: %r' % request.GET['q']
     else:
         message = 'You submitted an empty form.'
