@@ -177,7 +177,14 @@ def history(request):
 
 def search(request):
     if request.GET['q']:
-        message = 'You searched for: %r' % request.GET['q']
+        q = request.GET['q']
+        finallist = []
+        for f in Course.objects.all():
+            if q.upper() == (f.dept + " " + f.num):
+                finallist.append(f)
+        message = finallist
+        if len(message) == 0:
+            message = "No matching query"
     else:
         message = 'You submitted an empty form.'
     return HttpResponse(message)
