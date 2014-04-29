@@ -2,11 +2,26 @@
 
 {% load staticfiles %}
 
-{% block title %}PTX2 | Pending transaction of {{ listing.book.book.title }} for ${{ listing.price }} {% endblock %}
+{% block title %}PTX2 | Confirm Purchase of {{ listing.book.book.title }} for ${{ listing.price }} {% endblock %}
 
 {% block main %}
-<h3>How did your transaction go?</h3>
-
+<h3>Confirm Purchase</h3>
+<p>By clicking the 'Confirm Purchase' button below, you are agreeing to pay the seller (${{listing.price}}) for the book, barring any unforeseen circumstances regarding the condition of the book. You and the seller will receive email confirmations that will include contact information so that you can proceed with the transaction. </p>
+<div class="col-md-9 column">
+    <div class="row clearfix">
+        <div class="col-md-2">
+            <img src={{ listing.book.book.picture_link }} width="130">
+        </div>
+        <div class="col-md-6">
+            <h5><a href="/{{book.isbn}}"> {{ book.title }}</a></h5>
+            <p>Price: ${{ listing.price }}<br>
+            Condition: {{ listing.condition }}
+            Seller's comment: {{ listing.book.comment }}
+            </p>
+        </div>
+        <a href="confirmed/" class="btn btn-primary btn-lg active" role="button">Confirm purchase</a>
+    </div>
+</div>
 {% include 'forms/newlisting.html' %}
 {% include 'forms/watchlist.html' %}
 {% endblock %}
@@ -16,3 +31,4 @@ jQuery(document).ready(function($) {
             window.document.location = $(this).attr("href");
       });
 });
+
