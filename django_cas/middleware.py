@@ -45,7 +45,7 @@ class CASMiddleware(object):
             if request.user.is_staff:
                 return None
             else:
-                error = ('<h1>You are user' + request.user.username + '</p>')
+                error = ('<h1>You are user ' + request.user.username + '</p>')
                 return HttpResponseForbidden(error)
         params = urlencode({REDIRECT_FIELD_NAME: request.get_full_path()})
         return HttpResponseRedirect(reverse(cas_login) + '?' + params)

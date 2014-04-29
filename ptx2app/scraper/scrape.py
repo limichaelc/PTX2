@@ -6,10 +6,13 @@ import re
 import bbscrape
 import pyisbn
 import json
+from ptx2app.models import Course, Book
+from django.core.exceptions import ObjectDoesNotExist
+import os
 
 BASE_URL = "http://www.amazon.com/gp/product/"
 BASE_2 = "http://www.labyrinthbooks.com/all_detail.aspx?isbn="
-BASE_3 = "http://registrar.princeton.edu/course-offerings/search_results.xml?term=1144&coursetitle=&instructor=&distr_area=&level=&cat_number=&sort=SYN_PS_PU_ROXEN_SOC_VW.SUBJECT%2C+SYN_PS_PU_ROXEN_SOC_VW.CATALOG_NBR%2CSYN_PS_PU_ROXEN_SOC_VW.CLASS_SECTION%2CSYN_PS_PU_ROXEN_SOC_VW.CLASS_MTG_NBR&submit=Search"
+BASE_REG = "http://registrar.princeton.edu/course-offerings/search_results.xml?term="
 BASE_4 = "http://www.labyrinthbooks.com/all_detail.aspx?isbn="
 
 recoursenumber = re.compile('course_details*')
@@ -81,6 +84,24 @@ def get_amazon_edition():
         return None
     #print edition
     return edition
+
+
+###########TO BE IMPLEMENTED####################
+# given a term ID (i.e. 1144), perform all scraping actions
+def scrapeall(term, reg_filename = 'reg.html', force_reg = True):
+    #first: get the page from the registrar's site. For future use, cache at given filename
+    #if we're forcing a refresh or the file doesn't exist, get the page from the registrar
+    import os.path
+    if force_reg or not os.path.isfile(reg_filename):
+        with open(reg_filename, 'w') as f:
+            page = urllib2.urlopen(BASE_REG + str(term))
+            f.write(page.read())
+
+    #we have the registrar page. Now get all of the information from it
+    f = open(reg_filename, 'r')
+
+
+########################################################
 
 def scrape(name):
     #page = open(name)
@@ -214,6 +235,71 @@ def scrape(name):
         print currentrow
         finallist.append(currentrow)
     f.write( "]")
+
+
+def makebook(book_info):
+    b = Book(**{
+        'isbn': book_info['isbn13'],
+        'isbn10': book_info['isbn10'],
+        'title': book_info['title'],
+        'edition': 0, ######### editions are crazy. fix this in data?????
+        'authors': book_info['author'],
+        'amazon_price': book_info['amazonprice'][1:] if book_info['amazonprice'] else None, ####### trim off the '$'
+        'labyrinth_price': book_info['labprice'],
+        'lowest_student_price': None, ###### should be higher than any real student price,
+                                        ###### which will be set when studet adds a physbook for sale
+        'picture_link': book_info['image'],
+        })
+    b.save()
+    return b
+
+# take the data from the file with the given filename and save it into the database
+def save(fromfilename='finalcopy.txt'):
+    # get finalcopy.txt from the scraper directory, not the dir this is being run from
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), fromfilename)
+    with open(path, 'r') as f:
+        l = eval(f.read())
+ 
+    for course in l:
+        books = []
+        for book_info in course['booklist']:
+            book_info['isbn10'], book_info['isbn13'] = book_info['isbn13'], book_info['isbn10'] ###### switch ISBN10 and 13 b/c they are messed up in current data
+            try:
+                book = Book.objects.get(isbn10 = book_info['isbn10'])
+            except ObjectDoesNotExist:
+                book = makebook(book_info)
+            except Exception as e:
+                print "Got exception while adding book:"
+                print book_info
+                raise e
+            books.append(book)
+
+
+
+        year = 2014 ############ UN-HARDCODE THESE
+        term = 'S'  ############ UN-HARDCODE THESE
+        course_props = {}
+        course_props['name'] = course['coursename']
+        course_props['year'] = year
+        course_props['term'] = term
+
+
+        # make an individual course entry for each crosslisting
+        for desig in course['coursedesig']:
+            dept = desig[:3]
+            num = desig[3:]
+            try:
+                c = Course.objects.get(dept=dept, num=num, **course_props)
+            except ObjectDoesNotExist:
+                c = Course(dept = dept, num = num, **course_props)
+                c.save()
+            except Exception as e:
+                print "Got exception while adding course:"
+                print dept, num, course_props
+                raise e
+
+            for book in books:
+                c.books.add(book)
 
 if __name__ == '__main__':
     #scrape()

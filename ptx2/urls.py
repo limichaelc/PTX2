@@ -10,10 +10,13 @@ urlpatterns = patterns('',
     # url(r'^$', 'ptx2.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
+    # admin stuff
     url(r'^admin/scrape/$', 'ptx2app.views.scrape', name = 'scrape'),
     url(r'^admin/', include(admin.site.urls)),
+
+    #everything else
 	url(r'^$', 'django_cas.views.login', {'next_page' : 'bookshelf'}), # RedirectView.as_view(url='/bookshelf/')),
-	url(r'^bookshelf/', 'ptx2app.views.index'),
+	url(r'^bookshelf/', 'django_cas.views.login'), #'ptx2app.views.index'),
 	url(r'^profile/', 'ptx2app.views.profile'),
 	url(r'^about/$', 'ptx2app.views.about', name = 'about'),
 	url(r'^sellbook/', 'ptx2app.views.sell_book',  name = 'sell_book'),

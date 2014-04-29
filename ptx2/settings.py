@@ -122,7 +122,6 @@ try:
 	HOSTNAME = socket.gethostname()
 except:
 	HOSTNAME = 'localhost'
-print HOSTNAME
 
 
 

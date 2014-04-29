@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from ptx2app.models import *
 from ptx2app.forms import *
-from scraper import pagewriter, scrape
+from scraper import scrape as scrape_funcs
 from django.http import HttpResponseRedirect
 
 def get_context(request):
@@ -84,7 +84,6 @@ def sell_book(request):
     context = RequestContext(request)
 
     if request.method == 'POST':
-        print "haha"
         form = SellBookForm(request.POST)
         if form.is_valid():
             form.save(commit = True)
@@ -133,8 +132,9 @@ def scrape(request):
     context = RequestContext(request)
 
     if request.method == 'POST':
-        pagewriter.write('page.txt')
-        scrape.scrape('page.txt')
+        #pagewriter.write('page.txt')
+        #scrape.scrape('page.txt')
+        scrape_funcs.save()
 
     return render_to_response('ptonptx2/scrape.html', {'form': None}, context)
     

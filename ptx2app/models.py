@@ -8,20 +8,20 @@ from django.contrib.auth.models import User
 class Book(models.Model):
     isbn = models.CharField(max_length=13)
     isbn10 = models.CharField(max_length=10)
-    title = models.CharField(max_length=100)
-    edition = models.CharField(max_length = 20, blank=True)
-    authors = models.CharField(max_length = 100, blank = True)
-    amazon_price = models.DecimalField(max_digits = 100, decimal_places = 2)
-    labyrinth_price = models.DecimalField(max_digits = 100, decimal_places = 2)
-    lowest_student_price = models.IntegerField()
-    picture_link = models.CharField(max_length = 200)
+    title = models.CharField(max_length=200)
+    edition = models.CharField(max_length = 20, blank = True, null = True)
+    authors = models.CharField(max_length = 500, blank = True, null = True)
+    amazon_price = models.DecimalField(max_digits = 100, decimal_places = 2, blank = True, null = True)
+    labyrinth_price = models.DecimalField(max_digits = 100, decimal_places = 2, blank = True, null = True)
+    lowest_student_price = models.IntegerField(blank = True, null = True)
+    picture_link = models.CharField(max_length = 1000, blank = True, null = True)
     def __unicode__(self):
-        return self.title
+        return self.title + ' (ISBN13: ' + self.isbn +')'
         
 class Course(models.Model):
-    name = models.CharField(max_length = 100)
+    name = models.CharField(max_length = 500)
     dept = models.CharField(max_length = 3)
-    num = models.IntegerField()
+    num = models.CharField(max_length = 5) # Can't be IntegerField because of classes like 'ANT 206A'
     year = models.IntegerField()
     TERMS = (
             ('F', 'Fall'),
