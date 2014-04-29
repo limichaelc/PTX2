@@ -7,6 +7,7 @@ from ptx2app.forms import *
 from scraper import pagewriter, scrape
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
+from django.db.models import Q
 
 
 def get_context(request):
@@ -280,4 +281,10 @@ def pending(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     context_dict = get_context(request)
+    
+    transactions = Transaction.objects.filter(Q(buyer = context_dict['profile'])|Q(seller=context_dict['profile']), Q(buyerreview=""), Q(sellerreview=""))
+    
+    context_dict['transactions'] = transactions
+    
+    return render_to_response('ptonptx2/pending.html', {'form': form}, context)
     
