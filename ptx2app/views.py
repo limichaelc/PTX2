@@ -224,7 +224,7 @@ def buybook(request, isbn, listingid):
     if not request.user.is_authenticated():
         return redirect('/login/')
     
-    context_dict = RequestContext(request)
+    context_dict = get_context(request)
 	
     listing = Listing.objects.get(id=listingid)
 	
@@ -239,7 +239,7 @@ def confirmbuybook(request, isbn, listingid):
     if not request.user.is_authenticated():
         return redirect('/login/')
     
-    context_dict = RequestContext(request)
+    context_dict = get_context(request)
 	
     listing = Listing.objects.get(id=listingid)
     sellerprofile = listing.owner
@@ -248,7 +248,7 @@ def confirmbuybook(request, isbn, listingid):
     context_dict['sellerprofile'] = sellerprofile
 
     
-    transaction = Transaction(buyer = request.user.get_profile(), seller=listing.owner, price=listing.price, book = listing.book)
+    transaction = Transaction(buyer = context_dict['user'], seller=listing.owner, price=listing.price, book = listing.book)
     transaction.save()
 	
     return render_to_response('ptonptx2/afterpurchase.html', context_dict, context)
