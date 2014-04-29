@@ -261,3 +261,29 @@ def confirmbuybook(request, isbn, listingid):
     transaction.save()
 	
     return render_to_response('ptonptx2/afterpurchase.html', context_dict, context)
+    
+def pendingtransaction(request, isbn, listingid):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    context_dict = get_context(request)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+        	
+            form = form.save()    
+            return index(request)
+        else:
+            print form.errors
+    else:
+        form = ReviewForm()
+        
+    return render_to_response('forms/newprofile.html', {'form': form}, context)
+    
+def pending(request):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    context_dict = get_context(request)
+    

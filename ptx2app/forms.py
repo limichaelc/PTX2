@@ -34,3 +34,7 @@ class AddCourseForm(forms.ModelForm):
         model = Profile
         fields = ['course_list',]
 
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+
