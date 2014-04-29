@@ -29,7 +29,7 @@ urlpatterns = patterns('',
     url(r'^(?P<isbn>\d+)/(?P<listingid>\d+)/confirmed/$', 'ptx2app.views.confirmbuybook'),
     #url(r'^searchform/$', 'ptx2app.views.search_form'),
     url(r'^search/', 'ptx2app.views.search'),
-
+    url(r'^searchcourses/', 'ptx2app.views.searchcourses'),
     #url(r'^sellbook/', 'ptx2app.views.sell_book', name = 'sell_book'),
     
 	#url(r'^courses/(?P<dept>\w+)/(?P<num>\d+)/$', 'ptx2app.templates.coursepage'),
