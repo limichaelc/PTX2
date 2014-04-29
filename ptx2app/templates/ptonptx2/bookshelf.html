@@ -7,7 +7,7 @@
 {% block main %}
 <div class="col-md-6 column">
 	{% if first_visit %}
-	<div class="alert alert-info alert-dismissable">This appears to be your first visit. Get started by adding a new course!</div>
+	<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>This appears to be your first visit. Get started by <strong>adding a new course!</strong></div>
 	{% endif %}
 	<div class="row clearfix" id="needtobuy">
 	{% if user.books_needed.all %}
