@@ -7,7 +7,7 @@
 {% block main %}
 <div class="col-md-6 column">
 	<div class="row clearfix" id="needtobuy">
-	{% if user.first_visit %}
+	{% if first_visit %}
 	<p>This appears to be your first visit. Get started by adding a new course!</p>
 	{% endif %}
 	{% if user.books_needed.all %}
