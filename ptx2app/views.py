@@ -182,9 +182,11 @@ def search(request):
     context_dict = get_context(request)
     if request.GET['q']:
         q = request.GET['q']
+        q = q.upper().replace(" ", "")
         finallist = []
         for f in Course.objects.all():
-            if q.upper().replace(" ", "") == (f.dept + f.num):
+            coursetitle = f.name.upper().replace(" ", "")
+            if re.search(q, coursetitle) != None:
                 finallist.append(f)
         if len(finallist) == 0:
             return HttpResponse ("No matching query")
