@@ -289,7 +289,7 @@ def pendingtransaction(request, id):
     context_dict['id'] = id
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST)
+        form = ReviewForm(request.POST)
         if form.is_valid():
         	
             form = form.save()    
@@ -302,6 +302,7 @@ def pendingtransaction(request, id):
         
         
     return render_to_response('ptonptx2/pendingtransaction.html', context_dict, context)
+    
 def pending(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
