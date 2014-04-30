@@ -7,7 +7,7 @@
 <div class="col-md-8 column">
 {% for course in course_dict %}
 <a href="/courses/{{ course.dept }}/{{ course.num }}"><span class="glyphicon glyphicon-plus"></span>
-<h4>{{course.name}} ({{course.dept}} {{course.num}})</h4>
+{{course.name}} ({{course.dept}} {{course.num}})
 </a>
 {% endfor %}
 </div>
