@@ -6,7 +6,7 @@
 {% block main %}
 <div class="col-md-8 column">
 {% for course in course_dict %}
-<form name="searchcourses" action="/course_page_list.html">
+<form name="searchcourses">
 <input type="hidden" course="{{course.id}}">
 <input name="Add" type="submit" class="btn btn-default">
 </form>
