@@ -2,11 +2,9 @@
 
 {% load staticfiles %}
 
-{% for course in course_dict %}
-
 {% block title %}PTX2 | {{ course.name }}{% endblock %}
-
 {% block main %}
+{% for course in course_dict %}
 <h4>{{course.name}} ({{course.dept}} {{course.num}})</h4>
 <div class="col-md-6 column">
 	<div class="row clearfix">
