@@ -195,7 +195,7 @@ def search(request):
         context_dict['book_dict'] = finallist
     else:
         return HttpResponse('You submitted an empty form.')
-    return render_to_response('ptonptx2/booksearchpage.html', book_dict, context)
+    return render_to_response('ptonptx2/booksearchpage.html', context_dict, context)
 
 def selling(request):
     context = RequestContext(request)
