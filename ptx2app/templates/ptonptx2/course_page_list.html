@@ -12,6 +12,8 @@
 </a>
 {% endfor %}
 </div>
+{% if len(course_dict) == 0 %}
+<h4> No courses found </h4>
 {% include 'forms/newlisting.html' %}
 {% include 'forms/newcourse.html' %}
 {% endblock %}
