@@ -186,16 +186,16 @@ def search(request):
         q = request.GET['q']
         q = q.upper().replace(" ", "")
         finallist = []
-        for f in Course.objects.all():
-            coursetitle = f.name.upper().replace(" ", "")
-            if re.search(q, coursetitle) != None:
+        for f in Book.objects.all():
+            booktitle = f.title.upper().replace(" ", "")
+            if re.search(q, booktitle) != None:
                 finallist.append(f)
         if len(finallist) == 0:
             return HttpResponse ("No matching query")
-        context_dict['course'] = finallist[0]
+        context_dict['book_dict'] = finallist
     else:
         return HttpResponse('You submitted an empty form.')
-    return render_to_response('ptonptx2/course_page.html', context_dict, context)
+    return render_to_response('ptonptx2/booksearchpage.html', book_dict, context)
 
 def selling(request):
     context = RequestContext(request)
