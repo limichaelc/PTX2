@@ -6,9 +6,8 @@
 {% block main %}
 <div class="col-md-8 column">
 {% for course in course_dict %}
-<a href="/courses/{{ course.dept }}/{{ course.num }}"><span class="glyphicon glyphicon-plus"></span>
-{{course.name}} ({{course.dept}} {{course.num}})
-</a><br>
+<a href="/courses/{{ course.dept }}/{{ course.num }}"><h4><span class="glyphicon glyphicon-plus"></span>{{course.name}} ({{course.dept}} {{course.num}})</h4>
+</a>
 {% endfor %}
 </div>
 {% ifequal course_dict|length 0 %}
