@@ -27,11 +27,10 @@
 						{% for course in user.course_list.all %}
 						{% for reading in course.books.all %}
 						{% if reading == book %}
-						Used in　<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>
+						Used in <i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br>
 						{% endif %}
 						{% endfor %}
-						{% endfor %}
-						<br></p>
+						{% endfor %}</p>
 						<p>
 						  <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
 							<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br></a>
