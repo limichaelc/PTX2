@@ -31,14 +31,9 @@
 	</div>
       </div>
     {% endfor %}
-<!--     {% for book in course.books.all %}
-    <div class="col-md-6 column">
-        <div class="row clearfix" id="bookinfo">
-        <ul>
-            <a href="/{{book.isbn}}">{{ book.title }}</a>
-        </ul>
-    </div>
-    {% endfor %} -->
+    {% if len(course.books.all) == 0 %}
+    <h4>No books for this course </h4>
+    {% endif %}
     </div>
 </div>
 {% include 'forms/newlisting.html' %}
