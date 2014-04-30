@@ -165,7 +165,7 @@ def searchcourses(request):
     if request.method == 'POST':
         form = AddCourseForm(request.POST)
         if form.is_valid():
-            return HttpResponse(form.cleaned_data)
+            return HttpResponse(form.cleaned_data['course'])
         else:
             return HttpResponse("form error")
     if request.GET['q']:
