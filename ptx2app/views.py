@@ -162,6 +162,13 @@ def searchcourses(request):
     profile = request.user.get_profile()
     context_dict = get_context(request)
     finallist = []
+    if request.method == POST:
+        form = AddCourseForm(request.POST)
+        if request.is_valid():
+            course = form.cleaned_data['course']
+            return HttpResponse(course)
+        else:
+            return HttpResponse("form error")
     if request.GET['q']:
         q = request.GET['q']
         for f in Course.objects.all():
@@ -174,7 +181,7 @@ def searchcourses(request):
                 if q == f.num:
                     finallist.append()
     context_dict['course_dict'] = finallist
-    #return HttpResponse(finallist)
+    
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
 
 def search(request):
