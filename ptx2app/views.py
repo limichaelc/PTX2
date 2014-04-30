@@ -298,8 +298,7 @@ def pendingtransaction(request, id):
     else:
         form = ReviewForm()
         
-    return render_to_response('forms/newprofile.html', {'form': form}, context)
-    
+    return render_to_response('ptonptx2/pendingtransaction.html', {'form', form}, context)
 def pending(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
