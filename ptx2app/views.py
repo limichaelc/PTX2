@@ -88,6 +88,7 @@ def bookpage(request, isbn):
     
     context_dict['listings'] = listings
     context_dict['book'] = book
+    context_dict['courses'] = Course.objects.all()
     
     return render_to_response('ptonptx2/book_lookup.html', context_dict, context)
     
