@@ -5,41 +5,10 @@
 {% block title %}PTX2 | {{ course.name }}{% endblock %}
 {% block main %}
 {% for course in course_dict %}
+<a href="/{{/courses/{{course.dept}}/{{course.num}}">
 <h4>{{course.name}} ({{course.dept}} {{course.num}})</h4>
-<div class="col-md-6 column">
-	<div class="row clearfix">
-	{% for book in course.books.all %}
-		<div class="col-md-4">
-			<div class="thumbnail">
-				<div class="caption">
-					<img src={{ book.picture_link }} width="130">
-					<h5><a href="/{{ book.isbn }}"> {{ book.title }}</a></h5>
-						<p>
-						  <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
-							<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br></a>
-					<a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}">
-						  <img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ book.amazon_price }}<br></a>
-							<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
-							{% if book.lowest_student_price != None %}
-							${{ book.lowest_student_price }}.00<br>
-							{% else %}
-							No student offers<br>
-							{% endif %}
-						</p>
-					</div>
-				</div>
-			</div>
-			{% endfor %}
-<!--     {% for book in course.books.all %}
-    <div class="col-md-6 column">
-        <div class="row clearfix" id="bookinfo">
-        <ul>
-            <a href="/{{book.isbn}}">{{ book.title }}</a>
-        </ul>
-    </div>
-    {% endfor %} -->
-    </div>
-</div>
+</a>
+
 {% endfor %}
 {% include 'forms/newlisting.html' %}
 {% include 'forms/newcourse.html' %}
