@@ -8,7 +8,7 @@
 				</div>
 				<div class="modal-body">
 				  <form name="removecourseform" method="get">{% csrf_token %}
-				    <input type="hidden" name="course" value="{{course.id}}">
+				    <input type="hidden" name="r" value="{{course.id}}">
 				    <button name="Delete" type="submit" class="btn btn-danger">Remove</input>
 					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
 				</div>          
