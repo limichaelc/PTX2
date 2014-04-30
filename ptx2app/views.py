@@ -166,7 +166,7 @@ def searchcourses(request):
         form = AddCourseForm(request.POST)
         if form.is_valid():
             newcourse = form.cleaned_data['course']
-            newcourse = Book.objects.get(id=newcourse)
+            newcourse = Course.objects.get(id=newcourse)
             profile.course_list.add(newcourse)
             profile.save()
         else:
