@@ -4,11 +4,14 @@
 
 {% block title %}PTX2 | {{ course.name }}{% endblock %}
 {% block main %}
+<div class="col-md-8 column">
 {% for course in course_dict %}
+<span class="glyphicon glyphicon-plus">
 <a href="/courses/{{ course.dept }}/{{ course.num }}">
 <h4>{{course.name}} ({{course.dept}} {{course.num}})</h4>
 </a>
 {% endfor %}
+</div>
 {% include 'forms/newlisting.html' %}
 {% include 'forms/newcourse.html' %}
 {% endblock %}
