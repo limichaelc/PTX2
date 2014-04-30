@@ -167,9 +167,7 @@ def searchcourses(request):
         if form.is_valid():
             newcourse = form.cleaned_data['course']
             newcourse = Book.objects.get(id=newcourse)
-            currentcourselist = profile.course_list
-            currentcourselist.append(newcourse)
-            profile.course_list = currentcourselist
+            profile.course_list.add(newcourse)
             profile.save()
         else:
             return HttpResponse("form error")
