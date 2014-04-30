@@ -162,7 +162,7 @@ def searchcourses(request):
     profile = request.user.get_profile()
     context_dict = get_context(request)
     finallist = []
-    if request.method == POST:
+    if request.method == 'POST':
         form = AddCourseForm(request.POST)
         if request.is_valid():
             course = form.cleaned_data['course']
