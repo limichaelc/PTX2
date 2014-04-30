@@ -23,11 +23,11 @@
 				<div class="caption">
 					<img src={{ book.picture_link }} class="img-responsive" alt="">
 					<h5><a href="/{{book.isbn}}"> {{ book.title }}</a></h5>
-					<p class="course_list">Used in
+					<p class="course_list">
 						{% for course in user.course_list.all %}
 						{% for reading in course.books.all %}
 						{% if reading == book %}
-						<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>
+						Used in　<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>
 						{% endif %}
 						{% endfor %}
 						{% endfor %}
