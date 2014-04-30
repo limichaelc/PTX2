@@ -293,6 +293,10 @@ def pendingtransaction(request, id):
         if form.is_valid():
         	
             form = form.save()    
+            transaction = Transaction.objects.get(id=id)
+            if (transaction.buyer = context_dict['user']) transaction.buyerreview = form
+            if (transaction.seller = context_dict['user']) transaction.sellerreview = form
+            transaction.save()
             return index(request)
         else:
             print form.errors
