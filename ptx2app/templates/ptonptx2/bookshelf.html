@@ -14,10 +14,10 @@
 
 		<h4 padding-left="5px"> Books Needed </h4>
 		{% for book in user.books_needed.all %}
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<div class="thumbnail">
 				<div class="caption">
-					<img src={{ book.picture_link }} width="130">
+					<img src={{ book.picture_link }} height="200">
 					<h5><a href="/{{book.isbn}}"> {{ book.title }}</a></h5>
 					<p class="course_list">Used in
 						{% for course in user.course_list.all %}
@@ -51,10 +51,10 @@
 
 			<h4 padding-left="5px">Selling </h4>
 			{% for listing in user_selling.all %}
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="thumbnail">
 					<div class="caption">
-						<img src={{ listing.book.book.picture_link }} width="130">
+						<img src={{ listing.book.book.picture_link }} height="200">
 						<h5><a href="/{{listing.book.book.isbn}}"> {{ listing.book.book.title }}</a></h5>
 						<p>Selling for ${{ listing.price }}<br>
 							{% if listing.sell_status == 'P' %}
@@ -72,10 +72,10 @@
 
 			<h4 padding-left="5px">Owned</h4>
 			{% for book in user.books_owned.all %}
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="thumbnail">
 					<div class="caption">
-						<img src={{book.book.picture_link}} width="130">
+						<img src={{book.book.picture_link}} height="200">
 						<h5><a href="/{{book.book.isbn}}"> {{ book.book.title }}</a></h5>
 						<p>
 							Owned<br>
