@@ -170,8 +170,7 @@ def searchcourses(request):
                     finallist.append(f)
                 if q == f.num:
                     finallist.append()
-
-    context_dict['course'] = finallist
+    context_dict['course_dict'] = finallist
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
 
 def search(request):
