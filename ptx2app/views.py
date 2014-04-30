@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.db.models import Q
 from django.core.paginator import Paginator
+import re
 
 def get_context(request):
     context = RequestContext(request)
@@ -143,10 +144,11 @@ def history(request):
     past_transactions = []
     
     for instance in transaction:
-        if profile == instance.buyer:
-            past_transactions.append(instance)
-        elif profile == instance.seller:
-            past_transactions.append(instance)
+        if instance.buyerreview != None & instance.sellerreview != None:
+            if profile == instance.buyer:
+                past_transactions.append(instance)
+            elif profile == instance.seller:
+                past_transactions.append(instance)
         
     context_dict['history'] = past_transactions
     
