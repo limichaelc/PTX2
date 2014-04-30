@@ -155,7 +155,7 @@ def history(request):
     
     return render_to_response('ptonptx2/history.html', context_dict, context)
 
-def searchcourses(request, id):
+def searchcourses(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
         return redirect('/login/')
