@@ -12,7 +12,7 @@
 		<h4 style="font-variant:small-caps">Courses</h4>
 		{% for course in user.course_list.all %}
 		<a href="#" data-toggle="modal" data-target="#removecoursemodal"><span class="glyphicon glyphicon-minus"></span></a>
-		<li><a href="/courses/{{course.dept}}/{{course.num}}"><span class="badge pull-right">{% for key, value in nums_by_course.items %}{% if key == course %}{{value}}{%endif%}{%endfor%}{{ nums_by_course.items.course }}/{{course.books.all|length }}</span>{{course.dept.upper}} {{course.num}}</a></li>
+		<li><a href="/courses/{{course.dept}}/{{course.num}}"><span class="badge pull-right" display="inline-block">{% for key, value in nums_by_course.items %}{% if key == course %}{{value}}{%endif%}{%endfor%}{{ nums_by_course.items.course }}/{{course.books.all|length }}</span>{{course.dept.upper}} {{course.num}}</a></li>
 		{% endfor %}
 		<li><a href="#" data-toggle="modal" data-target="#newcoursemodal"><span class="glyphicon glyphicon-plus"></span> Add course</a></li>
 		<h4 style="font-variant:small-caps">Account Info</h4>
