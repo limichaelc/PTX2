@@ -144,7 +144,7 @@ def history(request):
     past_transactions = []
     
     for instance in transaction:
-        if instance.buyerreview != None & instance.sellerreview != None:
+        if (instance.buyerreview != None) & (instance.sellerreview != None):
             if profile == instance.buyer:
                 past_transactions.append(instance)
             elif profile == instance.seller:
