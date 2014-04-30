@@ -12,7 +12,8 @@
     <div class="col-md-4">
       <div class="thumbnail">
 	<div class="caption">
-	  <img src={{ book.picture_link }} width="130">
+	  <a href="/{{ book.isbn }}">
+	  <img src={{ book.picture_link }} width="130"></a>
 	  <h5><a href="/{{ book.isbn }}"> {{ book.title }}</a></h5>
 	  <p>
 	      <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
