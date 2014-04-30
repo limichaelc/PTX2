@@ -9,7 +9,7 @@
 <div class="col-md-6 column">
   <div class="row clearfix">
     {% for book in course.books.all %}
-    {% if forloop.counter|divisibleby:5 %}
+    {% if forloop.counter|divisibleby:4 %}
 			</div>
 			<div class="row clearfix" id="needtobuy">
 		{% endif %}
@@ -36,7 +36,7 @@
       </div>
     {% endfor %}
     {% ifequal course.books.all|length 0 %}
-    <h4>No books for this course </h4>
+    <p>No books for this course </p>
     {% endifequal %}
     </div>
 </div>
