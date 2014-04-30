@@ -49,7 +49,7 @@ def get_context(request):
                     'num_total' : len(profile.books_needed.all())
                     + len(profile.books_owned.all())
                     + len(profile.books_selling.all()),
-                    'num_pending' : len(Transaction.objects.filter(Q(buyer = context_dict['user'])|Q(seller=context_dict['user']), Q(buyerreview=None) | Q(sellerreview=None))),
+                    'num_pending' : len(Transaction.objects.filter(Q(buyer = profile)|Q(seller=profile), Q(buyerreview=None) | Q(sellerreview=None))),
                     'nums_by_course' : nums_by_course,
                     'user_selling': Listing.objects.filter(owner = profile),
                     'first_visit': len(profile.course_list.all()) == 0 }
