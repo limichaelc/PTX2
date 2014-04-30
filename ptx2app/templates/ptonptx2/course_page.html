@@ -9,11 +9,15 @@
 <div class="col-md-6 column">
   <div class="row clearfix">
     {% for book in course.books.all %}
+    {% if forloop.counter|divisibleby:5 %}
+			</div>
+			<div class="row clearfix" id="needtobuy">
+		{% endif %}
     <div class="col-md-4">
       <div class="thumbnail">
 	<div class="caption">
 	  <a href="/{{ book.isbn }}">
-	  <img src={{ book.picture_link }} width="130"></a>
+	  <img src={{ book.picture_link }} class="img-responsive" alt=""></a>
 	  <h5><a href="/{{ book.isbn }}"> {{ book.title }}</a></h5>
 	  <p>
 	      <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
