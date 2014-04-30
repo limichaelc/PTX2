@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.core.urlresolvers import resolve
 import re
 
 def get_context(request):
@@ -186,6 +187,20 @@ def searchcourses(request):
     context_dict['course_dict'] = finallist
     
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
+
+def removecourse(request):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    profile = request.user.get_profile()
+    context_dict = get_context(request)
+    if request.GET['r']:
+        removecourse = request.GET['r']
+        return HttpResponse(removecourse)
+        removecourse = Course.objects.get(id=removecourse)
+        profile.course_list.remove(removecourse)
+        profile.save
+    return render_to_response(resolve(request.path_info).url_name, context_dict, context)
 
 def search(request):
     context = RequestContext(request)
