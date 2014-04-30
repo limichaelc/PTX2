@@ -186,6 +186,14 @@ def search(request):
         q = request.GET['q']
         q = q.upper().replace(" ", "")
         finallist = []
+        thiscourse = None
+        for f in Course.objects.all():
+            if q.upper().replace(" ", "") == (f.dept + f.num):
+                thiscourse = f
+        if thiscourse != None:
+            finallist = thiscourse.books.all()
+            context_dict['book_dict'] = finallist
+            return render_to_response('ptonptx2/booksearchpage.html', context_dict, context)
         for f in Book.objects.all():
             booktitle = f.title.upper().replace(" ", "")
             if re.search(q, booktitle) != None:
