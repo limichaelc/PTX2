@@ -31,9 +31,9 @@
 	</div>
       </div>
     {% endfor %}
-    {% if len(course.books.all) == 0 %}
+    {% ifequal course.books.all|length 0 %}
     <h4>No books for this course </h4>
-    {% endif %}
+    {% endifequal %}
     </div>
 </div>
 {% include 'forms/newlisting.html' %}
