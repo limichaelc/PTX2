@@ -7,11 +7,11 @@
 {% block main %}
 <div class="col-md-9 column">
     <div class="row clearfix">
+    <h4>{{ book.title }}</h4>
         <div class="col-md-2">
            <img src={{ book.picture_link }} width="130">
         </div>
         <div class="col-md-6">
-            <h5><a href="/{{book.isbn}}"> {{ book.title }}</a></h5>
             <p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.course_code }}</a></i><br>
                 {% if person.book.owned %}
                 {% if person.book.selling %}
@@ -33,6 +33,7 @@
     </div>
     <div class="row clearfix">
         <br><h4>Student Offers</h4>
+        {% if listings.all %}
         <table class="table table-hover">
             <tr class="clickableRow" href="/buy">
                 <th>Price</th>
@@ -46,6 +47,9 @@
             </tr>
             {% endfor %}
         </table>
+        {% else %}
+        <p>No student offers</p>
+        {% endif %}
     </div>
 </div>
 {% include 'forms/newlisting.html' %}
