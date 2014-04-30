@@ -12,6 +12,13 @@
            <img src={{ book.picture_link }} width="130">
         </div>
         <div class="col-md-6">
+        {% for course in courses %}
+        {% for reading in course.books.all %}
+        {% if reading == book %}
+        Used in <i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}</p>
             <p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.course_code }}</a></i><br>
                 {% if person.book.owned %}
                 {% if person.book.selling %}
@@ -32,7 +39,7 @@
         </div>
     </div>
     <div class="row clearfix">
-        <br><h4>Student Offers</h4>
+        <br><h5>Student Offers</h5>
         {% if listings.all %}
         <table class="table table-hover">
             <tr class="clickableRow" href="/buy">
