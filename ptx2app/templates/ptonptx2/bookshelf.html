@@ -21,7 +21,7 @@
 		<div class="col-md-3">
 			<div class="thumbnail">
 				<div class="caption">
-					<img src={{ book.picture_link }} height="200">
+					<img src={{ book.picture_link }} max-height="200">
 					<h5><a href="/{{book.isbn}}"> {{ book.title }}</a></h5>
 					<p class="course_list">Used in
 						{% for course in user.course_list.all %}
@@ -62,7 +62,7 @@
 			<div class="col-md-3">
 				<div class="thumbnail">
 					<div class="caption">
-						<img src={{ listing.book.book.picture_link }} height="200">
+						<img src={{ listing.book.book.picture_link }} max-height="200">
 						<h5><a href="/{{listing.book.book.isbn}}"> {{ listing.book.book.title }}</a></h5>
 						<p>Selling for ${{ listing.price }}<br>
 							{% if listing.sell_status == 'P' %}
@@ -87,7 +87,7 @@
 			<div class="col-md-3">
 				<div class="thumbnail">
 					<div class="caption">
-						<img src={{book.book.picture_link}} height="200">
+						<img src={{book.book.picture_link}} max-height="200">
 						<h5><a href="/{{book.book.isbn}}"> {{ book.book.title }}</a></h5>
 						<p>
 							Owned<br>
