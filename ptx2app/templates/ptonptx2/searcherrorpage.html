@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}PTX2 | {{ course.name }}{% endblock %}
+
+{% block main %}
+<div class="col-md-6 column">
+	<div class="row clearfix">
+	  Your search did not match any books or courses.
+	  Search by book titles - e.g. 'The Practice of Programming'
+	  or search by book courses - e.g. 'COS 333'
+	  </div>
+</div>
+{% include 'forms/newlisting.html' %}
+{% include 'forms/newcourse.html' %}
+{% endblock %}

@@ -199,7 +199,7 @@ def search(request):
             if re.search(q, booktitle) != None:
                 finallist.append(f)
         if len(finallist) == 0:
-            return HttpResponse ("No matching query")
+            return render_to_response('ptonptx2/searcherrorpage.html', context)
         context_dict['book_dict'] = finallist
     else:
         return HttpResponse('You submitted an empty form.')
