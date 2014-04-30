@@ -281,7 +281,7 @@ def confirmbuybook(request, isbn, listingid):
 	
     return render_to_response('ptonptx2/afterpurchase.html', context_dict, context)
     
-def pendingtransaction(request, isbn, listingid):
+def pendingtransaction(request, id):
     context = RequestContext(request)
     if not request.user.is_authenticated():
         return redirect('/login/')

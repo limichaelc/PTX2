@@ -24,6 +24,7 @@
 	  <td> {{transaction.buyer.user.username}}</td>
 	  <td>  {{transaction.book.book.title}} </td>
 	  <td> {{transaction.price}}</td>
+		<td><a href="{% url 'ptx2app.views.pendingtransaction' id=transaction.id %}">Review and Confirm</a></td>
 	</tr>
 	{% endfor %}
 </tbody>
