@@ -199,10 +199,10 @@ def search(request):
             if re.search(q, booktitle) != None:
                 finallist.append(f)
         if len(finallist) == 0:
-            return render_to_response('ptonptx2/searcherrorpage.html', context)
+            return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
         context_dict['book_dict'] = finallist
     else:
-        return HttpResponse('You submitted an empty form.')
+        return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
     return render_to_response('ptonptx2/booksearchpage.html', context_dict, context)
 
 def selling(request):
