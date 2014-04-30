@@ -155,7 +155,7 @@ def history(request):
     
     return render_to_response('ptonptx2/history.html', context_dict, context)
 
-def searchcourses(request):
+def searchcourses(request, id):
     context = RequestContext(request)
     if not request.user.is_authenticated():
         return redirect('/login/')
@@ -165,7 +165,12 @@ def searchcourses(request):
     if request.method == 'POST':
         form = AddCourseForm(request.POST)
         if form.is_valid():
-            return HttpResponse(form.cleaned_data['course'])
+            newcourse = form.cleaned_data['course']
+            newcourse = Book.objects.get(id=newcourse)
+            currentcourselist = profile.course_list
+            currentcourselist.append(newcourse)
+            profile.course_list = currentcourselist
+            profile.save()
         else:
             return HttpResponse("form error")
     if request.GET['q']:
