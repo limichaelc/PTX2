@@ -21,5 +21,6 @@ th {
 
 .btn-centered {
   position: absolute;
-  bottom: 15px;
+  bottom: 30px;
+  right:15px;
 }
