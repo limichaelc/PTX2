@@ -183,10 +183,10 @@ def searchcourses(request):
                 finallist.append(f)
         if len(finallist) == 0:
             for f in Course.objects.all():
-                if q.upper().replace(" ", "") == f.dept:
-                    finallist.append(f)
-                elif q == f.num:
+                if q == f.num:
                     finallist.append()
+                elif q.upper().replace(" ", "") == f.dept:
+                    finallist.append(f)
                 elif re.search(q.upper().replace(" ",""), f.name.upper().replace(" ","")) != None:
                     finallist.append(f)
     
