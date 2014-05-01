@@ -42,8 +42,8 @@ def get_context(request):
     user_selling = []
 
     context_dict = {'user' : profile,
-					'form'  : form,
-					'books' : books,
+                    'form'  : form,
+                    'books' : books,
                     'num_needed' : len(profile.books_needed.all()),
                     'num_owned' : len(profile.books_owned.all()),
                     'num_selling' : len(profile.books_selling.all()),
@@ -127,7 +127,7 @@ def profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance = profile)
         if form.is_valid():
-        	
+            
             link = form.save()    
             return index(request)
         else:
@@ -254,20 +254,20 @@ def coursepage(request, course_dpt, course_num):
     if not request.user.is_authenticated():
         return redirect('/login/')
     course = Course.objects.get(dept=course_dpt, num=course_num)
-	
+
     books = course.books
-	
+
     fields = Book._meta.fields
-	
+
     context_dict = get_context(request)
     context_dict['course'] = course
 
-	
+
     return render_to_response('ptonptx2/course_page.html', context_dict,
-	                                                         context, )
-	                                                         
-	                                                         
-	
+                                                             context)
+
+
+
 def buybook(request, isbn, listingid):
     context = RequestContext(request)
     
@@ -275,11 +275,11 @@ def buybook(request, isbn, listingid):
         return redirect('/login/')
     
     context_dict = get_context(request)
-	
+
     listing = Listing.objects.get(id=listingid)
-	
+
     context_dict['listing'] = listing
-	
+
     return render_to_response('ptonptx2/confirmpurchase.html', context_dict, context)
 
 def sellbook(request, isbn):
@@ -315,17 +315,17 @@ def confirmbuybook(request, isbn, listingid):
         return redirect('/login/')
     
     context_dict = get_context(request)
-	
+
     listing = Listing.objects.get(id=listingid)
     sellerprofile = listing.owner
-	
+
     context_dict['listing'] = listing
     context_dict['sellerprofile'] = sellerprofile
 
     
     transaction = Transaction(buyer = context_dict['user'], seller=listing.owner, price=listing.price, book = listing.book)
     transaction.save()
-	
+
     return render_to_response('ptonptx2/afterpurchase.html', context_dict, context)
     
 def pendingtransaction(request, id):
@@ -342,9 +342,9 @@ def pendingtransaction(request, id):
             form = form.save()    
             transaction = Transaction.objects.get(id=id)
             if transaction.buyer == context_dict['user']:
-           		 transaction.buyerreview = form
+                 transaction.buyerreview = form
             if transaction.seller == context_dict['user']:
-            	transaction.sellerreview = form
+                transaction.sellerreview = form
             transaction.save()
             return index(request)
         else:
@@ -353,8 +353,8 @@ def pendingtransaction(request, id):
         form = ReviewForm()
     context_dict['form'] = form
         
-        
-    return render_to_response('ptonptx2/pendingtransaction.html', {'form' : form}, context)
+
+    return render_to_response('ptonptx2/pendingtransaction.html', context_dict, context)
     
 def pending(request):
     context = RequestContext(request)
@@ -367,4 +367,3 @@ def pending(request):
     context_dict['transactions'] = transactions
     
     return render_to_response('ptonptx2/pending.html', context_dict, context)
-    
