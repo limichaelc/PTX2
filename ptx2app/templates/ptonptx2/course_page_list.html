@@ -7,7 +7,7 @@
 <div class="col-md-8 column">
 	<h5>Search results for "{{ query }}"</h5>
 	{% ifequal course_dict|length 0 %}
-	<p> No courses found </p>
+	<p>No courses found</p>
 	{% endifequal %}
 	{% for course in course_dict %}
 	<div display="inline-block">
