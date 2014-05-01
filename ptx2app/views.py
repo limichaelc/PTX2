@@ -204,7 +204,7 @@ def removecourse(request):
         r = Course.objects.get(id=r)
         profile.course_list.remove(r)
         profile.save()
-    context_dict['r'] = r.title
+    context_dict['r'] = r.name
     return render_to_response('ptonptx2/removepage.html', context_dict, context)
 
 def search(request):
