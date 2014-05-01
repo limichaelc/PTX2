@@ -303,7 +303,7 @@ def sellbook(request, isbn):
             form = form.save(commit=False)    
             form.book = book
             form.save()
-            return index(request)
+            return setpricelisting(request, isbn, form.id)
         else:
             print form.errors
     else:
@@ -311,6 +311,32 @@ def sellbook(request, isbn):
     context_dict['form'] = form
 	
     return render_to_response('ptonptx2/sellbook.html', context_dict, context)
+    
+def setpricelisting(request, isbn, physbookid):
+    context = RequestContext(request)
+    
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    
+    context_dict = get_context(request)
+    physbook = PhysBook.objects.get(id=physbookid)
+    if request.method == 'POST':
+        form = ListingForm(request.POST)
+        if form.is_valid():
+            
+            form = form.save(commit=False)    
+            form.book = physbook
+            form.user = request.user.get_profile()
+            form.sell_status = 'O'
+            form.save()
+            return setpricelisting(request, isbn, form.id)
+        else:
+            print form.errors
+    else:
+        form = ListingForm()
+    context_dict['form'] = form
+	
+    return render_to_response('ptonptx2/setprice.html', context_dict, context)
     
     
 def confirmbuybook(request, isbn, listingid):

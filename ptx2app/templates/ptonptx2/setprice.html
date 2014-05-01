@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}PTX2 | Selling {{ book.title }}{% endblock %}
+
+{% block main %}
+<h3>Next, set your price!</h3>
+<form action="" method="post" >{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+
+{% include 'forms/newlisting.html' %}
+{% include 'forms/watchlist.html' %}
+{% endblock %}
+
+jQuery(document).ready(function($) {
+      $(".clickableRow").click(function() {
+            window.document.location = $(this).attr("href");
+      });
+});
