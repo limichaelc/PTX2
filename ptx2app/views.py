@@ -320,7 +320,7 @@ def pendingtransaction(request, id):
         form = ReviewForm(request.POST)
         if form.is_valid():
         	
-            form = form.save()    
+            form.save()    
             transaction = Transaction.objects.get(id=id)
             if transaction.buyer == context_dict['user']:
            		 transaction.buyerreview = form
