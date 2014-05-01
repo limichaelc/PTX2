@@ -37,15 +37,16 @@
     <div class="row clearfix">
         <br><h5>Student Offers</h5>
         {% if listings.all %}
-        <table class="table table-hover">
+        <table class="table table-condensed">
             <tr class="clickableRow" href="/buy">
                 <th>Price</th>
                 <th>Owner's comments</th>
+                <th></th>
             </tr>
             {% for listing in listings %}
             <tr>
                 <td>${{ listing.price|floatformat:2 }}</td>
-                <td>{{ listing.book.comment }}</td>
+                <td>{% if listing.book.comment %}{{ listing.book.comment }}{% else %}None.</td>
                 <td><a href="{% url 'ptx2app.views.buybook' isbn=book.isbn listingid=listing.id %}">Buy</a></td>
             </tr>
             {% endfor %}
