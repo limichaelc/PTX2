@@ -17,6 +17,9 @@ class Book(models.Model):
     picture_link = models.CharField(max_length = 1000, blank = True, null = True)
     def __unicode__(self):
         return self.title + ' (ISBN13: ' + self.isbn +')'
+
+    def __getitem__(self, key):
+        return getattr(self, key)
         
 class Course(models.Model):
     name = models.CharField(max_length = 500)
