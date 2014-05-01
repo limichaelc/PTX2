@@ -336,7 +336,7 @@ def pendingtransaction(request, id):
     context_dict['form'] = form
         
         
-    return render_to_response('ptonptx2/pendingtransaction.html', context_dict, context)
+    return render('ptonptx2/pendingtransaction.html', context_dict)
     
 def pending(request):
     context = RequestContext(request)
