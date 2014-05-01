@@ -328,7 +328,7 @@ def setpricelisting(request, isbn, physbookid):
             form.user = request.user.get_profile()
             form.sell_status = 'O'
             form.save()
-            return setpricelisting(request, isbn, form.id)
+            return index(request)
         else:
             print form.errors
     else:
