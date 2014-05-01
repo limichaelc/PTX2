@@ -189,21 +189,13 @@ def searchcourses(request):
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
 
 def removecourse(request):
+    return HttpResponse("remove course")
     context = RequestContext(request)
     if not request.user.is_authenticated():
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    if request.GET['r']:
-        form = RemoveCourseForm(request.GET)
-        if form.is_valid():
-            removecourse = form.cleaned_data['r']
-            removecourse = Course.objects.get(id=removecourse)
-            profile.course_list.remove(removecourse)
-            profile.save()
-            return HttpResponse(profile.course_list)
-    else:
-        return HttpResponse('remove course error')
+    return HttpResponse('remove course error')
     #return render_to_response(resolve(request.path_info).url_name, context_dict, context)
 
 def search(request):
