@@ -4,13 +4,11 @@
 			<div class="modal-body">
 				<h5 class="modal-title" id="myModalLabel">Remove <i>{{course.name}}</i>?</h5>
 			</div><br>
-				<div align="right"><form name="removecourse" method="get" action="/remove">
-					<input type="hidden" name="r" value="{{course.id}}">
-					<input name="Delete" type="submit" class="btn btn-danger" value="Remove"></input>
-					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-				</form>
-				</div>
-			</div>          
+			<div align="right"><form name="removecourse" method="get" action="/remove">
+				<input type="hidden" name="r" value="{{course.id}}">
+				<input name="Delete" type="submit" class="btn btn-danger" value="Remove"></input>
+				<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+			</form>
 		</div>
-	</div>
+	</div>          
 </div>
