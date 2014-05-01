@@ -202,7 +202,11 @@ def removecourse(request):
     if request.GET['r']:
         r = request.GET['r']
         r = Course.objects.get(id=r)
+        books = r.books.all()
         profile.course_list.remove(r)
+        for book in profile.books_needed.all():
+            if book in books:
+                profile.books_needed.remove(book)
         profile.save()
     context_dict['r'] = r.name
     return render_to_response('ptonptx2/removepage.html', context_dict, context)
