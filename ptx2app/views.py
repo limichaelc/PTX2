@@ -189,20 +189,14 @@ def searchcourses(request):
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
 
 def removecourse(request):
+    return HttpResponse("remove course")
     context = RequestContext(request)
     if not request.user.is_authenticated():
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    if request.GET['r']:
-        removecourse = request.GET['r']
-        return HttpResponse(removecourse)
-        removecourse = Course.objects.get(id=removecourse)
-        profile.course_list.remove(removecourse)
-        profile.save()
-    else:
-        return HttpResponse('remove course error')
-        return render_to_response(resolve(request.path_info).url_name, context_dict, context)
+    return HttpResponse('remove course error')
+    #return render_to_response(resolve(request.path_info).url_name, context_dict, context)
 
 def search(request):
     context = RequestContext(request)
@@ -319,6 +313,7 @@ def pendingtransaction(request, id):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
+
             form = form.save()    
             transaction = Transaction.objects.get(id=id)
             if transaction.buyer == context_dict['user']:
