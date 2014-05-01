@@ -38,3 +38,9 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
 
+class PhysBookForm(forms.Form):
+	comment = models.CharField(max_length = 500, blank=True, help_text="Describe the condition of your book")
+	class Meta:
+		model = Physbook
+		exclude['book']
+
