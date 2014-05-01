@@ -151,10 +151,8 @@ def history(request):
             if profile == instance.buyer:
                 past_transactions.append(instance)
             if profile == instance.seller:
-                past_transactions.append(instance)
-        
+                past_transactions.append(instance)        
     context_dict['history'] = past_transactions
-    return HttpResponse(past_transactions)
     return render_to_response('ptonptx2/history.html', context_dict, context)
 
 def searchcourses(request):
