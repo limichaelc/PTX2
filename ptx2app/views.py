@@ -39,6 +39,9 @@ def get_context(request):
                     current_course.append(book.book)
         nums_by_course[course] = len(current_course)
 
+    num_total = len(profile.books_needed.all())
+                    + len(profile.books_owned.all())
+                    + len(profile.books_selling.all())
     user_selling = []
 
     context_dict = {'user' : profile,
@@ -47,15 +50,11 @@ def get_context(request):
                     'num_needed' : len(profile.books_needed.all()),
                     'num_owned' : len(profile.books_owned.all()),
                     'num_selling' : len(profile.books_selling.all()),
-                    'num_total' : len(profile.books_needed.all())
-                    + len(profile.books_owned.all())
-                    + len(profile.books_selling.all()),
+                    'num_total' : num_total,
                     'num_pending' : len(Transaction.objects.filter(Q(buyer = profile)|Q(seller=profile), Q(buyerreview=None) | Q(sellerreview=None))),
                     'nums_by_course' : nums_by_course,
                     'user_selling': Listing.objects.filter(owner = profile),
-                    'first_visit': len(profile.course_list.all()) == 0 and len(profile.books_needed.all())
-                    + len(profile.books_owned.all())
-                    + len(profile.books_selling.all()) == 0 }
+                    'first_visit': len(profile.course_list.all()) == 0 and num_total == 0 }
     return context_dict
 
 def index(request):
