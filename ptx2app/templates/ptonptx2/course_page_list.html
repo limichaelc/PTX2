@@ -5,15 +5,18 @@
 {% block title %}PTX2 | {{ course.name }}{% endblock %}
 {% block main %}
 <div class="col-md-8 column">
+	<h5>Search results for "{{ q }}"</h5>
 	{% for course in course_dict %}
+	<div display="inline-block">
 		<a href="/courses/{{ course.dept }}/{{ course.num }}">{{course.name}} ({{course.dept}} {{course.num}})</a>
-		<div display="inline-block">
 		{% if course in user.course_list.all %}
 		<div class="glyphicon glyphicon-ok"></div>
 		{% else %}
 		<form name="searchcourses" method="post">{% csrf_token %}
 			<input type="hidden" name="course" value="{{course.id}}">
-			<button type="submit" class="btn btn-default btn-xs">Add course</button>
+			<div display="inline-block">
+			<button type="submit" class="btn btn-default btn-xs">Add</button>
+			</div>
 		</form>
 		{% endif %}
 	</div>
