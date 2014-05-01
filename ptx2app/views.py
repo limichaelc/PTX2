@@ -172,8 +172,8 @@ def searchcourses(request):
             books = newcourse.books.all()
             profile.course_list.add(newcourse)
             for book in books:
-                if not book in profile.books_owned:
-                    if not book in profile.books_selling:
+                if not book in profile.books_owned.all():
+                    if not book in profile.books_selling.all():
                         profile.books_needed.add(book)
             profile.save()
         else:
