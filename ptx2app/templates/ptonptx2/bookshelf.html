@@ -33,7 +33,7 @@
 						<p>
 						  <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
 							<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br></a>
-<a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}">
+							<a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}">
 						  <img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ book.amazon_price }}<br></a>
 							<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
 							{% if book.lowest_student_price != None %}
