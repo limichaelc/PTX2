@@ -200,8 +200,7 @@ def removecourse(request):
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    return HttpResponse('remove course error')
-    #return render_to_response(resolve(request.path_info).url_name, context_dict, context)
+    return render_to_response('ptonptx2/removepage.html', context_dict, context)
 
 def search(request):
     context = RequestContext(request)

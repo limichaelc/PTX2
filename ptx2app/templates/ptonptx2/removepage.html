@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}PTX2 | {{ course.name }}{% endblock %}
+
+{% block main %}
+<div class="col-md-6 column">
+	<div class="row clearfix">
+	  <h1> Course has been added </h>
+	  </div>
+</div>
+{% include 'forms/newlisting.html' %}
+{% include 'forms/newcourse.html' %}
+{% endblock %}
