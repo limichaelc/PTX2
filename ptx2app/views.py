@@ -270,7 +270,7 @@ def coursepage(request, course_dpt, course_num):
 
 	
     return render_to_response('ptonptx2/course_page.html', context_dict,
-	                                                         context)
+	                                                         context, )
 	                                                         
 	                                                         
 	
