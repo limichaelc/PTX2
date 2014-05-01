@@ -11,6 +11,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from django.core.urlresolvers import resolve
 import re
+from operator import itemgetter
 
 def get_context(request):
     context = RequestContext(request)
@@ -190,7 +191,7 @@ def searchcourses(request):
                     finallist.append()
     context_dict = get_context(request)
     context_dict['query'] = q
-    context_dict['course_dict'] = finallist
+    context_dict['course_dict'] = sorted(finallist, key=itemgetter('name')) 
     
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
 
