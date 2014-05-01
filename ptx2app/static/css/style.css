@@ -20,6 +20,8 @@ th {
 }
 
 .btn-centered {
-  text-align: center;
-  display: block;
+  position: absolute;
+  bottom: 50px;
+  margin-left: -50px;
+}
 }
