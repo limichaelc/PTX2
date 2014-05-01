@@ -3,15 +3,14 @@
 		<div class="modal-content">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h5 class="modal-title" id="myModalLabel">Add new course(s)</h5>
+					<h5 class="modal-title" id="myModalLabel">Add new course</h5>
 				</div>
 				<div class="modal-body">
 					<form id="addnewcourseform" method="get" name="addnewcourseform" action="/searchcourses/"> {% csrf_token %}
 					<div class="form-group">
-						<input type="text" class="form-control" data-provide="typeahead" placeholder="Search for courses to add (e.g. 'COS333; COS')" name="q"> 
-						<input type="submit" name="Search course(s)" class="btn btn-primary">
-						<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>	
+						<input type="text" class="form-control" data-provide="typeahead" placeholder="Search for courses to add (e.g. 'COS333; COS')" name="q"><br>
+						<div align="right"><input type="submit" name="Search courses" class="btn btn-primary">
+						<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button></div>
 					</div>
 					</form>
 				</div>
