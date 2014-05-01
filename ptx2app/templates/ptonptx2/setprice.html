@@ -5,7 +5,7 @@
 {% block title %}PTX2 | Selling {{ book.title }}{% endblock %}
 
 {% block main %}
-<h3>Next, set your price!</h3>
+<h4>Next, set your price!</h4>
 <form action="" method="post" >{% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="Submit" />
