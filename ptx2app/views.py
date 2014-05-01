@@ -39,9 +39,7 @@ def get_context(request):
                     current_course.append(book.book)
         nums_by_course[course] = len(current_course)
 
-    num_total = len(profile.books_needed.all())
-                    + len(profile.books_owned.all())
-                    + len(profile.books_selling.all())
+    num_total = len(profile.books_needed.all()) + len(profile.books_owned.all()) + len(profile.books_selling.all())
     user_selling = []
 
     context_dict = {'user' : profile,
