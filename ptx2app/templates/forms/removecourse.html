@@ -7,7 +7,7 @@
 					<h4 class="modal-title" id="myModalLabel">Remove course(s)</h4>
 				</div>
 				<div class="modal-body">
-				  <form name="removecourse" method="get">
+				  <form name="removecourse" method="get">{% csrf_token %}
 				    <input type="hidden" name="r" value="{{course.id}}">
 				    <button name="Delete" type="submit" class="btn btn-danger">Remove </input>
 					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
