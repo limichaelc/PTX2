@@ -210,6 +210,8 @@ def removecourse(request):
                 profile.books_needed.remove(book)
         profile.save()
     context_dict['r'] = r.name
+    context_dict['dept'] = r.dept
+    context_dict['num'] = r.num
     context_dict['just_removed'] = True
     return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
