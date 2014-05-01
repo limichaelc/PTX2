@@ -7,8 +7,7 @@
 {% block main %}
 <h4>Next, set your price!</h4>
 <form action="" method="post" >{% csrf_token %}
-<p><label for="id_comment">Comment:</label>
-    <textarea id="id_comment" type="text" name="comment" maxlength="500" class="form-control" rows="3"></textarea></p>
+{{ form.as_p }}
 <input type="submit" value="Submit" />
 </form>
 
