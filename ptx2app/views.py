@@ -331,7 +331,7 @@ def setpricelisting(request, isbn, physbookid):
             
             form = form.save(commit=False)    
             form.book = physbook
-            form.user = request.user.get_profile()
+            form.owner = request.user.get_profile()
             form.sell_status = 'O'
             form.save()
             return index(request)

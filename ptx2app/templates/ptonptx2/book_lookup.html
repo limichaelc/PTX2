@@ -20,7 +20,7 @@
         {% endif %}
         {% endfor %}
         {% endfor %}
-            <p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.course_code }}</a></i><br>
+            <!--<p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.course_code }}</a></i><br>
                 {% if person.book.owned %}
                 {% if person.book.selling %}
                 Selling for ${{ person.book.sell_price }}<br>
@@ -29,7 +29,7 @@
                 <a href="#" data-toggle="modal" data-target="#newlistingmodal"> Sell?</a>
                 {% endif %} 
                 {% else %}
-            </p>
+            </p>-->
             <p>
 	      <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
                 <img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br> </a>
@@ -37,6 +37,7 @@
 	      <img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ book.amazon_price }}<br></a>
             </p>
             {% endif %}
+            <a href="sell/">Sell this book?</a>
         </div>
     </div>
     <div class="row clearfix">

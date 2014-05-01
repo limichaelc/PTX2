@@ -14,10 +14,6 @@
 
 		<h4 padding-left="5px"> Books Needed </h4>
 		{% for book in user.books_needed.all %}
-		{% if forloop.counter|divisibleby:5 %}
-			</div>
-			<div class="row clearfix" id="needtobuy">
-		{% endif %}
 		<div class="col-md-3">
 			<div class="thumbnail">
 				<div class="caption">
