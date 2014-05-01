@@ -4,13 +4,13 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Remove course {{course.name}}</h4>
+					<h4 class="modal-title" id="myModalLabel">Remove "{{course.name}}"?</h4>
 				</div>
 				<div class="modal-body">
 				  <p>{{course.id}}</p>
-				  <form name="removecourse" method="get" action="/remove">{% csrf_token %}
+				  <form name="removecourse" method="get" action="/remove">
 				    <input type="hidden" name="r" value="{{course.id}}">
-				    <input name="Delete" type="submit" class="btn btn-danger" value="delete">Remove</input>
+				    <input name="Delete" type="submit" class="btn btn-danger" value="Remove"></input>
 					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
 					</form>
 				</div>          
