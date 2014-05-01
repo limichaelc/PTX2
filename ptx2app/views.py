@@ -154,7 +154,7 @@ def history(request):
                 past_transactions.append(instance)
         
     context_dict['history'] = past_transactions
-    return HttpeResponse(past_transactions)
+    return HttpResponse(past_transactions)
     return render_to_response('ptonptx2/history.html', context_dict, context)
 
 def searchcourses(request):
