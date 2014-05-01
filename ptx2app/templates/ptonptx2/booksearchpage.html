@@ -5,7 +5,8 @@
 {% block title %}PTX2 | {{ course.name }}{% endblock %}
 
 {% block main %}
-<div class="col-md-6 column">
+<div class="col-md-8 column">
+	<h4>Search results for "{{ query }}"</h4>
 	<div class="row clearfix">
 	{% for book in book_dict %}
 		<div class="col-md-4">

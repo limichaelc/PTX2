@@ -44,7 +44,8 @@
 						</p>
 						<p>
 						<div class="btn-group btn-centered">
-							<button type="button" class="btn btn-default btn-sm" title="Mark as owned"><span class="glyphicon glyphicon-ok"></span></button>
+							<form id="markasownedform" method="get" name="markasowned" action="/markasowned/"> {% csrf_token %}
+							<button type="submit" class="btn btn-default btn-sm" title="Mark as owned"><span class="glyphicon glyphicon-ok"></span></button>
 						</div>
 						</p>
 					</div>
@@ -75,7 +76,7 @@
 					</div>
 					<p>
 						<div class="btn-group btn-centered">
-							<button type="button" class="btn btn-default btn-sm" title="Edit book"><span class="glyphicon glyphicon-pencil"></span></button>
+							<button type="button" class="btn btn-default btn-sm" title="Edit listing"><span class="glyphicon glyphicon-pencil"></span></button>
 							<button type="button" class="btn btn-default btn-sm" title="Remove listing"><span class="glyphicon glyphicon-remove"></span></button>
 						</div>
 					</p>
