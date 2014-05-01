@@ -6,6 +6,7 @@
 {% block main %}
 <div class="col-md-8 column">
 {% for course in course_dict %}
+{{user.course_list}}
 {% if course in user.course_list %}
 <div class="glyphicon glyphicon-ok"></div>
 {% else %}
