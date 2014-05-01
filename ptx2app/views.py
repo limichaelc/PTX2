@@ -201,9 +201,7 @@ def removecourse(request):
     context_dict = get_context(request)
     if request.GET['r']:
         r = request.GET['r']
-        return HttpResponse(r)
         r = Course.objects.get(id=r)
-        return HttpResponse(r)
         profile.course_list.remove(r)
         profile.save()
     return render_to_response('ptonptx2/removepage.html', context_dict, context)
