@@ -14,11 +14,8 @@
         <div class="col-md-6">
         Used in 
         {% for course in courses %}
-        {% for reading in course.books.all %}
-        {% if reading == book %}
+        {% if forloop.rev = 1 %}and {% else %}, {% endif %}
         <i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br>
-        {% endif %}
-        {% endfor %}
         {% endfor %}
             <!--<p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.course_code }}</a></i><br>
                 {% if person.book.owned %}
