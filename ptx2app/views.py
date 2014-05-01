@@ -270,7 +270,7 @@ def coursepage(request, course_dpt, course_num):
 
 	
     return render_to_response('ptonptx2/course_page.html', context_dict,
-	                                                         context)
+	                                                         context, )
 	                                                         
 	                                                         
 	
@@ -318,8 +318,9 @@ def pendingtransaction(request, id):
 
     if request.method == 'POST':
         form = ReviewForm(request.POST)
+        return HttpResponse("Welcome to the page at /current/")
         if form.is_valid():
-        	
+            return index(request)
             form = form.save()    
             transaction = Transaction.objects.get(id=id)
             if transaction.buyer == context_dict['user']:
@@ -335,7 +336,7 @@ def pendingtransaction(request, id):
     context_dict['form'] = form
         
         
-    return render_to_response('ptonptx2/pendingtransaction.html', context_dict, context)
+    return render(request, 'ptonptx2/pendingtransaction.html', context_dict)
     
 def pending(request):
     context = RequestContext(request)
