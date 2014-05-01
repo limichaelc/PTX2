@@ -209,7 +209,8 @@ def removecourse(request):
                 profile.books_needed.remove(book)
         profile.save()
     context_dict['r'] = r.name
-    return render_to_response('ptonptx2/removepage.html', context_dict, context)
+    context_dict['just_removed'] = True
+    return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
 def search(request):
     context = RequestContext(request)
