@@ -190,7 +190,7 @@ def searchcourses(request):
                 if q == f.num:
                     finallist.append()
     context_dict['course_dict'] = finallist
-    context_dict['query'] = q
+    context_dict['query'] = request.META['QUERY_STRING']
     
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
 
