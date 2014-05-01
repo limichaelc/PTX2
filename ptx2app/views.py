@@ -194,12 +194,17 @@ def searchcourses(request):
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
 
 def removecourse(request):
-    return HttpResponse("remove course")
     context = RequestContext(request)
     if not request.user.is_authenticated():
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
+    if request.GET['r']:
+        r = request.GET['r']
+        r = Course.objects.get(id=r)
+        return HttpResponse(r)
+        profile.course_list.remove(r)
+        profile.save()
     return render_to_response('ptonptx2/removepage.html', context_dict, context)
 
 def search(request):
