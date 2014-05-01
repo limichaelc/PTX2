@@ -42,4 +42,9 @@ class PhysBookForm(forms.ModelForm):
 	class Meta:
 		model = PhysBook
 		exclude = ['book']
+		
+class ListingForm(forms.ModelForm):
+	class Meta:
+		model = Listing
+		fields= ['price']
 
