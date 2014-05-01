@@ -10,3 +10,7 @@ body {
 .navbar-fixed-bottom {
 	padding-top: 15px;
 }
+
+td {
+	font-size: small
+}

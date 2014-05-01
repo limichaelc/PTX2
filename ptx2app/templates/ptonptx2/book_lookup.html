@@ -45,7 +45,7 @@
             {% for listing in listings %}
             <tr>
                 <td>${{ listing.price|floatformat:2 }}</td>
-                <td>{% if listing.book.comment %}{{ listing.book.comment }}{% else %}<p class="text-muted">None.</p>{% endif %}</td>
+                <td>{% if listing.book.comment %}{{ listing.book.comment }}{% else %}<span class="text-muted">None.</span>{% endif %}</td>
                 <td><a href="{% url 'ptx2app.views.buybook' isbn=book.isbn listingid=listing.id %}">Buy</a></td>
             </tr>
             {% endfor %}
