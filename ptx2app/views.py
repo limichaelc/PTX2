@@ -200,6 +200,7 @@ def removecourse(request):
     profile = request.user.get_profile()
     context_dict = get_context(request)
     if request.GET['r']:
+        return HttpResponse(request.GET)
         r = request.GET['r']
         r = Course.objects.get(id=r)
         return HttpResponse(r)
