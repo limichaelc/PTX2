@@ -8,9 +8,13 @@
 <div class="col-md-6 column">
 	<div class="row clearfix">
 	  <h1> Oops! </h1>
+	  {% if too_short %}
+	  <p> Your search "{{query}}" must be at least 3 characters long.</p>
+	  {% else %}
 	  <p> Your search did not match any books or courses.</p>
 	  <p> Search by book titles - e.g. 'The Practice of Programming'</p>
 	  <p> Or search by book courses - e.g. 'COS 333' </p>
+	  {% endif %}
 	  </div>
 </div>
 {% include 'forms/newlisting.html' %}
