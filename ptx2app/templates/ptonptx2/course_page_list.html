@@ -6,6 +6,9 @@
 {% block main %}
 <div class="col-md-8 column">
 	<h5>Search results for "{{ query }}"</h5>
+	{% ifequal course_dict|length 0 %}
+	<p> No courses found </p>
+	{% endifequal %}
 	{% for course in course_dict %}
 	<div display="inline-block">
 		{% if course in user.course_list.all %}
@@ -28,9 +31,6 @@
 	</div>
 	{% endfor %}
 </div>
-{% ifequal course_dict|length 0 %}
-<h4> No courses found </h4>
-{% endifequal %}
 {% include 'forms/newlisting.html' %}
 {% include 'forms/newcourse.html' %}
 {% endblock %}
