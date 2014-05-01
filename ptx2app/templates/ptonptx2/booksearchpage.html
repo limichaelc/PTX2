@@ -2,13 +2,14 @@
 
 {% load staticfiles %}
 
-{% block title %}PTX2 | {{ course.name }}{% endblock %}
+{% block title %}PTX2 | Search results for "{{ query }}"{% endblock %}
 
 {% block main %}
-<div class="col-md-6 column">
+<div class="col-md-8 column">
+	<h4>Search results for "{{ query }}"</h4>
 	<div class="row clearfix">
 	{% for book in book_dict %}
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<div class="thumbnail">
 				<div class="caption">
 					<img src={{ book.picture_link }} width="130">
@@ -17,7 +18,12 @@
 						  <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
 							<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br></a>
 					<a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}">
-						  <img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ book.amazon_price }}<br></a>
+							<img src="http://www.amazon.com/favicon.ico" height="12"; width="12">
+							{% if book.amazon_price != None %}
+							${{ book.amazon_price }}<br>
+							{% else %}
+							No price listed<br>
+							{% endif %}</a>
 							<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
 							{% if book.lowest_student_price != None %}
 							${{ book.lowest_student_price }}.00<br>
@@ -25,6 +31,7 @@
 							No student offers<br>
 							{% endif %}
 						</p>
+						<a href="sell/">Sell this book?</a>
 					</div>
 				</div>
 			</div>

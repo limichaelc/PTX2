@@ -11,6 +11,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from django.core.urlresolvers import resolve
 import re
+from operator import itemgetter
 
 def get_context(request):
     context = RequestContext(request)
@@ -39,6 +40,7 @@ def get_context(request):
                     current_course.append(book.book)
         nums_by_course[course] = len(current_course)
 
+    num_total = len(profile.books_needed.all()) + len(profile.books_owned.all()) + len(profile.books_selling.all())
     user_selling = []
 
     context_dict = {'user' : profile,
@@ -47,13 +49,11 @@ def get_context(request):
                     'num_needed' : len(profile.books_needed.all()),
                     'num_owned' : len(profile.books_owned.all()),
                     'num_selling' : len(profile.books_selling.all()),
-                    'num_total' : len(profile.books_needed.all())
-                    + len(profile.books_owned.all())
-                    + len(profile.books_selling.all()),
+                    'num_total' : num_total,
                     'num_pending' : len(Transaction.objects.filter(Q(buyer = profile)|Q(seller=profile), Q(buyerreview=None) | Q(sellerreview=None))),
                     'nums_by_course' : nums_by_course,
                     'user_selling': Listing.objects.filter(owner = profile),
-                    'first_visit': len(profile.course_list.all()) == 0 }
+                    'first_visit': len(profile.course_list.all()) == 0 and num_total == 0 }
     return context_dict
 
 def index(request):
@@ -189,7 +189,13 @@ def searchcourses(request):
                     finallist.append(f)
                 if q == f.num:
                     finallist.append()
-    context_dict['course_dict'] = finallist
+    
+    sortedbydept = sorted(finallist, key=lambda course: course['dept'])
+    sortedbydeptandnum = sorted(sortedbydept, key=lambda course: course['num'])
+    context_dict = get_context(request)
+    context_dict['query'] = q
+    context_dict['course_dict'] = sortedbydeptandnum
+
     
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
 
@@ -208,8 +214,12 @@ def removecourse(request):
             if book in booklist:
                 profile.books_needed.remove(book)
         profile.save()
+    context_dict = get_context(request)
     context_dict['r'] = r.name
-    return render_to_response('ptonptx2/removepage.html', context_dict, context)
+    context_dict['dept'] = r.dept
+    context_dict['num'] = r.num
+    context_dict['just_removed'] = True
+    return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
 def search(request):
     context = RequestContext(request)
@@ -219,6 +229,10 @@ def search(request):
     context_dict = get_context(request)
     if request.GET['q']:
         q = request.GET['q']
+        context_dict['query'] = q
+        if len(q) < 3:
+            context_dict['too_short'] = True
+            return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
         q = q.upper().replace(" ", "")
         finallist = []
         thiscourse = None
@@ -235,7 +249,7 @@ def search(request):
                 finallist.append(f)
         if len(finallist) == 0:
             return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
-        context_dict['book_dict'] = finallist
+        context_dict['book_dict'] = sorted(finallist, key=lambda book: book['title'])
     else:
         return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
     return render_to_response('ptonptx2/booksearchpage.html', context_dict, context)
@@ -344,6 +358,33 @@ def setpricelisting(request, isbn, physbookid):
         form = ListingForm()
     context_dict['form'] = form
 	
+    return render_to_response('ptonptx2/setprice.html', context_dict, context)
+
+def editlisting(request, physbookid, listingid):
+    context = RequestContext(request)
+    
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    
+    context_dict = get_context(request)
+    physbook = PhysBook.objects.get(id=physbookid)
+    listing = Listing.objects.get(id=listingid)
+    if request.method == 'POST':
+        priceform = ListingForm(request.POST)
+        if priceform.is_valid():
+            priceform.save(commit=False)
+        else:
+            print priceform.errors
+        commentform = PhysBookForm(request.POST)
+        if commentform.is_valid():
+            commentform.save(commit=False)
+        else:
+            print commentform.errors
+        return index(request)
+    else:
+        form = ListingForm()
+    context_dict['form'] = form
+    
     return render_to_response('ptonptx2/setprice.html', context_dict, context)
     
     

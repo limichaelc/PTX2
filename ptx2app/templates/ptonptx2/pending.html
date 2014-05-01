@@ -2,12 +2,15 @@
 
 {% load staticfiles %}
 
-{% block title %}PTX2 | Pending transaction of {{ listing.book.book.title }} for ${{ listing.price }} {% endblock %}
+{% block title %}PTX2 | Pending Transactions{% endblock %}
 
 {% block main %}
         <div class="col-md-9 column">
         <div class="row clearfix">
-	<h4> Pending Transaction </h4>
+	<h4> Pending Transactions</h4>
+	{% if not transactions.all %}
+	<p>Currently no pending transactions.</p>
+	{% else %}
 	<table class="table table-striped table-bordered">
 	 <thead>
 	 <tr>
@@ -29,6 +32,7 @@
 	{% endfor %}
 </tbody>
 </table>
+{% endif %}
 </div>
 </div>
 

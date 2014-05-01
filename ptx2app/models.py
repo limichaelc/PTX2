@@ -17,6 +17,9 @@ class Book(models.Model):
     picture_link = models.CharField(max_length = 1000, blank = True, null = True)
     def __unicode__(self):
         return self.title + ' (ISBN13: ' + self.isbn +')'
+
+    def __getitem__(self, key):
+        return getattr(self, key)
         
 class Course(models.Model):
     name = models.CharField(max_length = 500)
@@ -32,6 +35,9 @@ class Course(models.Model):
     # readings = models.ManyToManyField('Reading', blank=true) # use name since class Reading isn't defined yet
     def __unicode__(self):
         return self.name + ' (' + self.dept + ' ' + str(self.num) + ') ' + ' (' + self.term + ' ' + str(self.year) + ')'
+
+    def __getitem__(self, key):
+        return getattr(self, key)
 
 class PhysBook(models.Model):
     book = models.ForeignKey(Book)
