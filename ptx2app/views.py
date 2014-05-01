@@ -318,9 +318,7 @@ def pendingtransaction(request, id):
 
     if request.method == 'POST':
         form = ReviewForm(request.POST)
-        return HttpResponse("Welcome to the page at /current/")
         if form.is_valid():
-            return index(request)
             form = form.save()    
             transaction = Transaction.objects.get(id=id)
             if transaction.buyer == context_dict['user']:
