@@ -150,11 +150,11 @@ def history(request):
         if (instance.buyerreview != None) & (instance.sellerreview != None):
             if profile == instance.buyer:
                 past_transactions.append(instance)
-            elif profile == instance.seller:
+            if profile == instance.seller:
                 past_transactions.append(instance)
         
     context_dict['history'] = past_transactions
-    
+    return HttpeResponse(past_transactions)
     return render_to_response('ptonptx2/history.html', context_dict, context)
 
 def searchcourses(request):
