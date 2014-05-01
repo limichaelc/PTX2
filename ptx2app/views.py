@@ -195,11 +195,13 @@ def removecourse(request):
     profile = request.user.get_profile()
     context_dict = get_context(request)
     if request.GET['r']:
-        removecourse = request.GET['r']
-        removecourse = Course.objects.get(id=removecourse)
-        profile.course_list.remove(removecourse)
-        profile.save()
-        return HttpResponse(profile.course_list)
+        form = RemoveCourseForm(request.GET)
+        if form.is_valid():
+            removecourse = form.cleaned_data['r']
+            removecourse = Course.objects.get(id=removecourse)
+            profile.course_list.remove(removecourse)
+            profile.save()
+            return HttpResponse(profile.course_list)
     else:
         return HttpResponse('remove course error')
     #return render_to_response(resolve(request.path_info).url_name, context_dict, context)
