@@ -209,6 +209,7 @@ def removecourse(request):
             if book in booklist:
                 profile.books_needed.remove(book)
         profile.save()
+    context_dict = get_context(request)
     context_dict['r'] = r.name
     context_dict['dept'] = r.dept
     context_dict['num'] = r.num
