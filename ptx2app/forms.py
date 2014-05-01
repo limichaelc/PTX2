@@ -31,6 +31,9 @@ class ProfileForm(forms.ModelForm):
 class AddCourseForm(forms.Form):
     course = forms.CharField(max_length = 100)
 
+class RemoveCourseForm(forms.Form):
+    r = forms.CharField(max_length = 100)
+
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
