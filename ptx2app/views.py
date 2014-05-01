@@ -190,8 +190,8 @@ def searchcourses(request):
                 if q == f.num:
                     finallist.append()
     
-    sortedbydept = sorted(finallist, key='dept')
-    sortedbydeptandnum = sorted(sortedbydept, key='num')
+    sortedbydept = sorted(finallist, key=lambda course: course['dept'])
+    sortedbydeptandnum = sorted(sortedbydept, key=lambda course: course['num'])
     context_dict = get_context(request)
     context_dict['query'] = q
     context_dict['course_dict'] = sortedbydeptandnum
