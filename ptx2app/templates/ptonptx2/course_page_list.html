@@ -6,8 +6,7 @@
 {% block main %}
 <div class="col-md-8 column">
 {% for course in course_dict %}
-{{user.course_list}}
-{% if course in user.course_list %}
+{% if course in user.course_list.all %}
 <div class="glyphicon glyphicon-ok"></div>
 {% else %}
 <form name="searchcourses" method="post">{% csrf_token %}
