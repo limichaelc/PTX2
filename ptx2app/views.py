@@ -187,7 +187,7 @@ def searchcourses(request):
                     finallist.append(f)
                 elif q == f.num:
                     finallist.append()
-                else if re.search(q.upper().replace(" ",""), f.name.upper().replace(" ","")) != None:
+                elif re.search(q.upper().replace(" ",""), f.name.upper().replace(" ","")) != None:
                     finallist.append(f)
     
     sortedbydept = sorted(finallist, key=lambda course: course['dept'])
