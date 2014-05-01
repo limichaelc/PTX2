@@ -2,12 +2,12 @@
 
 {% load staticfiles %}
 
-{% block title %}PTX2 | {{ course.name }}{% endblock %}
+{% block title %}PTX2 | Remove {{ course_dict['r'].name }}{% endblock %}
 
 {% block main %}
 <div class="col-md-6 column">
 	<div class="row clearfix">
-	  <h1> {{course.name}} has been removed </h>
+	  <h1> {{course_dict['r'].name}} has been removed </h>
 	  </div>
 </div>
 {% include 'forms/newlisting.html' %}
