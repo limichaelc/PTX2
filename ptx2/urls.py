@@ -31,7 +31,7 @@ urlpatterns = patterns('',
     #url(r'^searchform/$', 'ptx2app.views.search_form'),
     url(r'^search/', 'ptx2app.views.search'),
     url(r'^searchcourses/', 'ptx2app.views.searchcourses'),
-    url(r'*', 'ptx2app.views.removecourse'),
+    url(r'/remove', 'ptx2app.views.removecourse'),
     #url(r'^sellbook/', 'ptx2app.views.sell_book', name = 'sell_book'),
     
 	#url(r'^courses/(?P<dept>\w+)/(?P<num>\d+)/$', 'ptx2app.templates.coursepage'),
