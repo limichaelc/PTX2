@@ -8,7 +8,7 @@
 				<div class="modal-body">
 					<form id="addnewcourseform" method="get" name="addnewcourseform" action="/searchcourses/"> {% csrf_token %}
 					<div class="form-group">
-						<input type="text" class="form-control" data-provide="typeahead" placeholder="Search for courses to add (e.g. 'COS333; COS')" name="q"><br>
+						<input type="text" class="form-control" data-provide="typeahead" placeholder="Search for courses to add (e.g. 'COS333' or 'COS')" name="q"><br>
 						<div align="right"><input type="submit" name="Search courses" class="btn btn-primary">
 						<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button></div>
 					</div>
