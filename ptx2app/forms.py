@@ -38,3 +38,8 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
 
+class PhysBookForm(forms.ModelForm):
+	class Meta:
+		model = PhysBook
+		exclude = ['book']
+
