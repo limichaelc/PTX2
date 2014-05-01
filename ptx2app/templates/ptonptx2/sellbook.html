@@ -5,8 +5,8 @@
 {% block title %}PTX2 | Selling {{ book.title }}{% endblock %}
 
 {% block main %}
-<h1>Thank you for deciding to sell your book with us!</h1>
-<h3>First, describe the condition of your book. Include any obvious flaws, such as tears, rips, etc., but also warrant its merits- brand new, like new, etc.</h3>
+<h4>Thank you for deciding to sell your book with us!</h4>
+<p>First, describe the condition of your book. Include any obvious flaws, such as tears, rips, etc., but also warrant its merits- brand new, like new, etc.</p>
 <form action="" method="post" >{% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="Submit" />
