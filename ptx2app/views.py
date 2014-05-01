@@ -189,9 +189,13 @@ def searchcourses(request):
                     finallist.append(f)
                 if q == f.num:
                     finallist.append()
+    
+    sortedbydept = sorted(finallist, key='dept')
+    sortedbydeptandnum = sorted(sortedbydept, key='num')
     context_dict = get_context(request)
     context_dict['query'] = q
-    context_dict['course_dict'] = sorted(finallist, key=itemgetter('name')) 
+    context_dict['course_dict'] = sortedbydeptandnum
+
     
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
 
