@@ -222,11 +222,11 @@ def search(request):
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    context_dict['query'] = q
-    if len(q) < 3:
-        return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context, {'too_short': True})
     if request.GET['q']:
         q = request.GET['q']
+        context_dict['query'] = q
+        if len(q) < 3:
+            return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context, {'too_short': True})
         q = q.upper().replace(" ", "")
         finallist = []
         thiscourse = None
