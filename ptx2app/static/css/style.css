@@ -20,7 +20,6 @@ th {
 }
 
 .btn-centered {
-  position: absolute;
-  bottom: 20px;
-  right:30px;
+  padding-bottom: 20px;
+  padding-right:30px;
 }
