@@ -2,12 +2,11 @@
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-content">
-				<div class="modal-header">
+				<div class="modal-body">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">Remove "{{course.name}}"?</h4>
 				</div>
 				<div class="modal-footer">
-				  <p>{{course.id}}</p>
 				  <form name="removecourse" method="get" action="/remove">
 				    <input type="hidden" name="r" value="{{course.id}}">
 				    <input name="Delete" type="submit" class="btn btn-danger" value="Remove"></input>
