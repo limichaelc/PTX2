@@ -43,10 +43,12 @@
 							{% endif %}
 						</p>
 						<p>
-						<div class="btn-group pull-right">
+						<div class="pull-right">
+						<div class="btn-group">
 							<form id="markasownedform" method="get" name="markasowned" action="/markasowned/"> {% csrf_token %}
 							<button type="submit" class="btn btn-default btn-sm" title="Mark as owned">Owned</button>
 							</form>
+						</div>
 						</div>
 						</p>
 					</div>
