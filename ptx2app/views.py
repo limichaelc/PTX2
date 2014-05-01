@@ -202,10 +202,10 @@ def removecourse(request):
     if request.GET['r']:
         r = request.GET['r']
         r = Course.objects.get(id=r)
-        books = r.books.all()
+        booklist = r.books.all()
         profile.course_list.remove(r)
         for book in profile.books_needed.all():
-            if book in books:
+            if book in booklist:
                 profile.books_needed.remove(book)
         profile.save()
     context_dict['r'] = r.name
