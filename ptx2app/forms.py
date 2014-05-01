@@ -46,5 +46,5 @@ class PhysBookForm(forms.ModelForm):
 class ListingForm(forms.ModelForm):
 	class Meta:
 		model = Listing
-		field s= ['price']
+		fields= ['price']
 
