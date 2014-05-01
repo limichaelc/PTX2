@@ -387,7 +387,34 @@ def editlisting(request, physbookid, listingid):
     
     return render_to_response('ptonptx2/setprice.html', context_dict, context)
     
+def markasowned(request, physbookid, listingid):
+    # temp
+    context = RequestContext(request)
     
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    
+    context_dict = get_context(request)
+    physbook = PhysBook.objects.get(id=physbookid)
+    listing = Listing.objects.get(id=listingid)
+    if request.method == 'POST':
+        priceform = ListingForm(request.POST)
+        if priceform.is_valid():
+            priceform.save(commit=False)
+        else:
+            print priceform.errors
+        commentform = PhysBookForm(request.POST)
+        if commentform.is_valid():
+            commentform.save(commit=False)
+        else:
+            print commentform.errors
+        return index(request)
+    else:
+        form = ListingForm()
+    context_dict['form'] = form
+    
+    return render_to_response('ptonptx2/setprice.html', context_dict, context)
+
 def confirmbuybook(request, isbn, listingid):
     context = RequestContext(request)
     
