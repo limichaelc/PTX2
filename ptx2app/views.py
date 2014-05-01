@@ -240,6 +240,7 @@ def search(request):
                 finallist.append(f)
         if len(finallist) == 0:
             return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
+        context_dict['book_dict'] = finallist
         context_dict['query'] = q
     else:
         return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
