@@ -53,7 +53,7 @@ def get_context(request):
                     'num_pending' : len(Transaction.objects.filter(Q(buyer = profile)|Q(seller=profile), Q(buyerreview=None) | Q(sellerreview=None))),
                     'nums_by_course' : nums_by_course,
                     'user_selling': Listing.objects.filter(owner = profile),
-                    'first_visit': len(profile.course_list.all()) == 0 }
+                    'first_visit': len(profile.course_list.all()) == 0 and num_total == 0 }
     return context_dict
 
 def index(request):
