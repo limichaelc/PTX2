@@ -12,13 +12,7 @@
            <img src={{ book.picture_link }} width="130">
         </div>
         <div class="col-md-6">
-        Used in 
-        {% for course in courses %}
-        {% for reading in course.books.all %}
-        {% if reading == book %}
-        <i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br>
-        {% endif %}
-        {% endfor %}
+        Used in {% for course in courses %}<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>{% if forloop.rev = 1 %}and {% else %}, {% endif %}
         {% endfor %}
             <!--<p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.course_code }}</a></i><br>
                 {% if person.book.owned %}
