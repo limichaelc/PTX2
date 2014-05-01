@@ -6,8 +6,9 @@
 {% block main %}
 <div class="col-md-8 column">
 	{% for course in course_dict %}
-	<div display="inline-block">
-		<a href="/courses/{{ course.dept }}/{{ course.num }}">{{course.name}} ({{course.dept}} {{course.num}})</a>{% if course in user.course_list.all %}
+		<a href="/courses/{{ course.dept }}/{{ course.num }}">{{course.name}} ({{course.dept}} {{course.num}})</a>
+		<div display="inline-block">
+		{% if course in user.course_list.all %}
 		<div class="glyphicon glyphicon-ok"></div>
 		{% else %}
 		<form name="searchcourses" method="post">{% csrf_token %}
