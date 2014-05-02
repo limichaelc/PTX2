@@ -150,11 +150,9 @@ def history(request):
         if (instance.buyerreview != None) & (instance.sellerreview != None):
             if profile == instance.buyer:
                 past_transactions.append(instance)
-            elif profile == instance.seller:
-                past_transactions.append(instance)
-        
+            if profile == instance.seller:
+                past_transactions.append(instance)        
     context_dict['history'] = past_transactions
-    
     return render_to_response('ptonptx2/history.html', context_dict, context)
 
 def searchcourses(request):
@@ -185,10 +183,12 @@ def searchcourses(request):
                 finallist.append(f)
         if len(finallist) == 0:
             for f in Course.objects.all():
-                if q.upper().replace(" ", "") == f.dept:
-                    finallist.append(f)
                 if q == f.num:
                     finallist.append()
+                elif q.upper().replace(" ", "") == f.dept:
+                    finallist.append(f)
+                elif re.search(q.upper().replace(" ",""), f.name.upper().replace(" ","")) != None:
+                    finallist.append(f)
     
     sortedbydept = sorted(finallist, key=lambda course: course['dept'])
     sortedbydeptandnum = sorted(sortedbydept, key=lambda course: course['num'])

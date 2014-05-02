@@ -8,9 +8,6 @@
         <div class="col-md-9 column">
         <div class="row clearfix">
 	<h4> Transaction History </h4>
-	{% if not history.all %}
-	<p>Currently no history.</p>
-	{% else %}
 	<table class="table table-striped table-bordered">
 	 <thead>
 	 <tr>
@@ -31,7 +28,6 @@
 	{% endfor %}
 </tbody>
 </table>
-{% endif %}
 </div>
 </div>
 
