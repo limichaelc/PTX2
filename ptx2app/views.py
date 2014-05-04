@@ -56,6 +56,7 @@ def get_context(request):
                     'first_visit': len(profile.course_list.all()) == 0 and num_total == 0 }
     return context_dict
 
+#the main bookshelf page
 def index(request):
 
     context = RequestContext(request)

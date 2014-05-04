@@ -14,7 +14,7 @@
 		{% if course in user.course_list.all %}
 		<form class="form-inline" name="searchcourses" method="post">{% csrf_token %}
 		<div class="form-group">
-			<s><a href="/courses/{{ course.dept }}/{{ course.num }}">{{course.name}} ({{course.dept}} {{course.num}})</a></s>
+            <s><a href="/courses/{{ course.dept }}/{{ course.num }}">{{course.dept}} {{course.num}} ({{course.name}})</a></s>
 			<input type="hidden" name="course" value="{{course.id}}">
 			<button type="submit" class="btn btn-default btn-xs" disabled="disabled">Already added</button>
 			</div>
