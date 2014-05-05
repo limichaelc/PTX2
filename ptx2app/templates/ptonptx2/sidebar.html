@@ -38,8 +38,7 @@
                     {% for key, value in nums_by_course.items %}
                     {% if key == course %}{{ value }}
                     {% endif %}
-                    {% endfor %}
-                    {{ nums_by_course.items.course }}/{{ course.books.all|length }}
+                    {% endfor %}/{{ course.books.all|length }}
                     </span>
                     <span class="glyphicon glyphicon-remove" title="Remove course?" href="#" data-toggle="modal" data-target="#removecoursemodal{{course.id}}"></span>
                 {{ course.dept.upper }} {{ course.num }} 
