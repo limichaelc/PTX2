@@ -28,6 +28,7 @@ def get_context(request):
     books = Book.objects.all()
     transaction = Transaction.objects.all()
     form = SellBookForm() #this is not the right approach
+
     nums_by_course = {}
     for course in profile.course_list.all():
         current_course = []
@@ -42,7 +43,6 @@ def get_context(request):
         nums_by_course[course] = len(current_course)
 
     num_total = len(profile.books_needed.all()) + len(profile.books_owned.all()) + len(profile.books_selling.all())
-    user_selling = []
 
     context_dict = {'user' : profile,
                     'form'  : form,
@@ -75,10 +75,10 @@ def index(request):
                 num += 1
         nums_by_course[course] = num
 
-    context = get_context(request)
+    contextdict = get_context(request)
 
 
-    return render_to_response('ptonptx2/bookshelf.html', context)
+    return render_to_response('ptonptx2/bookshelf.html', contextdict, context)
 
 def bookpage(request, isbn):
     context = RequestContext(request)

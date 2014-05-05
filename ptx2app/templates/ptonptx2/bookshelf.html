@@ -8,7 +8,7 @@
 <div class="col-md-8 column">
 	{% if first_visit %}
     <div class="alert alert-info alert-dismissable text-center">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <button type="button" class="close glyphicon glyphicon-remove" data-dismiss="alert" aria-hidden="true"></button>
         <strong>Welcome!</strong> This appears to be your first visit. Get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.
     </div>
 	{% endif %}
@@ -115,8 +115,8 @@
 				</div>
             </div>
             {% include 'forms/newlisting.html' %}
-			{% endfor %}
+		{% endfor %}
 		</div>
 	</div>
 	{% endif %}
-	{% endblock %}
+    {% endblock %}
