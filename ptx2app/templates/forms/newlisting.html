@@ -1,12 +1,13 @@
 <div class="modal fade newlistingmodal" tabindex="-1" role="dialog" aria-labelledby="newlistingmodal" aria-hidden="true" id="newlistingmodal{{book.pk}}">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-content">
-				<div class="modal-header">
-                    <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-                    <button class="close glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true" ></button>
-					<h4 class="modal-title" id="myModalLabel">Selling "{{ book.book.title }}"</h4>
-				</div>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button class="close glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true" ></button>-->
+                    <h4 class="modal-title" id="myModalLabel">Selling "{{ book.book.title }}"</h4>
+                </div>
+                <div class="modal-body">
                     <p>Just as a reminder, the prices it's currently going for are:</p>
                         <p>
                             <img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
@@ -19,18 +20,22 @@
                             {% endif %}</a>
                             <img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
                             {% if book.book.lowest_student_price != None %}
-                            ${{ book.book.lowest_student_price }}.00<br>
+                            ${{ physbook.book.lowest_student_price }}.00<br>
                             {% else %}
                             No student offers<br>
                             {% endif %}
                         </p>
-                <form action="/sellbook/" method="POST" id="sellbookform">{% csrf_token %}
-                    <div align="right">
-                            <input type="submit" name="Search courses" class="btn btn-primary">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <form action="/sellbook/" method="POST" id="sellbookform">{% csrf_token %}
+                        <div class="form-group">
+                            Price: <input id="price" type="number" class="form-control" /><br>
+                            Condition: <input id="condition" type="text" class="form-control" /><br>
+                            <div align="right">
+                                <input type="submit" name="Search courses" class="btn btn-primary">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                            </div>
                         </div>
-
-                </form>
+                    </form>
+                </div>
             </div>          
         </div>
     </div>
