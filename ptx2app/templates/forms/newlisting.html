@@ -7,6 +7,23 @@
                     <button class="close glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true" ></button>
 					<h4 class="modal-title" id="myModalLabel">Selling "{{ book.book.title }}"</h4>
 				</div>
+                    <p>Just as a reminder, the prices it's currently going for are:</p>
+                        <p>
+                            <img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
+                            ${{ book.book.labyrinth_price }}<br></a>
+                            <img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> <a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}">
+                            {% if book.book.amazon_price != None %}
+                            ${{ book.book.amazon_price }}<br>
+                            {% else %}
+                            None<br>
+                            {% endif %}</a>
+                            <img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
+                            {% if book.book.lowest_student_price != None %}
+                            ${{ book.book.lowest_student_price }}.00<br>
+                            {% else %}
+                            No student offers<br>
+                            {% endif %}
+                        </p>
                 <form action="/sellbook/" method="POST" id="sellbookform">{% csrf_token %}
                     <div align="right">
                             <input type="submit" name="Search courses" class="btn btn-primary">
