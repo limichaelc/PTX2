@@ -27,7 +27,7 @@ def get_context(request):
         profile.save()
     books = Book.objects.all()
     transaction = Transaction.objects.all()
-    form = SellBookForm()
+    form = SellBookForm() #this is not the right approach
     nums_by_course = {}
     for course in profile.course_list.all():
         current_course = []
