@@ -359,6 +359,7 @@ def setpricelisting(request, isbn, physbookid):
     else:
         form = ListingForm()
     context_dict['form'] = form
+    context_dict['physbook'] = physbook
 	
     return render_to_response('ptonptx2/setprice.html', context_dict, context)
     

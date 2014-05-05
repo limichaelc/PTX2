@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 
-{% block title %}PTX2 | Selling {{ form.book.book.title }}{% endblock %}
+{% block title %}PTX2 | Selling {{ physbook.book.title }}{% endblock %}
 
 {% block main %}
 <div class="col-md-8 column">
@@ -10,16 +10,16 @@
 	<p>Just a reminder, the prices it's currently going for are:</p><br>
 	<p>
 		<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
-		${{ form.book.book.labyrinth_price }}<br></a>
+		${{ physbook.book.labyrinth_price }}<br></a>
 		<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> <a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}">
-		{% if form.book.book.amazon_price != None %}
-		${{ form.book.book.amazon_price }}<br>
+		{% if physbook.book.amazon_price != None %}
+		${{ physbook.book.amazon_price }}<br>
 		{% else %}
 		None<br>
 		{% endif %}</a>
 		<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
-		{% if form.book.book.lowest_student_price != None %}
-		${{ form.book.book.lowest_student_price }}.00<br>
+		{% if physbook.book.lowest_student_price != None %}
+		${{ physbook.book.lowest_student_price }}.00<br>
 		{% else %}
 		No student offers<br>
 		{% endif %}
