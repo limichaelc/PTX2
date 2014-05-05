@@ -106,14 +106,14 @@
 						<h5><a href="/{{book.book.isbn}}"> {{ book.book.title }}</a></h5>
 						<p>
 							Owned<br>
-							<a href="#" data-toggle="modal" data-target="#newlistingmodal">Sell?</a>
+                            <a href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</a>
 						</p>
 					</div>
 				</div>
-			</div>
+            </div>
+            {% include 'forms/newlisting.html' %}
 			{% endfor %}
 		</div>
 	</div>
 	{% endif %}
-	{% include 'forms/newlisting.html' %}
 	{% endblock %}

@@ -13,6 +13,7 @@ from django.core.urlresolvers import resolve
 import re
 from operator import itemgetter
 
+# get the context of this request
 def get_context(request):
     context = RequestContext(request)
     try:
