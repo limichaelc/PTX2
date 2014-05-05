@@ -45,7 +45,7 @@ def get_context(request):
     num_total = len(profile.books_needed.all()) + len(profile.books_owned.all()) + len(profile.books_selling.all())
 
     context_dict = {'user' : profile,
-                    'form'  : form,
+                    #'form'  : form,
                     'books' : books,
                     'num_needed' : len(profile.books_needed.all()),
                     'num_owned' : len(profile.books_owned.all()),
@@ -108,17 +108,44 @@ def sell_book(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     if request.method == 'POST':
-        form = SellBookForm(request.POST)
-        if form.is_valid():
-            form.save(commit = True)
-            
-            return index(request)
-        else:
-            print form.errors
-    else:
-        form = SellBookForm()
+        listing = Listing()
+        user = request.user.profile_set.get()
+        book = Book.objects.get(pk = request.POST['bookpk'])
+        price = int(request.POST['price'])
 
-    return render_to_response('forms/newlisting.html', {'form': form}, context)
+        #if there is already a physbook, use it. If not, make a new one
+        try:
+            physbook = PhysBook.objects.get(pk = request.POST['pk'])
+        except:
+            physbook = PhysBook()
+            physbook.owner = user
+            physbook.book = book
+            physbook.save()
+            user.books_selling.add(physbook)
+            user.save()
+        else: #move book from owned list to selling list
+            user.books_selling.add(physbook)
+            user.books_owned.remove(physbook)
+            user.save()
+
+        #set lowest student price
+        lowstud = book.lowest_student_price
+        if not lowstud or price < lowstud:
+            book.lowest_student_price = price
+            book.save()
+
+        listing.book = physbook
+        listing.owner = user
+        listing.sell_status = 'O'
+        listing.price = request.POST['price']
+        listing.comment = request.POST['comment']
+        listing.save()
+        return HttpResponseRedirect('/bookshelf/')
+
+    else:
+        return HttpResponseRedirect("/bookshelf/")
+
+    return render_to_response('forms/newlisting.html', context)
     
 def profile(request):
     context = RequestContext(request)
@@ -275,6 +302,9 @@ def scrape(request):
         #pagewriter.write('page.txt')
         #scrape.scrape('page.txt')
         scrape_funcs.save()
+
+    else:
+        pass
 
     return render_to_response('ptonptx2/scrape.html', {'form': None}, context)
     
