@@ -260,6 +260,11 @@ def searchcourses(request):
     
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
 
+def addcourse(request, courseid):
+    context = RequestContext(request)
+
+
+
 def removecourse(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
