@@ -33,20 +33,21 @@
 						{% endfor %}
 						{% endfor %}</p>
 						<p>
-							<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
+							<!--<img src="http://www.labyrinthbooks.com/favicon.ico" height="16"; width="16"> <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
 							${{ book.labyrinth_price }}<br></a>
-							<img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> <a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}">
+							<img src="http://www.amazon.com/favicon.ico" height="16"; width="16"> <a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}">
 							{% if book.amazon_price != None %}
 							${{ book.amazon_price }}<br>
 							{% else %}
 							None<br>
 							{% endif %}</a>
-							<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
+							<img src="http://www.princeton.edu/favicon.ico" height="16"; width="16"> 
 							{% if book.lowest_student_price != None %}
 							${{ book.lowest_student_price }}.00<br>
 							{% else %}
 							No student offers<br>
-							{% endif %}
+                            {% endif %}-->
+                            {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
 						</p>
 						<p>
 						<div class="btn-group">

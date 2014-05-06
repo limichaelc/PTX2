@@ -22,13 +22,16 @@
                 <a href="#" data-toggle="modal" data-target="#newlistingmodal"> Sell?</a>
                 {% endif %} 
                 {% else %}
-            </p>-->
+            </p>
             <p>
 	      <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}" target="_blank">
                 <img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br> </a>
               <a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}" target="_blank">  
 	      <img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ book.amazon_price }}<br></a>
-            </p>
+      </p>-->
+      <p>
+      {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
+      </p>
             {% endif %}
             <a href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell this book?</a>
             {% include 'forms/newlisting.html' with title=book.title pk=0 bookpk=book.pk labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}

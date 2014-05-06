@@ -10,7 +10,7 @@
                 <div class="modal-body">
                     <p>Just as a reminder, the prices this book is currently going for are:</p>
                         <p>
-                        <img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12">
+                        <!--<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12">
                         {% if labprice|default:None %}
                         <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{isbn}}" target="_blank">
                             ${{ labprice }}
@@ -33,7 +33,8 @@
                             ${{ lowstud }}.00<br>
                             {% else %}
                             No student offers<br>
-                            {% endif %}
+                            {% endif %}-->
+                            {% include 'forms/price_widget.html' with labprice=labprice amazprice=amazprice lowstud=lowstud isbn=isbn isbn10=isbn10 inc_PU=True%}
                         </p>
                     <form action="/sellbook/" method="POST" id="sellbookform">{% csrf_token %}
                         <div class="form-group">

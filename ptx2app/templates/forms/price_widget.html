@@ -1,0 +1,26 @@
+<img src="http://www.labyrinthbooks.com/favicon.ico" height="16"; width="16">
+{% if labprice|default:None %}
+<a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{isbn}}" target="_blank">
+    ${{ labprice }}
+</a>
+{% else %}
+None
+{% endif %}
+<br>
+<img src="http://www.amazon.com/favicon.ico" height="16"; width="16">
+{% if amazprice|default:None %}
+<a href="http://www.amazon.com/gp/product/{{ isbn10 }}" target="_blank">
+    ${{ amazprice }}
+</a>
+{% else %}
+None
+{% endif %}
+<br>
+{% if inc_PU|default:False %}
+<img src="http://www.princeton.edu/favicon.ico" height="16"; width="16"> 
+    {% if lowstud|default:None %}
+    ${{ lowstud }}.00<br>
+    {% else %}
+    No student offers<br>
+    {% endif %}
+{% endif %}
