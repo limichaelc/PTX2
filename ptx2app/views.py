@@ -128,6 +128,7 @@ def sell_book(request):
                 physbook.book = book
                 physbook.save()
 
+        #add book to user's list of books for sale
         user.books_selling.add(physbook)
         user.save()
 
@@ -166,7 +167,7 @@ def remove_listing(request, listingid):
 
     #set lowest student price, if necessary
     book = physbook.book
-    if book.lowest_student_price == listprice:
+    if book.lowest_student_price <= listprice:
         if not Listing.objects.filter(book__book__pk = book.pk):
             book.lowest_student_price = None
         else:
