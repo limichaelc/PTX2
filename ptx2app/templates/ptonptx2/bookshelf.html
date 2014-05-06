@@ -48,24 +48,21 @@
 							No student offers<br>
 							{% endif %}
 						</p>
-						<!-- <p> -->
-<!-- 						<div class="btn-group">
+						<p>
+						<div class="btn-group">
 							<form id="markasownedform" method="get" name="markasowned" action="/markasowned/"> {% csrf_token %}
 							<button type="submit" class="btn btn-primary btn-xs" title="Mark as owned">Mark as owned</button>
 							</form>
-						</div> -->
-						<!-- </p> -->
+						</div>
+						</p>
 					</div>
 				</div>
 			</div>
 			{% endfor %}
         </div>
-        {% else %}
-        None yet :(
 		{% endif %}
 		<div class="row clearfix" id="selling">
 			{% if user_selling.all %}
-
 			<h4 padding-left="5px">Selling </h4>
 			{% for listing in user_selling.all %}
 			<div class="col-md-3">
