@@ -9,16 +9,16 @@
 	{% if first_visit %}
     <div class="alert alert-info alert-dismissable text-center">
         <button type="button" class="close glyphicon glyphicon-remove" data-dismiss="alert" aria-hidden="true"></button>
-        <strong>Welcome!</strong> This appears to be your first visit. Get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.
+        <strong>Welcome!</strong> This appears to be your first visit. You can get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.
     </div>
 	{% endif %}
 	{% if just_removed %}
 	<div class="alert alert-info text-center">Course <i>{{dept}} {{num}} ({{r}})</i> has been removed.</div>
 	{% endif %}
 	<div class="row clearfix" id="needtobuy">
-	{% if user.books_needed.all %}
-
 		<h4 padding-left="5px"> Books Needed </h4>
+        {% if user.books_needed.all %}
+
 		{% for book in user.books_needed.all %}
 		<div class="col-md-3">
 			<div class="thumbnail">
@@ -60,7 +60,9 @@
 				</div>
 			</div>
 			{% endfor %}
-		</div>
+        </div>
+        {% else %}
+        None yet :(
 		{% endif %}
 		<div class="row clearfix" id="selling">
 			{% if user_selling.all %}
@@ -109,7 +111,7 @@
 			<div class="col-md-3">
 				<div class="thumbnail">
 					<div class="caption">
-						<img src={{book.book.picture_link}} class="img-responsive" alt="">
+						<img src="{{book.book.picture_link}}" class="img-responsive" alt="">
 						<h5><a href="/{{book.book.isbn}}"> {{ book.book.title }}</a></h5>
 						<p>
 							Owned<br>
@@ -118,7 +120,7 @@
 					</div>
 				</div>
             </div>
-            {% include 'forms/newlisting.html' %}
+            {% include 'forms/newlisting.html' with title=book.book.title pk=book.pk bookpk=book.book.pk labprice=book.book.labyrinth_price amazprice=book.book.amazon_price lowstud=book.book.lowest_student_price isbn=book.book.isbn isbn10=book.book.isbn10 %}
 		{% endfor %}
 		</div>
 	</div>

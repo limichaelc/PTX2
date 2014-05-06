@@ -41,9 +41,10 @@ class Course(models.Model):
 
 class PhysBook(models.Model):
     book = models.ForeignKey(Book)
-    comment = models.CharField(max_length = 500, blank=True)
+    owner = models.ForeignKey("Profile")
+    #comment = models.CharField(max_length = 500, blank=True)
     def __unicode__(self):
-        return self.book.title
+        return self.book.title + " owned by " + str(self.owner.pk)
 
 class Review(models.Model):
     comment = models.CharField(max_length = 500, blank = True)
@@ -73,6 +74,7 @@ class Listing(models.Model):
     )
     sell_status = models.CharField(max_length=1, choices=SELL_STATUSES, default='O')
     price = models.DecimalField(max_digits = 100, decimal_places = 2)
+    comment = models.CharField(max_length = 500, blank=True)
     def __unicode__(self):
         return self.book.book.title + " for $" + str(self.price)
 

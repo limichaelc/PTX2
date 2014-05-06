@@ -3,7 +3,7 @@ from ptx2app.models import *
 
 class SellBookForm(forms.ModelForm):
     book = forms.ModelChoiceField(queryset = Book.objects.all())
-    owner = forms.ModelChoiceField(queryset = User.objects.all())
+    owner = forms.ModelChoiceField(queryset = Profile.objects.all())
     SELL_STATUSES = (
 		('O', 'Currently offered'),
 		('P', 'Sale pending'),
@@ -20,6 +20,7 @@ class SellBookForm(forms.ModelForm):
     choicefield = forms.ChoiceField(choices = CONDITIONS_CHOICES)
     class Meta:
         model = Listing
+        exclude = ['book', 'owner', 'sell_status']
         
 class ProfileForm(forms.ModelForm):
 

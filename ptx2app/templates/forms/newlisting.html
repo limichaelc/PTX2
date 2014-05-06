@@ -5,22 +5,32 @@
                 <div class="modal-header">
                     <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <button class="close glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true" ></button>-->
-                    <h4 class="modal-title" id="myModalLabel">Selling "{{ book.book.title }}"</h4>
+                    <h4 class="modal-title" id="myModalLabel">Selling "{{ title }}"</h4>
                 </div>
                 <div class="modal-body">
                     <p>Just as a reminder, the prices this book is currently going for are:</p>
                         <p>
-                            <img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
-                            ${{ book.book.labyrinth_price }}<br></a>
-                            <img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> <a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}">
-                            {% if book.book.amazon_price != None %}
-                            ${{ book.book.amazon_price }}<br>
-                            {% else %}
-                            None<br>
-                            {% endif %}</a>
-                            <img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
-                            {% if book.book.lowest_student_price != None %}
-                            ${{ physbook.book.lowest_student_price }}.00<br>
+                        <img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12">
+                        {% if labprice|default:None %}
+                        <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{isbn}}">
+                            ${{ labprice }}
+                        </a>
+                        {% else %}
+                        None
+                        {% endif %}
+                        <br>
+                        <img src="http://www.amazon.com/favicon.ico" height="12"; width="12">
+                        {% if amazprice|default:None %}
+                        <a href="http://www.amazon.com/gp/product/{{ isbn10 }}">
+                            {{ amazprice }}
+                        </a>
+                        {% else %}
+                        None
+                        {% endif %}
+                        <br>
+                        <img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
+                            {% if lowstud|default:None %}
+                            ${{ lowstud }}.00<br>
                             {% else %}
                             No student offers<br>
                             {% endif %}
@@ -31,13 +41,16 @@
                                 <span class="input-group-addon">$</span>
                                 <input id="id_price" name="price" step="1" type="number" class="form-control">
                                 <span class="input-group-addon">.00</span>
-                            </div><br>
-                            <label for="id_comment">Comment:</label><textarea id="id_comment" maxlength="500" class="form-control" rows="3"></textarea><br>
+                            </div><br><br>
+                            <label for="id_comment">Comment:</label><textarea id="id_comment" maxlength="500" class="form-control" rows="3"></textarea>
                             <div align="right">
-                                <input type="submit" name="Search courses" class="btn btn-primary">
+                                <input type="submit" name="Submit" class="btn btn-primary">
                                 <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
                             </div>
                         </div>
+                        <input type="hidden" name="pk" value="{{ pk }}">
+                        <input type="hidden" name="bookpk" value="{{ bookpk }}">
+
                     </form>
                 </div>
             </div>          
