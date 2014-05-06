@@ -146,7 +146,21 @@ def sell_book(request):
         return HttpResponseRedirect("/bookshelf/")
 
     return render_to_response('forms/newlisting.html', context)
-    
+
+#remove the listing with the given id, return the book to the seller's owned books
+def remove_listing(request, listingid):
+    context = RequestContext(request)
+
+    listing = Listing.objects.get(pk = listingid)
+    owner = listing.owner
+    physbook = listing.book
+    owner.books_selling.remove(physbook)
+    owner.books_owned.add(physbook)
+    owner.save()
+    listing.delete()
+
+    return HttpResponseRedirect("/" + physbook.book.isbn + "/")
+
 def profile(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
