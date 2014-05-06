@@ -7,33 +7,34 @@
 {% block main %}
 <h4>{{course.name}} ({{course.dept}} {{course.num}})</h4>
 <div class="col-md-6 column">
-  <div class="row clearfix">
-    {% for book in course.books.all %}
-    <div class="col-md-4">
-      <div class="thumbnail">
-	<div class="caption">
-	  <a href="/{{ book.isbn }}">
-	  <img src={{ book.picture_link }} class="img-responsive" alt=""></a>
-	  <h5><a href="/{{ book.isbn }}"> {{ book.title }}</a></h5>
-	  <p>
-	      <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
-		<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br></a>
-	      <a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}">
-		  <img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ book.amazon_price }}<br></a>
-	      <img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
-	      {% if book.lowest_student_price != None %}
-	      ${{ book.lowest_student_price }}.00<br>
-	      {% else %}
-	      No student offers<br>
-	      {% endif %}
-	      </p>
-	  </div>
-	</div>
-      </div>
-    {% endfor %}
-    {% ifequal course.books.all|length 0 %}
-    <p>No books for this course </p>
-    {% endifequal %}
+    <div class="row clearfix">
+        {% for book in course.books.all %}
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <a href="/{{ book.isbn }}">
+                        <img src={{ book.picture_link }} class="img-responsive" alt=""></a>
+                    <h5><a href="/{{ book.isbn }}"> {{ book.title }}</a></h5>
+                    <p>
+                    <!--<a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
+                        <img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br></a>
+                    <a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}">
+                        <img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ book.amazon_price }}<br></a>
+                    <img src="http://www.princeton.edu/favicon.ico" height="12"; width="12"> 
+                    {% if book.lowest_student_price != None %}
+                    ${{ book.lowest_student_price }}.00<br>
+                    {% else %}
+                    No student offers<br>
+                    {% endif %}-->
+                    {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% ifequal course.books.all|length 0 %}
+        <p>No books for this course </p>
+        {% endifequal %}
     </div>
 </div>
 {% include 'forms/newlisting.html' %}
