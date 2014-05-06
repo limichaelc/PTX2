@@ -18,3 +18,8 @@ td {
 th {
 	font-size: small
 }
+
+.img-responsive {
+    margin-left: auto;
+    margin-right: auto;
+}
