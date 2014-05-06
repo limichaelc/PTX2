@@ -44,7 +44,7 @@
                 <th>Owner's comments</th>
                 <th></th>
             </tr>
-            {% for listing in listings %}
+            {% for listing in listings|dictsort:"price" %}
             {% if listing.owner = user %}
             <tr bgcolor="#ddeeff">
                 <td>${{ listing.price|floatformat:2 }}</td>

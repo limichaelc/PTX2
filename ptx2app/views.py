@@ -113,20 +113,23 @@ def sell_book(request):
         book = Book.objects.get(pk = request.POST['bookpk'])
         price = int(request.POST['price'])
 
-        #if there is already a physbook, use it. If not, make a new one
+        #if there is already a physbook, use it. If not, check to see if the user has any of this book
+        #marked as owned. If not, make a new physbook
         try:
             physbook = PhysBook.objects.get(pk = request.POST['pk'])
-        except:
-            physbook = PhysBook()
-            physbook.owner = user
-            physbook.book = book
-            physbook.save()
-            user.books_selling.add(physbook)
-            user.save()
-        else: #move book from owned list to selling list
-            user.books_selling.add(physbook)
             user.books_owned.remove(physbook)
-            user.save()
+        except:
+            try:
+                physbook = user.books_owned.filter(book__pk = request.POST['bookpk'])[0]
+                user.books_owned.remove(physbook)
+            except IndexError:
+                physbook = PhysBook()
+                physbook.owner = user
+                physbook.book = book
+                physbook.save()
+
+        user.books_selling.add(physbook)
+        user.save()
 
         #set lowest student price
         lowstud = book.lowest_student_price
@@ -157,7 +160,22 @@ def remove_listing(request, listingid):
     owner.books_selling.remove(physbook)
     owner.books_owned.add(physbook)
     owner.save()
+
+    listprice = listing.price
     listing.delete()
+
+    #set lowest student price, if necessary
+    book = physbook.book
+    if book.lowest_student_price == listprice:
+        if not Listing.objects.filter(book__book__pk = book.pk):
+            book.lowest_student_price = None
+        else:
+            book.lowest_student_price = 1000000
+            for listing in Listing.objects.filter(book__book__pk = book.pk):
+                print listing.price
+                if listing.price < book.lowest_student_price:
+                    book.lowest_student_price = listing.price
+        book.save()
 
     return HttpResponseRedirect("/" + physbook.book.isbn + "/")
 
