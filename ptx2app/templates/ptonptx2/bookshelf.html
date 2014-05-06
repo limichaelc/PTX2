@@ -18,7 +18,6 @@
 	<div class="row clearfix" id="needtobuy">
 		<h4 padding-left="5px"> Books Needed </h4>
         {% if user.books_needed.all %}
-
 		{% for book in user.books_needed.all %}
 		<div class="col-md-3">
 			<div class="thumbnail">
@@ -69,10 +68,6 @@
 
 			<h4 padding-left="5px">Selling </h4>
 			{% for listing in user_selling.all %}
-			{% if forloop.counter|divisibleby:5 %}
-				</div>
-				<div class="row clearfix" id="needtobuy">
-			{% endif %}
 			<div class="col-md-3">
 				<div class="thumbnail">
 					<div class="caption">
@@ -104,10 +99,6 @@
 
 			<h4 padding-left="5px">Owned</h4>
 			{% for book in user.books_owned.all %}
-			{% if forloop.counter|divisibleby:5 %}
-				</div>
-				<div class="row clearfix" id="needtobuy">
-			{% endif %}
 			<div class="col-md-3">
 				<div class="thumbnail">
 					<div class="caption">
