@@ -6,6 +6,12 @@
 
 {% block main %}
 <div class="col-md-8 column">
+    <div class="alert alert-warning text-center" id="jswarning">
+        It looks like you have Javascript disabled. Please enable Javascript to ensure that the site works properly.
+    </div>
+    <script type="text/javascript">
+        document.getElementById("jswarning").hidden=true;
+    </script>
 	{% if first_visit %}
     <div class="alert alert-info alert-dismissable text-center">
         <button type="button" class="close glyphicon glyphicon-remove" data-dismiss="alert" aria-hidden="true"></button>
