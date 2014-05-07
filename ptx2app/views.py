@@ -49,6 +49,8 @@ def get_context(request):
         nums_by_course[course] = len(current_course)
 
     num_total = len(profile.books_needed.all()) + len(profile.books_owned.all()) + len(profile.books_selling.all())
+    
+    listings
 
     context_dict = {'user' : profile,
                     #'form'  : form,
@@ -645,9 +647,8 @@ def pendingtransaction(request, id):
             transaction.save()
             if transaction.seller & transaction.buyer:
             	book = transaction.book
-            	seller = transaction.seller
-            	seller.books_selling.remove(book)
-            	seller.save()
+            	listing = Listing.objects.get(book = book)
+            	Listing.objects.remove(listing)
             return index(request)
         else:
             print form.errors
