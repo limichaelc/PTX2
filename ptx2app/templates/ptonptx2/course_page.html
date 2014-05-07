@@ -7,7 +7,7 @@
 {% block main %}
 <h4>{{course.name}} ({{course.dept}} {{course.num}})</h4>
 {% if course in user.course_list.all %}
-<div class="form-group">
+<div class="form-inline form-group">
     <button class="btn btn-default" disabled="disabled"><span class="glyphicon glyphicon-ok"></span> Course added</button>
 </div>
 {% else %}
