@@ -53,7 +53,7 @@
 					</p>
 					<p>
 						{% include 'forms/markasowned.html' %}
-						<button class="btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Remove book?</button>
+						<span class="align-top-left glyphicon glyphicon-remove" title="Remove book?" href="#" data-toggle="modal" data-target="#removecoursemodal{{course.id}}"></span>
 					</p>
 				</div>
 			</div>
@@ -84,7 +84,7 @@
 					</p>
 					<p>
 						{% include 'forms/markasowned.html' %}
-						<button class="btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Remove listing?</button>
+						<button class="align-top-left btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}"><span></span></button>
 					</p>
 				</div>
 			</div>
