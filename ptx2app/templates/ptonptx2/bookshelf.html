@@ -53,7 +53,7 @@
 					</p>
 					<p>
 						{% include 'forms/markasowned.html' %}
-						<button class="btn btn-danger btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Remove book</button>
+						<button class="btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Remove book?</button>
 					</p>
 				</div>
 			</div>
@@ -77,6 +77,14 @@
 						{% if listing.sell_status == 'P' %}
 						Offer made!<br>
 						{% endif %}
+					</p>
+					<p>
+						{% include 'forms/markasowned.html' %}
+						<button class="btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Edit listing?</button>
+					</p>
+					<p>
+						{% include 'forms/markasowned.html' %}
+						<button class="btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Remove listing?</button>
 					</p>
 				</div>
 			</div>
