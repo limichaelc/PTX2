@@ -18,7 +18,6 @@ from helpers import set_lowest_price
 
 # get the context of this request
 def get_context(request):
-    first_visit = False
     context = RequestContext(request)
     try:
         user = request.user
@@ -28,9 +27,9 @@ def get_context(request):
         profile = request.user.get_profile()
     except:
         profile = Profile.objects.create(user = user)
-        # messages.success(request, 
-            # '<strong>Welcome!</strong> This appears to be your first visit. You can get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.')
-        first_visit = True
+        messages.success(request, 
+            '<strong>Welcome!</strong> This appears to be your first visit. You can get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.')
+
         profile.save()
     books = Book.objects.all()
     transaction = Transaction.objects.all()
@@ -61,7 +60,7 @@ def get_context(request):
                     'num_pending' : len(Transaction.objects.filter(Q(buyer = profile)|Q(seller=profile), Q(buyerreview=None) | Q(sellerreview=None))),
                     'nums_by_course' : nums_by_course,
                     'user_selling': Listing.objects.filter(owner = profile),
-                    'first_visit': first_visit }
+                    'first_visit': len(profile.course_list.all()) == 0 and num_total == 0 }
     return context_dict
 
 #the main bookshelf page
@@ -644,7 +643,7 @@ def pendingtransaction(request, id):
             if transaction.seller == context_dict['user']:
                 transaction.sellerreview = form
             transaction.save()
-            if transaction.sellerreview and transaction.buyerreview:
+            if transaction.seller and transaction.buyer:
             	book = transaction.book
             	listing = Listing.objects.get(book = book)
             	listing.delete()
