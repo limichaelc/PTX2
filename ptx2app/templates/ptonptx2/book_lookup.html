@@ -5,13 +5,13 @@
 {% block title %}PTX2 | {{ book.title }}{% endblock %}
 
 {% block main %}
-<div class="col-md-9 column">
+<div class="col-xs-9 column">
     <div class="row clearfix">
     <h4>{{ book.title }}</h4>
-        <div class="col-md-2">
+        <div class="col-xs-2">
            <img src={{ book.picture_link }} width="130">
         </div>
-        <div class="col-md-6">
+        <div class="col-xs-6">
         Used in {% for course in courses %}<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>{% if forloop.revcounter0 != 0 %}{% if forloop.revcounter0 = 1 %} and {% else %}, {% endif %}{% endif %}{% endfor %}
             <!--<p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.course_code }}</a></i><br>
                 {% if person.book.owned %}

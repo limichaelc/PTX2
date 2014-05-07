@@ -12,9 +12,6 @@
     <script type="text/javascript">
         document.getElementById("jswarning").hidden=true;
     </script>
-    {% if first_visit %}
-    {% include forms/firstvisitmodal.html %}
-    {% else %}
     {% for message in messages %}
     <div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} text-center">{{message|safe}}</div>
     {% endfor %}
@@ -44,11 +41,11 @@
 					</p>
 					<p>
 						{% include 'forms/markasowned.html' %}
-						<button class="btn btn-primary btn-xs full-width" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Already owned?</button>
+						<button class="btn btn-primary btn-md full-width" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Already owned?</button>
 					</p>
 					<p>
 						{% include 'forms/removefromneeded.html' %}
-						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromneededmodal{{book.id}}">Remove from needed?</button>
+						<button class="full-width btn btn-default btn-md" href="#" data-toggle="modal" data-target="#removefromneededmodal{{book.id}}">Remove from needed?</button>
 					</p>
 				</div>
 			</div>
@@ -78,11 +75,11 @@
 					</p>
 					<p>
 						{% include 'forms/markasowned.html' %}
-						<button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{listing.book.id}}">Edit listing?</button>
+						<button class="full-width btn btn-primary btn-md" href="#" data-toggle="modal" data-target="#markasownedmodal{{listing.book.id}}">Edit listing?</button>
 					</p>
 					<p>
 						{% include 'forms/removefromselling.html' %}
-						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromsellingmodal{{listing.id}}">Remove listing?</button>
+						<button class="full-width btn btn-default btn-md" href="#" data-toggle="modal" data-target="#removefromsellingmodal{{listing.id}}">Remove listing?</button>
 
 					</p>
 				</div>
@@ -112,10 +109,10 @@
 					</p>
 					<p>
 						{% include 'forms/removefromowned.html' %}
-                        <button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button>
+                        <button class="full-width btn btn-primary btn-md" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button>
                     </p>
                     <p>
-						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromownedmodal{{book.id}}">Remove from owned?</button>
+						<button class="full-width btn btn-default btn-md" href="#" data-toggle="modal" data-target="#removefromownedmodal{{book.id}}">Remove from owned?</button>
 					</p>
 				</div>
 			</div>
@@ -126,5 +123,4 @@
 		<p class="text-muted">Currently no books owned</p>
 		{% endif %}
 	</div>
-	{% endif %}
 {% endblock %}
