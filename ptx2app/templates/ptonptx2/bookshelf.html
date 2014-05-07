@@ -12,6 +12,9 @@
     <script type="text/javascript">
         document.getElementById("jswarning").hidden=true;
     </script>
+    {% if first_visit %}
+    {% include forms/firstvisitmodal.html %}
+    {% else %}
     {% for message in messages %}
     <div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} text-center">{{message|safe}}</div>
     {% endfor %}
@@ -21,10 +24,10 @@
 		{% if user.books_needed.all %}
 		{% for book in user.books_needed.all %}
 		<div class="col-md-3">
-			<div class="thumbnail">
+			<div class="thumbnail thumb-needed">
                 <div class="caption">
                     <a href="/{{book.isbn}}">
-                        <img src={{ book.picture_link }} class="img-responsive" alt=""> 
+                        <img src={{ book.picture_link }} class="img-responsive img-needed" alt=""> 
                     </a>
 					<h5><a href="/{{book.isbn}}"> {{ book.title }}</a></h5>
 					<p class="course_list">
@@ -44,7 +47,7 @@
 						<button class="btn btn-primary btn-xs full-width" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Already owned?</button>
 					</p>
 					<p>
-{% include 'forms/removefromneeded.html' %}
+						{% include 'forms/removefromneeded.html' %}
 						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromneededmodal{{book.id}}">Remove from needed?</button>
 					</p>
 				</div>
@@ -62,10 +65,10 @@
 		{% if user_selling.all %}
 		{% for listing in user_selling.all %}
 		<div class="col-md-3">
-			<div class="thumbnail">
+			<div class="thumbnail thumb-selling">
                 <div class="caption">
                     <a href="/{{listing.book.book.isbn}}">
-                        <img src={{ listing.book.book.picture_link }} class="img-responsive" alt="">
+                        <img src={{ listing.book.book.picture_link }} class="img-responsive img-selling" alt="">
                     </a>
 					<h5><a href="/{{listing.book.book.isbn}}"> {{ listing.book.book.title }}</a></h5>
 					<p>Selling for ${{ listing.price }}<br style="color:red">
@@ -97,10 +100,10 @@
 		{% if user.books_owned.all %}
 		{% for book in user.books_owned.all %}
 		<div class="col-md-3">
-			<div class="thumbnail">
+			<div class="thumbnail thumb-owned">
                 <div class="caption">
                     <a href="/{{book.book.isbn}}">
-                        <img src="{{book.book.picture_link}}" class="img-responsive" alt="">
+                        <img src="{{book.book.picture_link}}" class="img-responsive img-owned" alt="">
                     </a>
 					<h5><a href="/{{book.book.isbn}}"> {{ book.book.title }}</a></h5>
 					<p>
@@ -123,4 +126,5 @@
 		<p class="text-muted">Currently no books owned</p>
 		{% endif %}
 	</div>
-    {% endblock %}
+	{% endif %}
+{% endblock %}

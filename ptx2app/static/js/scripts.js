@@ -1,5 +1,5 @@
-function evenPics () {
-    var pics = document.getElementsByClassName("img-responsive");
+function evenPics (classname) {
+    var pics = document.getElementsByClassName(classname);
     var biggest = 0;
     for (var i = 0; i < pics.length; i++) {
         if (pics[i].height > biggest) {
@@ -14,10 +14,23 @@ function evenPics () {
         p.style.display="inline-block";
     }
 };
-function equalizeThumbs () {
+function equalizeThumbs (classname) {
     $(function() { // Ensure equal heights on thumbnail boxes
-        $('.thumbnail').equalHeights(400);
+        $(classname).equalHeights();
     });
 };
 
-$(window).load(function() {evenPics(); equalizeThumbs();});
+$(window).load(function() {
+    //if we're on the bookshelf, do each section separately
+    if (document.getElementById("needtobuy")) {
+        evenPics("img-needed");
+        equalizeThumbs('.thumb-needed');
+        evenPics("img-selling");
+        equalizeThumbs('.thumb-selling');
+        evenPics("img-owned");
+        equalizeThumbs('.thumb-owned');
+    } else {
+        evenPics("img-responsive");
+        equalizeThumbs(".thumbnail");
+    }
+    });
