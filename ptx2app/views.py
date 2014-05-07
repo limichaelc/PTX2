@@ -647,7 +647,7 @@ def pendingtransaction(request, id):
 
             	book = transaction.book
             	listing = Listing.objects.get(book = book)
-            	buyer = listing.buyer
+            	buyer = transaction.buyer
             	buyer.books_owned.add(book)
             	listing.delete()
             return index(request)
