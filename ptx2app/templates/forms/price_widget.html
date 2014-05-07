@@ -1,7 +1,7 @@
 <img src="http://www.labyrinthbooks.com/favicon.ico" height="16"; width="16">
 {% if labprice|default:None %}
-<a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{isbn}}" target="_blank">
-    ${{ labprice }}
+$<a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{isbn}}" target="_blank">
+    {{ labprice }}
 </a>
 {% else %}
 None
@@ -9,8 +9,8 @@ None
 <br>
 <img src="http://www.amazon.com/favicon.ico" height="16"; width="16">
 {% if amazprice|default:None %}
-<a href="http://www.amazon.com/gp/product/{{ isbn10 }}" target="_blank">
-    ${{ amazprice }}
+$<a href="http://www.amazon.com/gp/product/{{ isbn10 }}" target="_blank">
+    {{ amazprice }}
 </a>
 {% else %}
 None

@@ -17,7 +17,7 @@
                     </a>
 					<h5><a href="/{{ book.isbn }}"> {{ book.title }}</a></h5>
 						<p>
-                        {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
+	                        {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
 						</p>
 						<p>
                             {% include 'forms/newlisting.html' with title=book.title pk=0 bookpk=book.pk labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
