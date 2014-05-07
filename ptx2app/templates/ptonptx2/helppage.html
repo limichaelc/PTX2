@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}PTX2 | Help {% endblock %}
+
+{% block main %}
+<div class="col-md-6 column">
+	<div class="row clearfix">
+	  <h1>How to Use this Site</h1>
+	   <h3> Adding a Course </h3>
+	   <p> Clicking the add course button on the sidebar allows you to search for courses to add. Adding courses adds books to your "Books Needed" list, which allows you to track these books as prices fluctuate. Remove the course by clicking the X next to each course title. This will also remove books for those courses from your "Books Needed" list, unless those books correspond to another course you've added to your courses list.</p>
+	   <h3> Adding Books to your Books Needed List </h3>
+	   <p> Searching for books in the searchbar on the top of the page will take you to a page of results. Each book in the results page will have an "Add to Needed" button, which will add this book to your needed list without associating it with a course. Each result you click on will lead to a book page that will also have the "Add to Needed" button.</p>
+	   <h3> Selling a Book </h3>
+	   <p> Sell a book by click the "Sell Book" button on the side bar. You can search for books by course (department and number, e.g. COS 333) or by title (e.g. Practice of Programming). Each result will have a "Sell?" button, which will take you to a window that lets you input a price and comments. You can also sell a book which you own. These books will appear in your "Owned" section of your bookshelf </p>
+	   <h3> Owning Books </h3>
+	   <p> Mark books that you need as owned if you bought them outside of the PTX2, for example, through Amazon or Labyrinth. These books can then be sold at the end of the semester easily on PTX 2. Books that you buy through PTX 2 will automatically be added to your "Owned" list in your Bookshelf.</p>
+	   <h3> Buying a Book </h3>
+	   <p> Search for books to buy by using the top search bar, or looking at each book page linked from your "Books Needed" section of your bookshelf. Confirming a purchase with each student seller will give you the seller's email and preferred meeting place. This action will also send an email to both you and the seller with this information, so you don't have to check this site all the time. Once you have confirmed your purchase, you will have a pending transaction in the "Pending" section of your sidebar. Once the transaction has taken place, go to the "Pending" section and review your transaction. Once both the seller and buyer have reviewed the transaction, then the transaction will be added to your "My History" page. </p>
+	   <h3> Additional questions or feedback </h3>
+	   <p> Please email ptx2rox@gmail.com to send us questions or suggestions. We're always looking to improve our website and we need your help to do it!</p> 
+	  </div>
+</div>
+{% include 'forms/newlisting.html' %}
+{% include 'forms/newcourse.html' %}
+{% include 'forms/sellbook.html' %}
+{% endblock %}
