@@ -26,6 +26,8 @@ def get_context(request):
         profile = request.user.get_profile()
     except:
         profile = Profile.objects.create(user = user)
+        messages.success(request, '<strong>Welcome!</strong> This appears to be your first visit. You can get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.')
+
         profile.save()
     books = Book.objects.all()
     transaction = Transaction.objects.all()

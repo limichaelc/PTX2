@@ -12,19 +12,8 @@
     <script type="text/javascript">
         document.getElementById("jswarning").hidden=true;
     </script>
-	{% if first_visit %}
-    <div class="alert alert-info alert-dismissable text-center">
-        <button type="button" class="close glyphicon glyphicon-remove" data-dismiss="alert" aria-hidden="true"></button>
-        <strong>Welcome!</strong> This appears to be your first visit. You can get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.
-    </div>
-	{% endif %}
-    {% comment %}
-	{% if just_removed %}
-	<div class="alert alert-info text-center">Course <i>{{dept}} {{num}} ({{r}})</i> has been removed.</div>
-    {% endif %}
-    {% endcomment %}
     {% for message in messages %}
-    <div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} text-center">{{message}}</div>
+    <div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} text-center">{{message|safe}}</div>
     {% endfor %}
 	<div class="row clearfix" id="needtobuy">
 		<h4 padding-left="5px"> Books Needed </h4>
