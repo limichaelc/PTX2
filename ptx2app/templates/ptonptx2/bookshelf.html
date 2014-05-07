@@ -108,6 +108,10 @@
 						Owned<br>
                         <a href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</a>
 					</p>
+					<p>
+						{% include 'forms/markasowned.html' %}
+						<button class="btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Remove book?</button>
+					</p>
 				</div>
 			</div>
         </div>
