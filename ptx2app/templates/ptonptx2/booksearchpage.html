@@ -25,7 +25,7 @@
 			            <button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#addtoneededmodal{{book.pk}}">Add to needed?</button>
 			            {% include 'forms/addtoneeded.html' with book=book %}
 			            {% else %}
-			            <button class="btn btn-primary btn-xs" disabled="disabled" href="#" data-toggle="modal" data-target="#addtoneededmodal{{book.pk}}">Already needed</button>
+			            <button class="full-width btn btn-primary btn-xs" disabled="disabled" href="#" data-toggle="modal" data-target="#addtoneededmodal{{book.pk}}">Already needed</button>
 			            {% endif %}
 			            </p>
 					</div>
