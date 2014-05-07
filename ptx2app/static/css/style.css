@@ -13,7 +13,6 @@ body {
 
 td {
 	font-size: small;
-	height: 60px;
 }
 
 th {
@@ -50,6 +49,6 @@ a.anchor {
 	visibility: hidden;
 }
 
-.no-pad {
-	padding-bottom: 0;
+form.no-pad {
+	margin-bottom: 0;
 }
