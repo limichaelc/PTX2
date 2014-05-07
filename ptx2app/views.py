@@ -656,7 +656,7 @@ def pendingtransaction(request, id):
             	send_mail('Pending transaction', sellermessage, 'princetonptx2@gmail.com', [seller.user.username + '@princeton.edu'], fail_silently=False)
             	send_mail('Pending transaction', buyermessage, 'princetonptx2@gmail.com', [buyer.user.username + '@princeton.edu'], fail_silently=False)
             	listing.delete()
-            return index(request)
+            return HttpResponseRedirect("/bookshelf")
         else:
             print form.errors
     else:
