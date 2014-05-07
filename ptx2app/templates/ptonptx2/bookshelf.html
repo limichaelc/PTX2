@@ -27,8 +27,8 @@
     <div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} text-center">{{message}}</div>
     {% endfor %}
 	<div class="row clearfix" id="needtobuy">
-		{% if user.books_needed.all %}
 		<h4 padding-left="5px"> Books Needed </h4>
+		{% if user.books_needed.all %}
 		{% for book in user.books_needed.all %}
 		<div class="col-md-3">
 			<div class="thumbnail">
@@ -44,32 +44,21 @@
 						{% endfor %}
 						{% endfor %}</p>
 						<p>
-							<!--<img src="http://www.labyrinthbooks.com/favicon.ico" height="16"; width="16"> <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
-							${{ book.labyrinth_price }}<br></a>
-							<img src="http://www.amazon.com/favicon.ico" height="16"; width="16"> <a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}">
-							{% if book.amazon_price != None %}
-							${{ book.amazon_price }}<br>
-							{% else %}
-							None<br>
-							{% endif %}</a>
-							<img src="http://www.princeton.edu/favicon.ico" height="16"; width="16"> 
-							{% if book.lowest_student_price != None %}
-							${{ book.lowest_student_price }}.00<br>
-							{% else %}
-							No student offers<br>
-                            {% endif %}-->
                             {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
 						</p>
 						<p>
-							{% include 'forms/markasowned.html' %}
-						<button class="btn btn-default" title="Mark as owned" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}"></button>
+						<div class="btn-group">
+							<form id="markasownedform" method="get" name="markasowned" action="/markasowned/"> {% csrf_token %}
+							<button type="submit" class="btn btn-primary btn-xs" title="Mark as owned" >Mark as owned</button>
+							</form>
+						</div>
 						</p>
 					</div>
 				</div>
 			</div>
 			{% endfor %}
+			{% else %}<p>No books here</p>{% endif %}
         </div>
-		{% endif %}
 		<div class="row clearfix" id="selling">
 			{% if user_selling.all %}
 			<h4 padding-left="5px">Selling </h4>
