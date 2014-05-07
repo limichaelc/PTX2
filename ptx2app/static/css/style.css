@@ -41,3 +41,10 @@ th {
 .full-width {
 	width: 100%;
 }
+
+a.anchor {
+	display: block;
+	position: relative;
+	top: -250px;
+	visibility: hidden;
+}
