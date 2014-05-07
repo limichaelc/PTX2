@@ -71,7 +71,7 @@
                         <img src={{ listing.book.book.picture_link }} class="img-responsive img-selling" alt="">
                     </a>
 					<h5><a href="/{{listing.book.book.isbn}}"> {{ listing.book.book.title }}</a></h5>
-					<p>Selling for ${{ listing.price }}<br>
+					<p>Selling for ${{ listing.price }}<br style="color:red">
 						{% if listing.sell_status == 'P' %}
 						Offer made!<br>
 						{% endif %}
