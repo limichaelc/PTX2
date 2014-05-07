@@ -27,7 +27,7 @@ def get_context(request):
     except:
         profile = Profile.objects.create(user = user)
         messages.success(request, 
-            '''<strong>Welcome!</strong> This appears to be your first visit.<br>First, please fill out your name and preferred meeting place. These will be sent in emails to people you buy from and sell to in order to smooth out the transaction process.<br>
+            '''<div><strong>Welcome!</strong> This appears to be your first visit.<br>First, please fill out your name and preferred meeting place. These will be sent in emails to people you buy from and sell to in order to smooth out the transaction process.<br>
             <form action="/profile/" method="POST" id="editprofile">{% csrf_token %}
                         <div class="form-group">
                             <label for="id_first_name">First name:</label><div class="input-group">
@@ -43,7 +43,7 @@ def get_context(request):
                                 <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
                             </div>
                         </div>
-                    </form>''')
+                    </form></div>''')
 
         profile.save()
     books = Book.objects.all()
