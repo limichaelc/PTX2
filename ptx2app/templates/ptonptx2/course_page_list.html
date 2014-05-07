@@ -34,7 +34,11 @@
                     <a href="/courses/{{ course.dept }}/{{ course.num }}">
                         {{course.dept}} {{course.num}} ({{course.name}})</a>
                     <input type="hidden" name="course" value="{{course.id}}">
+                    {% if course_dict|length = 1 %}
+                    <input type="hidden" name="prevpage" value="/bookshelf">
+                    {% else %}
                     <input type="hidden" name="prevpage" value="/searchcourses/?q={{query}}">
+                    {% endif %}
                     <!--<button type="submit" class="btn btn-default btn-xs btn-link"><span class="glyphicon glyphicon-plus">Add</span></button>-->
                 </div>
             </form>
