@@ -53,7 +53,7 @@
                 <td>{% if listing.comment %}{{ listing.comment }}{% else %}<span class="text-muted">None.</span>{% endif %}</td>
                 {%comment%}<td><a href="{% url 'ptx2app.views.remove_listing' listingid=listing.id %}">Remove listing?</a></td>{%endcomment%}
                 <td><form class="form-inline no-pad" action="/remove_listing/" method="POST"> {% csrf_token %}
-                        <button class="btn btn-default" type="submit">Remove listing?</button>
+                        <button class="btn btn-primary btn-xs" type="submit">Remove listing?</button>
                         <input type="hidden" name="listingid" value="{{listing.id}}">
                     </form>
                 </td>
