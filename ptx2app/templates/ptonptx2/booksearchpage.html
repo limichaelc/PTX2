@@ -12,7 +12,7 @@
 		<div class="col-md-3">
 			<div class="thumbnail">
 				<div class="caption">
-					<img src={{ book.picture_link }} width="130" class="img-responsive" alt="">
+					<img src={{ book.picture_link }} class="img-responsive" alt=""> 
 					<h5><a href="/{{ book.isbn }}"> {{ book.title }}</a></h5>
 						<p>
                         {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
