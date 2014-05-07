@@ -646,7 +646,7 @@ def pendingtransaction(request, id):
             if transaction.seller and transaction.buyer:
             	book = transaction.book
             	listing = Listing.objects.get(book = book)
-            	Listing.objects.remove(listing)
+            	listing.delete()
             return index(request)
         else:
             print form.errors
