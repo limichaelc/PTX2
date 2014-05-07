@@ -21,11 +21,12 @@
         </li>
         {% endfor %}
         <li>
-        <a href="#" data-toggle="modal" data-target="#newcoursemodal"><span class="glyphicon glyphicon-plus"></span> Add course</a>
+        <a href="#"data-toggle="modal" data-target="#newcoursemodal"><span class="glyphicon glyphicon-plus"></span> Add course</a>
         </li>
         <h4 style="font-variant:small-caps">Account Info</h4>
+        {% include 'forms/profilemodel.html' %}
         <li>
-        <a href="{{ BASE_URL }}/profile">My Profile</a>
+        <a data-toggle="modal" href="#profilemodal">My Profile</a>
         </li>
         <li>
         <a href="{{ BASE_URL }}/history">My History</a>

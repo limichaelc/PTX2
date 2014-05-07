@@ -199,6 +199,7 @@ def profile(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     profile = request.user.get_profile()
+    context_dict = get_context(request)
 
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance = profile)
@@ -210,8 +211,9 @@ def profile(request):
             print form.errors
     else:
         form = ProfileForm(instance = profile)
+    context_dict['form'] = form
         
-    return render_to_response('forms/newprofile.html', {'form': form}, context)
+    return render_to_response('forms/profilemodel.html', context_dict, context)
     
 @login_required
 def history(request):
@@ -261,11 +263,11 @@ def searchcourses(request):
                 finallist.append(f)
         if len(finallist) == 0:
             for f in Course.objects.all():
+                if q.upper().replace(" ", "") == f.dept:
+                    finallist.append(f)
                 if q == f.num:
                     finallist.append()
-                elif q.upper().replace(" ", "") == f.dept:
-                    finallist.append(f)
-                elif re.search(q.upper().replace(" ",""), f.name.upper().replace(" ","")) != None:
+                if re.search(q.upper().replace(" ",""), f.name.upper().replace(" ","")) != None:
                     finallist.append(f)
     
     sortedbydept = sorted(finallist, key=lambda course: course['dept'])
@@ -318,7 +320,12 @@ def removecourse(request):
         booklist = r.books.all()
         profile.course_list.remove(r)
         for book in profile.books_needed.all():
-            if book in booklist:
+            incourse = False
+            for course in profile.course_list.all():
+                for coursebook in course.books.all():
+                    if book == coursebook:
+                        incourse = True
+            if not incourse:
                 profile.books_needed.remove(book)
         profile.save()
     context_dict = get_context(request)
@@ -329,6 +336,28 @@ def removecourse(request):
     messages.success(request, "Course %s %s (%s) has been removed" % (r.dept, r.num, r.name))
     return HttpResponseRedirect("/bookshelf")
     #return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
+
+@login_required
+def markasowned(request):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    profile = request.user.get_profile()
+    context_dict = get_context(request)
+    if request.GET['m']:
+        m = request.GET['m']
+        m = Book.objects.get(id=m)
+        profile.books_needed.remove(m)
+        physbook = PhysBook()
+        physbook.book = m
+        physbook.owner = profile
+        physbook.save()
+        profile.books_owned.add(physbook)
+        profile.save()
+        context_dict['m'] = m.title
+        context_dict['markedasowned'] = True
+        messages.success(request, "Book %s has been marked as owned" % (m.title))
+        return HttpResponseRedirect("/bookshelf")
 
 @login_required
 def search(request):
