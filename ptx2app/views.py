@@ -208,7 +208,7 @@ def history(request):
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    transaction = Transaction.objects.all()
+    transaction = Transaction.objects.all()za
     past_transactions = []
     
     for instance in transaction:
@@ -304,7 +304,12 @@ def removecourse(request):
         booklist = r.books.all()
         profile.course_list.remove(r)
         for book in profile.books_needed.all():
-            if book in booklist:
+            incourse = False
+            for course in profile.course_list:
+                for coursebook in course:
+                    if book == coursebook:
+                        incourse = True
+            if incourse:
                 profile.books_needed.remove(book)
         profile.save()
     context_dict = get_context(request)
