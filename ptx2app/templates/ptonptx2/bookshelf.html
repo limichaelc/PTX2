@@ -61,7 +61,7 @@
                             {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
 						</p>
 						<p>
-							{% include forms/markasowned.html %}
+							{% include 'forms/markasowned.html' %}
 						<span class="btn btn-default" title="Mark as owned" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}"></span>
 						</p>
 					</div>
