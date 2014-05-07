@@ -18,6 +18,7 @@ from helpers import set_lowest_price
 
 # get the context of this request
 def get_context(request):
+    first_visit = False
     context = RequestContext(request)
     try:
         user = request.user
