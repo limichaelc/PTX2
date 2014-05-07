@@ -27,8 +27,8 @@
     <div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} text-center">{{message}}</div>
     {% endfor %}
 	<div class="row clearfix" id="needtobuy">
-		{% if user.books_needed.all %}
 		<h4 padding-left="5px"> Books Needed </h4>
+		{% if user.books_needed.all %}
 		{% for book in user.books_needed.all %}
 		<div class="col-md-3">
 			<div class="thumbnail">
@@ -56,10 +56,9 @@
 					</div>
 				</div>
 			</div>
-			</div>
 			{% endfor %}
+			{% else %}No books here{% endif %}
         </div>
-		{% endif %}
 		<div class="row clearfix" id="selling">
 			{% if user_selling.all %}
 			<h4 padding-left="5px">Selling </h4>
