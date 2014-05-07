@@ -402,8 +402,8 @@ def removefromowned(request):
     context_dict = get_context(request)
     if request.GET['o']:
         rfo = request.GET['o']
-        rfo = Listing.objects.get(id=rfo)
-        title = rfo.book.book.title
+        rfo = PhysBook.objects.get(id=rfo)
+        title = rfo.book.title
         rfo.delete()
         context_dict['rfo'] = title
         context_dict['removefromowned'] = True
