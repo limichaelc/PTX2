@@ -12,9 +12,6 @@
     <script type="text/javascript">
         document.getElementById("jswarning").hidden=true;
     </script>
-    {% if first_visit %}
-    {% include 'forms/firstvisitmodal.html' %}
-    {% else %}
     {% for message in messages %}
     <div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} text-center">{{message|safe}}</div>
     {% endfor %}
@@ -126,5 +123,4 @@
 		<p class="text-muted">Currently no books owned</p>
 		{% endif %}
 	</div>
-	{% endif %}
 {% endblock %}
