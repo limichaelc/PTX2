@@ -7,14 +7,10 @@
 			</div>
 		</form>
 		<p class="navbar-text navbar-right"><a href="/logout" class="navbar-link">Logout</a></p>
-		{% include 'forms/profilemodel.html' %}
+		
 		<p class="navbar-text navbar-right">Signed in as <a data-toggle="modal" href="#profilemodal">{{ user.user }}</a>
         </p>
 	</nav>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-	<div class="container text-center">
-	<p><a href="#" data-toggle="modal" data-target="#aboutmodal">About</a></p>
-	</div>
-</nav>
+{% include 'forms/profilemodel.html' %}
