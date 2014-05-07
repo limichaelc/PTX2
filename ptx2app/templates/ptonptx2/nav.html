@@ -1,19 +1,17 @@
-<div class="container">
-	<div class="row clearfix">
-		<div class="col-xs-12 column">
-			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="/bookshelf">PTX 2</a>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/bookshelf">PTX 2</a>
+			</div>
+			<form class="navbar-form navbar-left" role="search" action="/search/" method="get">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Search for books by course (e.g. 'COS 333') or title" style="width: 250%" name="q">
 				</div>
-				<form class="navbar-form navbar-left" role="search" action="/search/" method="get">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search for books by course (e.g. 'COS 333') or title" style="width: 250%" name="q">
-					</div>
-					
-				</form>
-				<p class="navbar-text navbar-right"><a href="/logout" class="navbar-link">Logout</a></p>
-				<p class="navbar-text navbar-right">Signed in as {{ user.user }} </a></p>
-			</nav>
-		</div>
+				
+			</form>
+			<p class="navbar-text navbar-right"><a href="/logout" class="navbar-link">Logout</a></p>
+			<p class="navbar-text navbar-right">Signed in as {{ user.user }} </a></p>
+		</nav>
 	</div>
-</div>
+</nav>
