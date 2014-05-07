@@ -27,23 +27,7 @@ def get_context(request):
     except:
         profile = Profile.objects.create(user = user)
         messages.success(request, 
-            '''<div><strong>Welcome!</strong> This appears to be your first visit.<br>First, please fill out your name and preferred meeting place. These will be sent in emails to people you buy from and sell to in order to smooth out the transaction process.<br>
-            <form action="/profile/" method="POST" id="editprofile">{% csrf_token %}
-                        <div class="form-group">
-                            <label for="id_first_name">First name:</label><div class="input-group">
-                                <input id="id_first_name" name="first_name" type="text" class="form-control">
-                            <br>
-                            <label for="id_last_name">Last name:</label><div class="input-group">
-                                <input id="id_last_name" name="last_name" type="text" class="form-control">
-                            <br>
-                            <label for="id_pref_meeting_place">Preferred meeting place:</label><div class="input-group">
-                                <input id="id_pref_meeting_plac" name="pref_meeting_plac" type="text" class="form-control">
-                            <div align="right">
-                                <input type="submit" name="Submit" class="btn btn-primary">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                            </div>
-                        </div>
-                    </form></div>''')
+            '<strong>Welcome!</strong> This appears to be your first visit. You can get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.')
 
         profile.save()
     books = Book.objects.all()
@@ -404,12 +388,12 @@ def removefromselling(request):
     context_dict = get_context(request)
     if request.GET['s']:
         rfs = request.GET['s']
-        rfs = Book.objects.get(id=rfs)
+        rfs = PhysBook.objects.get(id=rfs)
         profile.books_selling.remove(rfs)
         profile.save()
-        context_dict['rfs'] = rfs.title
+        context_dict['rfs'] = rfs.book.title
         context_dict['removefromselling'] = True
-        messages.success(request, "Book %s has been removed from books selling" % (rfs.title))
+        messages.success(request, "Book %s has been removed from books selling" % (rfs.book.title))
         return HttpResponseRedirect("/bookshelf")
 
 @login_required

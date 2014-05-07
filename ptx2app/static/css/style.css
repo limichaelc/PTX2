@@ -12,7 +12,8 @@ body {
 }
 
 td {
-	font-size: small
+	font-size: small;
+	height: 60px;
 }
 
 th {
@@ -47,4 +48,8 @@ a.anchor {
 	position: relative;
 	top: -71px;
 	visibility: hidden;
+}
+
+.no-pad {
+	padding-bottom: 0;
 }
