@@ -5,7 +5,7 @@
 {% block title %}PTX2 | Bookshelf{% endblock %}
 
 {% block main %}
-<div class="col-xs-8 column">
+<div class="col-md-8 column">
     <div class="alert alert-warning text-center" id="jswarning">
         It looks like you have Javascript disabled. Please enable Javascript to ensure that the site works properly.
     </div>
@@ -20,7 +20,7 @@
 		<h4 padding-left="5px"> Books Needed </h4>
 		{% if user.books_needed.all %}
 		{% for book in user.books_needed.all %}
-		<div class="col-xs-3">
+		<div class="col-md-3">
 			<div class="thumbnail thumb-needed">
                 <div class="caption">
                     <a href="/{{book.isbn}}">
@@ -41,11 +41,11 @@
 					</p>
 					<p>
 						{% include 'forms/markasowned.html' %}
-						<button class="btn btn-primary btn-xs full-width" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Already owned?</button>
+						<button class="btn btn-primary btn-md full-width" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Already owned?</button>
 					</p>
 					<p>
 						{% include 'forms/removefromneeded.html' %}
-						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromneededmodal{{book.id}}">Remove from needed?</button>
+						<button class="full-width btn btn-default btn-md" href="#" data-toggle="modal" data-target="#removefromneededmodal{{book.id}}">Remove from needed?</button>
 					</p>
 				</div>
 			</div>
@@ -61,7 +61,7 @@
 	<h4 padding-left="5px">Selling </h4>
 		{% if user_selling.all %}
 		{% for listing in user_selling.all %}
-		<div class="col-xs-3">
+		<div class="col-md-3">
 			<div class="thumbnail thumb-selling">
                 <div class="caption">
                     <a href="/{{listing.book.book.isbn}}">
@@ -75,11 +75,11 @@
 					</p>
 					<p>
 						{% include 'forms/markasowned.html' %}
-						<button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{listing.book.id}}">Edit listing?</button>
+						<button class="full-width btn btn-primary btn-md" href="#" data-toggle="modal" data-target="#markasownedmodal{{listing.book.id}}">Edit listing?</button>
 					</p>
 					<p>
 						{% include 'forms/removefromselling.html' %}
-						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromsellingmodal{{listing.id}}">Remove listing?</button>
+						<button class="full-width btn btn-default btn-md" href="#" data-toggle="modal" data-target="#removefromsellingmodal{{listing.id}}">Remove listing?</button>
 
 					</p>
 				</div>
@@ -96,7 +96,7 @@
 	<h4 padding-left="5px">Owned</h4>
 		{% if user.books_owned.all %}
 		{% for book in user.books_owned.all %}
-		<div class="col-xs-3">
+		<div class="col-md-3">
 			<div class="thumbnail thumb-owned">
                 <div class="caption">
                     <a href="/{{book.book.isbn}}">
@@ -109,10 +109,10 @@
 					</p>
 					<p>
 						{% include 'forms/removefromowned.html' %}
-                        <button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button>
+                        <button class="full-width btn btn-primary btn-md" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button>
                     </p>
                     <p>
-						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromownedmodal{{book.id}}">Remove from owned?</button>
+						<button class="full-width btn btn-default btn-md" href="#" data-toggle="modal" data-target="#removefromownedmodal{{book.id}}">Remove from owned?</button>
 					</p>
 				</div>
 			</div>
