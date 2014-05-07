@@ -42,23 +42,23 @@
 						Used in <i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i><br>
 						{% endif %}
 						{% endfor %}
-						{% endfor %}</p>
-						<p>
-                            {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
-						</p>
-						<p>
-						<div class="btn-group">
-							<form id="markasownedform" method="get" name="markasowned" action="/markasowned/"> {% csrf_token %}
-							<button type="submit" class="btn btn-primary btn-xs" title="Mark as owned" >Mark as owned</button>
-							</form>
-						</div>
-						</p>
-					</div>
+						{% endfor %}
+					</p>
+					<p>
+						{% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
+					</p>
+					<p>
+						{% include 'forms/markasowned.html' %}
+						<button class="btn btn-default" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Already owned?</button>
+					</p>
 				</div>
 			</div>
-			{% endfor %}
-			{% else %}<p>No books here</p>{% endif %}
-        </div>
+		</div>
+		{% endfor %}
+		{% else %}
+		<p>No books here</p>
+		{% endif %}
+	</div>
 		<div class="row clearfix" id="selling">
 			{% if user_selling.all %}
 			<h4 padding-left="5px">Selling </h4>
@@ -73,16 +73,6 @@
 							Offer made!<br>
 							{% endif %}
 						</p>
-<!-- 						<p>
-						<div class="btn-group">
-							<form class="form-inline" id="editlistingform" method="get" name="editlistingform" action="/editlistingform/"> {% csrf_token %}
-							<button type="submit" class="btn btn-default btn-sm" title="Edit listing"><span class="glyphicon glyphicon-pencil"></span></button>
-							</form>
-							<form class="form-inline" id="removelistingform" method="get" name="removelistingform" action="/removelistingform/"> {% csrf_token %}
-							<button type="submit" class="btn btn-default btn-sm" title="Remove listing"><span class="glyphicon glyphicon-remove"></span></button>
-							</form>
-						</div>
-						</p> -->
 					</div>
 				</div>
 			</div>
