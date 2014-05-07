@@ -15,6 +15,7 @@ import re
 from operator import itemgetter
 from django_cas.decorators import login_required
 from helpers import set_lowest_price
+from django.core.mail import send_mail
 
 # get the context of this request
 def get_context(request):
@@ -645,10 +646,15 @@ def pendingtransaction(request, id):
             transaction.save()
             if transaction.sellerreview != None and transaction.buyerreview != None:
 
-            	book = transaction.book
-            	listing = Listing.objects.get(book = book)
-            	buyer = transaction.buyer
+                book = transaction.book
+                listing = Listing.objects.get(book = book)
+                buyer = transaction.buyer
+                seller = transaction.seller
             	buyer.books_owned.add(book)
+                sellermessage = "Hi! \n Someone has bought your book on PTX2. The user's details are: \n Name:" + buyer.first_name + " " + buyer.last_name + "\n Buyer email: " + buyer.user.username +"@princeton.edu \n Preferred meeting place: " + buyer.preferred_meetingplace + "\n Thanks, \n\n PTX2"
+            	buyermessage = "Hi! \n You have bought someone else's book on PTX2. The user's details are: \n Name:" + seller.first_name + " " + seller.last_name + "\n Seller email: " + seller.user.username +"@princeton.edu \n Preferred meeting place: " +seller.preferred_meetingplace + "\n Thanks, \n\n PTX2"
+            	send_mail('Pending transaction', sellermessage, 'princetonptx2@gmail.com', [seller.user.username + '@princeton.edu'], fail_silently=False)
+            	send_mail('Pending transaction', buyermessage, 'princetonptx2@gmail.com', [buyer.user.username + '@princeton.edu'], fail_silently=False)
             	listing.delete()
             return index(request)
         else:
