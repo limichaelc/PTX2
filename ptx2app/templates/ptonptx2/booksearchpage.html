@@ -15,24 +15,11 @@
 					<img src={{ book.picture_link }} width="130">
 					<h5><a href="/{{ book.isbn }}"> {{ book.title }}</a></h5>
 						<p>
-						  <!--<a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}">
-							<img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br></a>
-					<a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}">
-							<img src="http://www.amazon.com/favicon.ico" height="12"; width="12">
-							{% if book.amazon_price != None %}
-							${{ book.amazon_price }}<br>
-							{% else %}
-							No price listed<br>
-							{% endif %}</a>
-							<img src="http://www.princeton.edu/favicon.ico" height="12"; width="12">
-							{% if book.lowest_student_price != None %}
-							${{ book.lowest_student_price }}.00<br>
-							{% else %}
-							No student offers<br>
-                            {% endif %}-->
-                            {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
+                        {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
 						</p>
-						<a href="sell/">Sell this book?</a>
+                        <!--<a href="sell/">Sell this book?</a>-->
+                            {% include 'forms/newlisting.html' with title=book.title pk=0 bookpk=book.pk labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
+                        <button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button>
 					</div>
 				</div>
 			</div>
@@ -47,6 +34,5 @@
     {% endfor %} -->
     </div>
 </div>
-{% include 'forms/newlisting.html' %}
 {% include 'forms/newcourse.html' %}
 {% endblock %}

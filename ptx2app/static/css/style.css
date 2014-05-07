@@ -49,3 +49,7 @@ a.anchor {
 	top: -71px;
 	visibility: hidden;
 }
+
+.no-pad {
+	padding-bottom: 0;
+}
