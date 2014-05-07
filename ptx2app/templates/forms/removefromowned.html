@@ -1,10 +1,10 @@
-<div class="modal fade removefromownedmodal" tabindex="-1" role="dialog" aria-labelledby="removefromownedmodal" aria-hidden="true" id="removefromownedmodal{{listing.id}}">
+<div class="modal fade removefromownedmodal" tabindex="-1" role="dialog" aria-labelledby="removefromownedmodal" aria-hidden="true" id="removefromownedmodal{{book.id}}">
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
-			<div class="modal-header"><h5 class="modal-title" id="myModalLabel">Remove <i>{{listing.book.book.title}}</i> from Books Selling?</h5></div>
+			<div class="modal-header"><h5 class="modal-title" id="myModalLabel">Remove <i>{{book.book.title}}</i> from Books Selling?</h5></div>
 			<div class="modal-body">
 				<div align="right"><form name="removefromowned" method="get" action="/removefromowned">
-					<input type="hidden" name="o" value="{{listing.id}}"></input>
+					<input type="hidden" name="o" value="{{book.id}}"></input>
                     <input type="hidden" name="oldpage" value=""></input>
 					<input name="Mark as owned" type="submit" class="btn btn-danger"></input>
 					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
