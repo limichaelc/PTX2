@@ -24,8 +24,9 @@
         <a href="#" data-toggle="modal" data-target="#newcoursemodal"><span class="glyphicon glyphicon-plus"></span> Add course</a>
         </li>
         <h4 style="font-variant:small-caps">Account Info</h4>
+        {% include 'forms/profilemodal.html' %}
         <li>
-        <a href="{{ BASE_URL }}/profile">My Profile</a>
+        <a href="#" data-toggle="modal" data-target="#profilemodal"><span class="glyphicon glyphicon-plus"></span>My Profile</a>
         </li>
         <li>
         <a href="{{ BASE_URL }}/history">My History</a>
