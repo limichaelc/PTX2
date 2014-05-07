@@ -12,7 +12,8 @@ body {
 }
 
 td {
-	font-size: small
+	font-size: small;
+	height: 60px;
 }
 
 th {
