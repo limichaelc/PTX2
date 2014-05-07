@@ -396,7 +396,7 @@ def removefromneeded(request):
         return HttpResponseRedirect("/bookshelf")
 
 @login_required
-def removefromneeded(request):
+def removefromselling(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
         return redirect('/login/')
