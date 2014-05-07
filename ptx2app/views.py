@@ -329,6 +329,7 @@ def markasowned(request):
         physbook = PhysBook()
         physbook.book = m
         physbook.owner = profile
+        physbook.save()
         profile.books_owned.add(physbook)
         profile.save()
         context_dict['m'] = m.title
