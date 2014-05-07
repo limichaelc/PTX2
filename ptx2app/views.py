@@ -385,8 +385,8 @@ def removefromneeded(request):
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    if request.GET['rfn']:
-        rfn = request.GET['rfn']
+    if request.GET['n']:
+        rfn = request.GET['n']
         rfn = Book.objects.get(id=rfn)
         profile.books_needed.remove(rfn)
         profile.save()
