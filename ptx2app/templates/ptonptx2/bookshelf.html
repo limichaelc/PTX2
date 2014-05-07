@@ -49,7 +49,7 @@
 					</p>
 					<p>
 						{% include 'forms/markasowned.html' %}
-						<button class="btn btn-default" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Already owned?</button>
+						<button class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Already owned?</button>
 					</p>
 				</div>
 			</div>
@@ -59,46 +59,50 @@
 		<p>No books here</p>
 		{% endif %}
 	</div>
-		<div class="row clearfix" id="selling">
-			{% if user_selling.all %}
-			<h4 padding-left="5px">Selling </h4>
-			{% for listing in user_selling.all %}
-			<div class="col-md-3">
-				<div class="thumbnail">
-					<div class="caption">
-						<img src={{ listing.book.book.picture_link }} class="img-responsive" alt="">
-						<h5><a href="/{{listing.book.book.isbn}}"> {{ listing.book.book.title }}</a></h5>
-						<p>Selling for ${{ listing.price }}<br>
-							{% if listing.sell_status == 'P' %}
-							Offer made!<br>
-							{% endif %}
-						</p>
-					</div>
+
+	<div class="row clearfix" id="selling">
+	<h4 padding-left="5px">Selling </h4>
+		{% if user_selling.all %}
+		{% for listing in user_selling.all %}
+		<div class="col-md-3">
+			<div class="thumbnail">
+				<div class="caption">
+					<img src={{ listing.book.book.picture_link }} class="img-responsive" alt="">
+					<h5><a href="/{{listing.book.book.isbn}}"> {{ listing.book.book.title }}</a></h5>
+					<p>Selling for ${{ listing.price }}<br>
+						{% if listing.sell_status == 'P' %}
+						Offer made!<br>
+						{% endif %}
+					</p>
 				</div>
 			</div>
-			{% endfor %}
 		</div>
-		{% endif %} 
-		<div class="row clearfix" id="owned">
-			{% if user.books_owned.all %}
-
-			<h4 padding-left="5px">Owned</h4>
-			{% for book in user.books_owned.all %}
-			<div class="col-md-3">
-				<div class="thumbnail">
-					<div class="caption">
-						<img src="{{book.book.picture_link}}" class="img-responsive" alt="">
-						<h5><a href="/{{book.book.isbn}}"> {{ book.book.title }}</a></h5>
-						<p>
-							Owned<br>
-                            <a href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</a>
-						</p>
-					</div>
-				</div>
-            </div>
-            {% include 'forms/newlisting.html' with title=book.book.title pk=book.pk bookpk=book.book.pk labprice=book.book.labyrinth_price amazprice=book.book.amazon_price lowstud=book.book.lowest_student_price isbn=book.book.isbn isbn10=book.book.isbn10 %}
 		{% endfor %}
-		</div>
+		{% else %}
+		<p>No books here</p>
+		{% endif %} 
 	</div>
-	{% endif %}
+
+	<div class="row clearfix" id="owned">
+	<h4 padding-left="5px">Owned</h4>
+		{% if user.books_owned.all %}
+		{% for book in user.books_owned.all %}
+		<div class="col-md-3">
+			<div class="thumbnail">
+				<div class="caption">
+					<img src="{{book.book.picture_link}}" class="img-responsive" alt="">
+					<h5><a href="/{{book.book.isbn}}"> {{ book.book.title }}</a></h5>
+					<p>
+						Owned<br>
+                        <a href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</a>
+					</p>
+				</div>
+			</div>
+        </div>
+        {% include 'forms/newlisting.html' with title=book.book.title pk=book.pk bookpk=book.book.pk labprice=book.book.labyrinth_price amazprice=book.book.amazon_price lowstud=book.book.lowest_student_price isbn=book.book.isbn isbn10=book.book.isbn10 %}
+		{% endfor %}
+		{% else %}
+		<p>No books here</p>
+		{% endif %}
+	</div>
     {% endblock %}
