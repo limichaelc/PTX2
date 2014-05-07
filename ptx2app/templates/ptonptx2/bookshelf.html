@@ -74,8 +74,9 @@
 						<button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Edit listing?</button>
 					</p>
 					<p>
-						{% include 'forms/removefromselling.html' %}
-						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromsellingmodal{{book.id}}">Remove listing?</button>
+						{% include 'forms/removefromneeded.html' %}
+						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromneededmodal{{book.id}}">Remove listing?</button>
+
 					</p>
 				</div>
 			</div>
@@ -101,8 +102,8 @@
                         <a href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</a>
 					</p>
 					<p>
-						{% include 'forms/removefromowned.html' %}
-						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromownedmodal{{book.id}}">Remove book?</button>
+						{% include 'forms/removefromneeded.html' %}
+						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromneededmodal{{book.id}}">Remove book?</button>
 					</p>
 				</div>
 			</div>
