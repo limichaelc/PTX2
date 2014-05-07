@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from django.contrib import messages
 from ptx2app.models import *
 from ptx2app.forms import *
 from scraper import scrape as scrape_funcs
@@ -261,9 +262,32 @@ def searchcourses(request):
     
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
 
-def addcourse(request, courseid):
+def addcourse(request):
     context = RequestContext(request)
+    profile = request.user.get_profile()
+    if request.POST:
+        form = AddCourseForm(request.POST)
+        if form.is_valid():
+            newcourse = form.cleaned_data['course']
+            newcourse = Course.objects.get(id=newcourse)
+            books = newcourse.books.all()
+            profile.course_list.add(newcourse)
+            for book in books:
+                if not book in profile.books_owned.all():
+                    if not book in profile.books_selling.all():
+                        profile.books_needed.add(book)
+            profile.save()
+            print request.path
+            try:
+                return HttpResponseRedirect(request.POST['prevpage'])
+            except:
+                return HttpResponseRedirect("/bookshelf")
+        else:
+            return HttpResponse("form error")
 
+
+    else:
+        return HttpResponseRedirect("/bookshelf")
 
 
 def removecourse(request):
@@ -286,7 +310,9 @@ def removecourse(request):
     context_dict['dept'] = r.dept
     context_dict['num'] = r.num
     context_dict['just_removed'] = True
-    return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
+    messages.success(request, "Course %s %s (%s) has been removed" % (r.dept, r.num, r.name))
+    return HttpResponseRedirect("/bookshelf")
+    #return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
 def search(request):
     context = RequestContext(request)
