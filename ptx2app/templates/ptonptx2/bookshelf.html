@@ -5,7 +5,7 @@
 {% block title %}PTX2 | Bookshelf{% endblock %}
 
 {% block main %}
-<div class="col-md-8 column">
+<div class="col-xs-8 column">
     <div class="alert alert-warning text-center" id="jswarning">
         It looks like you have Javascript disabled. Please enable Javascript to ensure that the site works properly.
     </div>
@@ -20,7 +20,7 @@
 		<h4 padding-left="5px"> Books Needed </h4>
 		{% if user.books_needed.all %}
 		{% for book in user.books_needed.all %}
-		<div class="col-md-3">
+		<div class="col-xs-3">
 			<div class="thumbnail thumb-needed">
                 <div class="caption">
                     <a href="/{{book.isbn}}">
@@ -61,7 +61,7 @@
 	<h4 padding-left="5px">Selling </h4>
 		{% if user_selling.all %}
 		{% for listing in user_selling.all %}
-		<div class="col-md-3">
+		<div class="col-xs-3">
 			<div class="thumbnail thumb-selling">
                 <div class="caption">
                     <a href="/{{listing.book.book.isbn}}">
@@ -96,7 +96,7 @@
 	<h4 padding-left="5px">Owned</h4>
 		{% if user.books_owned.all %}
 		{% for book in user.books_owned.all %}
-		<div class="col-md-3">
+		<div class="col-xs-3">
 			<div class="thumbnail thumb-owned">
                 <div class="caption">
                     <a href="/{{book.book.isbn}}">
