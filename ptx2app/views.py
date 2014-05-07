@@ -644,6 +644,7 @@ def pendingtransaction(request, id):
                 transaction.sellerreview = form
             transaction.save()
             if transaction.sellerreview != None and transaction.buyerreview != None:
+
             	book = transaction.book
             	listing = Listing.objects.get(book = book)
             	seller = transaction.seller
