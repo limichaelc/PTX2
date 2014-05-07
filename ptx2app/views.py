@@ -208,7 +208,7 @@ def history(request):
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    transaction = Transaction.objects.all()za
+    transaction = Transaction.objects.all()
     past_transactions = []
     
     for instance in transaction:
