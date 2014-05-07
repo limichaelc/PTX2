@@ -314,6 +314,26 @@ def removecourse(request):
     return HttpResponseRedirect("/bookshelf")
     #return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
+def markasowned(request):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    profile = request.user.get_profile()
+    context_dict = get_context(request)
+    if request.GET['m']:
+        m = request.GET['m']
+        m = Book.objects.get(id=m)
+        profile.books_needed.remove(m)
+        physbook = PhysBook()
+        physbook.book = m
+        physbook.owner = profile
+        profile.books_owned.add(physbook)
+        profile.save()
+        context_dict['m'] = m.title
+        context_dict['markedasowned'] = True
+        messages.success(request, "Book %s has been marked as owned" % (m.title))
+        return HttpResponseRedirect("/bookshelf")
+
 def search(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
