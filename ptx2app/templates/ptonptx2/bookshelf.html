@@ -15,7 +15,8 @@
     {% for message in messages %}
     <div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} text-center">{{message|safe}}</div>
     {% endfor %}
-	<div class="row clearfix" id="needtobuy">
+	<div class="row clearfix">
+	<a class="anchor" id="needtobuy"></a>
 		<h4 padding-left="5px"> Books Needed </h4>
 		{% if user.books_needed.all %}
 		{% for book in user.books_needed.all %}
@@ -53,7 +54,8 @@
 		{% endif %}
 	</div>
 
-	<div class="row clearfix" id="selling">
+	<div class="row clearfix">
+	<a class="anchor" id="selling"></a>
 	<h4 padding-left="5px">Selling </h4>
 		{% if user_selling.all %}
 		{% for listing in user_selling.all %}
@@ -84,7 +86,8 @@
 		{% endif %} 
 	</div>
 
-	<div class="row clearfix" id="owned">
+	<div class="row clearfix">
+	<a class="anchor" id="owned"></a>
 	<h4 padding-left="5px">Owned</h4>
 		{% if user.books_owned.all %}
 		{% for book in user.books_owned.all %}
