@@ -49,8 +49,6 @@ def get_context(request):
         nums_by_course[course] = len(current_course)
 
     num_total = len(profile.books_needed.all()) + len(profile.books_owned.all()) + len(profile.books_selling.all())
-    
-    listings
 
     context_dict = {'user' : profile,
                     #'form'  : form,
