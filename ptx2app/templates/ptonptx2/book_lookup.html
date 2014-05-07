@@ -36,6 +36,7 @@
             <button class="btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button>
             {% include 'forms/newlisting.html' with title=book.title pk=0 bookpk=book.pk labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
             <button class="btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#addtoneededmodal{{book.pk}}">Add to needed?</button>
+            {% include 'forms/addtoneeded.html' with book=book %}
         </div>
     </div>
     <div class="row clearfix">
