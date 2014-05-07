@@ -517,7 +517,7 @@ def setpricelisting(request, isbn, physbookid):
     
     
 @login_required
-def confirmbuybook(request, isbn, listingid):
+def confirmbuybook(request):
     context = RequestContext(request)
     
     if not request.user.is_authenticated():
@@ -525,6 +525,7 @@ def confirmbuybook(request, isbn, listingid):
     
     context_dict = get_context(request)
 
+    listingid=request.POST['listingid']
     listing = Listing.objects.get(id=listingid)
     sellerprofile = listing.owner
 

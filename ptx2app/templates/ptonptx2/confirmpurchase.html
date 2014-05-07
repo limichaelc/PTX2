@@ -19,7 +19,11 @@
             Seller's comment: {{ listing.book.comment }}
             </p>
         </div>
-        <a href="confirmed/" class="btn btn-primary btn-lg active" role="button">Confirm purchase</a>
+        <form action="/confirm/" method="POST"> {% csrf_token %}
+            <button class="btn btn-primary btn-lg active" type="submit">Confirm purchase</button>
+            <input type="hidden" name="listingid" value="{{listing.id}}">
+        </form>
+        <!--<a href="confirmed/" class="btn btn-primary btn-lg active" role="button">Confirm purchase</a>-->
     </div>
 </div>
 {% include 'forms/newlisting.html' %}
