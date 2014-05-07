@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<div class="modal-header"><h5 class="modal-title" id="myModalLabel">Change your profile details</h5></div>
 			<div class="modal-body">
-				<div align="right"><form name="profilemodal" method="post" action="/profile">{% csrf_token %}
+				<div align="right"><form name="profilemodal" method="post" action="/profile/">{% csrf_token %}
 {{ form.as_p }}
                     <input type="hidden" name="oldpage" value=""></input>
 					<input name="Change" type="submit" class="btn btn-danger" value="Change"></input>
