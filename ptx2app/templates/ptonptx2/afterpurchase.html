@@ -7,12 +7,12 @@
 {% block main %}
 <h3>Thank you!</h3>
 <p>Thank you for purchasing through PTX2! Listed below are the details of the book, as well as the seller's name, email, and preferred meeting place. This transaction will now be put in your pending transactions section in your bookhelf, pending confirmation of the purchase by both parties. It is up to you to contact the person and make the exchange in real life.</p>
-<div class="col-md-9 column">
+<div class="col-xs-9 column">
     <div class="row clearfix">
-        <div class="col-md-2">
+        <div class="col-xs-2">
             <img src={{ listing.book.book.picture_link }} width="130">
         </div>
-        <div class="col-md-6">
+        <div class="col-xs-6">
             <h5><a href="/books/{{book.isbn}}"> {{ book.title }}</a></h5>
             <p>Price: ${{ listing.price }}<br>
             <!--Condition: {{ listing.condition }}<br>-->

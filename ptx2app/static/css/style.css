@@ -31,12 +31,9 @@ th {
 	margin-left: -20px;
 }
 
-/*.align-bottom-right {
-	position: absolute;
-	margin-bottom: 15px;
-	margin-right: 15px;
+.container {
+	width: 970px !important;
 }
-*/
 
 .full-width {
 	width: 100%;
