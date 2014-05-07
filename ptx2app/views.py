@@ -305,8 +305,8 @@ def removecourse(request):
         profile.course_list.remove(r)
         for book in profile.books_needed.all():
             incourse = False
-            for course in profile.course_list:
-                for coursebook in course:
+            for course in profile.course_list.all():
+                for coursebook in course.books.all():
                     if book == coursebook:
                         incourse = True
             if incourse:
