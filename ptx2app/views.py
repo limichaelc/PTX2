@@ -247,12 +247,13 @@ def searchcourses(request):
             if q.upper().replace(" ", "") == (f.dept + f.num):
                 finallist.append(f)
         if len(finallist) == 0:
+            if q.upper().replace(" ", "") == f.dept:
+                finallist.append(f)
+        if len(finallist) == 0:
             for f in Course.objects.all():
                 if q == f.num:
                     finallist.append()
-                elif q.upper().replace(" ", "") == f.dept:
-                    finallist.append(f)
-                elif re.search(q.upper().replace(" ",""), f.name.upper().replace(" ","")) != None:
+                if re.search(q.upper().replace(" ",""), f.name.upper().replace(" ","")) != None:
                     finallist.append(f)
     
     sortedbydept = sorted(finallist, key=lambda course: course['dept'])
@@ -334,6 +335,7 @@ def markasowned(request):
         physbook = PhysBook()
         physbook.book = m
         physbook.owner = profile
+        physbook.save()
         profile.books_owned.add(physbook)
         profile.save()
         context_dict['m'] = m.title
