@@ -186,6 +186,7 @@ def profile(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     profile = request.user.get_profile()
+    context_dict = get_context(request)
 
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance = profile)
@@ -197,8 +198,9 @@ def profile(request):
             print form.errors
     else:
         form = ProfileForm(instance = profile)
+    context_dict['form'] = form
         
-    return render_to_response('ptonptx2/bookshelf.html', {'form': form}, context)
+    return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
     
 def history(request):
     context = RequestContext(request)
