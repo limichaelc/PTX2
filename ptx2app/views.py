@@ -198,7 +198,7 @@ def profile(request):
     else:
         form = ProfileForm(instance = profile)
         
-    return render_to_response('forms/newprofile.html', {'form': form}, context)
+    return render_to_response('forms/profilemodel.html', {'form': form}, context)
     
 def history(request):
     context = RequestContext(request)
