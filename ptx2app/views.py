@@ -650,7 +650,7 @@ def pendingtransaction(request, id):
             	buyer = transaction.buyer
             	buyer.books_owned.add(book)
             	listing.delete()
-            return HttpRequestRedirect("/bookshelf")
+            return HttpResponseRedirect("/bookshelf")
         else:
             print form.errors
     else:
