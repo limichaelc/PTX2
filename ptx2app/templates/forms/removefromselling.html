@@ -1,0 +1,16 @@
+<div class="modal fade removrfromsellingmodal" tabindex="-1" role="dialog" aria-labelledby="removrfromsellingmodal" aria-hidden="true" id="removrfromsellingmodal{{book.id}}">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header"><h5 class="modal-title" id="myModalLabel">Remove <i>{{book.title}}</i> from Books Needed?</h5></div>
+			<div class="modal-body">
+				<div align="right"><form name="removrfromselling" method="get" action="/removrfromselling">
+					<input type="hidden" name="s" value="{{book.id}}"></input>
+                    <input type="hidden" name="oldpage" value=""></input>
+					<input name="Mark as owned" type="submit" class="btn btn-danger"></input>
+					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>          
+</div>

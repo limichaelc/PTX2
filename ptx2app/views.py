@@ -396,6 +396,23 @@ def removefromneeded(request):
         return HttpResponseRedirect("/bookshelf")
 
 @login_required
+def removefromneeded(request):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    profile = request.user.get_profile()
+    context_dict = get_context(request)
+    if request.GET['s']:
+        rfs = request.GET['s']
+        rfs = Book.objects.get(id=rfs)
+        profile.books_selling.remove(rfs)
+        profile.save()
+        context_dict['rfs'] = rfs.title
+        context_dict['removefromselling'] = True
+        messages.success(request, "Book %s has been removed from books selling" % (rfs.title))
+        return HttpResponseRedirect("/bookshelf")
+
+@login_required
 def search(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
