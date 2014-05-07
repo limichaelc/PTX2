@@ -647,7 +647,7 @@ def pendingtransaction(request, id):
             	book = transaction.book
             	listing = Listing.objects.get(book = book)
             	listing.delete()
-            return index(request)
+            return HttpRequestRedirect("/bookshelf")
         else:
             print form.errors
     else:
