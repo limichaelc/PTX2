@@ -309,7 +309,7 @@ def removecourse(request):
                 for coursebook in course.books.all():
                     if book == coursebook:
                         incourse = True
-            if incourse:
+            if not incourse:
                 profile.books_needed.remove(book)
         profile.save()
     context_dict = get_context(request)
