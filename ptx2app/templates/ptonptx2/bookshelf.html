@@ -49,11 +49,11 @@
 					</p>
 					<p>
 						{% include 'forms/markasowned.html' %}
-						<button class="btn btn-primary btn-xs align-bottom-right" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Already owned?</button>
+						<button class="btn btn-primary btn-xs full-width" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Already owned?</button>
 					</p>
 					<p>
 						{% include 'forms/markasowned.html' %}
-						<span class="align-top-left glyphicon glyphicon-remove" title="Remove book?" href="#" data-toggle="modal" data-target="#removecoursemodal{{course.id}}"></span>
+						<button><span class="align-top-left glyphicon glyphicon-remove" title="Remove book?" href="#" data-toggle="modal" data-target="#removecoursemodal{{course.id}}"></span></button>
 					</p>
 				</div>
 			</div>
@@ -80,11 +80,11 @@
 					</p>
 					<p>
 						{% include 'forms/markasowned.html' %}
-						<button class="align-bottom-right btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Edit listing?</button>
+						<button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Edit listing?</button>
 					</p>
 					<p>
 						{% include 'forms/markasowned.html' %}
-						<button class="align-top-left btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}"><span></span></button>
+						<button><span class="align-top-left glyphicon glyphicon-remove" title="Remove book?" href="#" data-toggle="modal" data-target="#removecoursemodal{{course.id}}"></span></button>
 					</p>
 				</div>
 			</div>
@@ -110,7 +110,7 @@
 					</p>
 					<p>
 						{% include 'forms/markasowned.html' %}
-						<button class="btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Remove book?</button>
+						<button><span class="align-top-left glyphicon glyphicon-remove" title="Remove book?" href="#" data-toggle="modal" data-target="#removecoursemodal{{course.id}}"></span></button>
 					</p>
 				</div>
 			</div>
