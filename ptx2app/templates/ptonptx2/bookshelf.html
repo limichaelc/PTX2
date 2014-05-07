@@ -13,7 +13,7 @@
         document.getElementById("jswarning").hidden=true;
     </script>
     {% if first_visit %}
-    {% include forms/firstvisitmodal.html %}
+    {% include 'forms/firstvisitmodal.html' %}
     {% else %}
     {% for message in messages %}
     <div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} text-center">{{message|safe}}</div>
