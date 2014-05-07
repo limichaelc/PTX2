@@ -19,7 +19,7 @@
 						</p>
                         <!--<a href="sell/">Sell this book?</a>-->
                             {% include 'forms/newlisting.html' with title=book.title pk=0 bookpk=book.pk labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
-                        <button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button>
+                        <button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button><br>
                         {% if not book in user.books_needed.all %}
 			            <button class="btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#addtoneededmodal{{book.pk}}">Add to needed?</button>
 			            {% include 'forms/addtoneeded.html' with book=book %}
