@@ -363,8 +363,6 @@ def markasowned(request):
         return HttpResponseRedirect("/bookshelf")
 
 @login_required
-<<<<<<< HEAD
-=======
 def removefromneeded(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -399,7 +397,6 @@ def removefromselling(request):
         return HttpResponseRedirect("/bookshelf")
 
 @login_required
->>>>>>> 4eeeef6f0b2e880c6757e4bbfe719c921619bfca
 def search(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
