@@ -91,7 +91,7 @@ def bookpage(request, isbn):
     
     context_dict = get_context(request)
     book = Book.objects.get(isbn=isbn)
-    listings = Listing.objects.filter(book__book__isbn = isbn)
+    listings = Listing.objects.filter(book__book__isbn = isbn, sell_status = 'O')
     
     context_dict['listings'] = listings
     context_dict['book'] = book
@@ -519,6 +519,9 @@ def setpricelisting(request, isbn, physbookid):
 @login_required
 def confirmbuybook(request):
     context = RequestContext(request)
+
+    if not request.POST:
+        return HttpResponseRedirect("/bookshelf")
     
     if not request.user.is_authenticated():
         return redirect('/login/')
@@ -532,6 +535,9 @@ def confirmbuybook(request):
     context_dict['listing'] = listing
     context_dict['sellerprofile'] = sellerprofile
 
+    #mark the listing as pending
+    listing.sell_status = 'P'
+    listing.save()
     
     transaction = Transaction(buyer = context_dict['user'], seller=listing.owner, price=listing.price, book = listing.book)
     transaction.save()
