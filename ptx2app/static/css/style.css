@@ -24,3 +24,9 @@ th {
     margin-right: auto;
     width: 100%;
 }
+
+.align-top-left {
+	position: absolute;
+	margin-top: -5px;
+	margin-left: -15px;
+}
