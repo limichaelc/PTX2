@@ -7,7 +7,9 @@
 			</div>
 		</form>
 		<p class="navbar-text navbar-right"><a href="/logout" class="navbar-link">Logout</a></p>
-		<p class="navbar-text navbar-right">Signed in as {{ user.user }} </a></p>
+		{% include 'forms/profilemodel.html' %}
+		<p class="navbar-text navbar-right">Signed in as <a data-toggle="modal" href="#profilemodal">My Profile</a>
+        </p>
 	</div>
 </nav>
 
