@@ -15,11 +15,11 @@
         <div class="col-md-6">
             <h5><a href="/books/{{book.isbn}}"> {{ book.title }}</a></h5>
             <p>Price: ${{ listing.price }}<br>
-            Condition: {{ listing.condition }}
-            Seller's comment: {{ listing.book.comment }}
-            Seller's name: {{ sellerprofile.first_name}} {{sellerprofile.last_name}}
-            Seller's email: {{sellerprofile.user.username}}@princeton.edu
-            Seller's preferred location: {{sellerprofile.preferred_meetingplace}}
+            <!--Condition: {{ listing.condition }}<br>-->
+            Seller's comment: {{ listing.comment }}<br>
+            Seller's name: {{ sellerprofile.first_name}} {{sellerprofile.last_name}}<br>
+            Seller's email: {{sellerprofile.user.username}}@princeton.edu<br>
+            Seller's preferred location: {{sellerprofile.preferred_meetingplace}}<br>
             </p>
         </div>
         <a href="/bookshelf/" class="btn btn-primary btn-lg active" role="button">Back to home</a>

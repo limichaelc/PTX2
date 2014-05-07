@@ -15,8 +15,8 @@
         <div class="col-md-6">
             <h5><a href="/{{book.isbn}}"> {{ book.title }}</a></h5>
             <p>Price: ${{ listing.price }}<br>
-            Condition: {{ listing.condition }}
-            Seller's comment: {{ listing.book.comment }}
+            <!--Condition: {{ listing.condition }}<br>-->
+            Seller's comment: {{ listing.comment }}<br>
             </p>
         </div>
         <form action="/confirm/" method="POST"> {% csrf_token %}
