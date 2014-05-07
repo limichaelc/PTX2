@@ -643,9 +643,11 @@ def pendingtransaction(request, id):
             if transaction.seller == context_dict['user']:
                 transaction.sellerreview = form
             transaction.save()
-            if transaction.sellerreview and transaction.buyerreview:
+            if transaction.sellerreview != None and transaction.buyerreview != None:
             	book = transaction.book
             	listing = Listing.objects.get(book = book)
+            	seller = transaction.seller
+            	seller.books_owned.add(book)
             	listing.delete()
             return index(request)
         else:
