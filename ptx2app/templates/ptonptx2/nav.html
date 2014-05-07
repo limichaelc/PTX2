@@ -1,17 +1,17 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
+<div class="container">
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<a class="navbar-brand" href="/bookshelf">PTX 2</a>
-<!-- 		<form class="navbar-form navbar-left" role="search" action="/search/" method="get">
+		<form class="navbar-form navbar-left" role="search" action="/search/" method="get">
 			<div class="form-group">
 				<input type="text" class="form-control" placeholder="Search for books by course (e.g. 'COS 333') or title" style="width: 250%" name="q">
 			</div>
-		</form> -->
+		</form>
 		<p class="navbar-text navbar-right"><a href="/logout" class="navbar-link">Logout</a></p>
 		{% include 'forms/profilemodel.html' %}
-		<p class="navbar-text navbar-right">Signed in as <a data-toggle="modal" href="#profilemodal">My Profile</a>
+		<p class="navbar-text navbar-right">Signed in as <a data-toggle="modal" href="#profilemodal">{{ user.user }}</a>
         </p>
-	</div>
-</nav>
+	</nav>
+</div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
 	<div class="container text-center">
