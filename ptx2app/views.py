@@ -351,6 +351,23 @@ def markasowned(request):
         return HttpResponseRedirect("/bookshelf")
 
 @login_required
+def addtoneeded(request):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    profile = request.user.get_profile()
+    context_dict = get_context(request)
+    if request.GET['m']:
+        m = request.GET['m']
+        m = Book.objects.get(id=m)
+        profile.books_needed.add(m)
+        profile.save()
+        context_dict['m'] = m.title
+        context_dict['addedtoneeded'] = True
+        messages.success(request, "Book %s has been added to needed" % (m.title))
+        return HttpResponseRedirect("/bookshelf")
+
+@login_required
 def removefromneeded(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
