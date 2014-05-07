@@ -397,6 +397,23 @@ def removefromselling(request):
         return HttpResponseRedirect("/bookshelf")
 
 @login_required
+def removefromowned(request):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    profile = request.user.get_profile()
+    context_dict = get_context(request)
+    if request.GET['o']:
+        rfo = request.GET['o']
+        rfo = Listing.objects.get(id=rfo)
+        title = rfo.book.book.title
+        rfo.delete()
+        context_dict['rfo'] = title
+        context_dict['removefromowned'] = True
+        messages.success(request, "Book %s has been removed from books owned" % (title))
+        return HttpResponseRedirect("/bookshelf")
+
+@login_required
 def search(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
