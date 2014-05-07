@@ -14,6 +14,7 @@ from django.core.urlresolvers import resolve
 import re
 from operator import itemgetter
 from django_cas.decorators import login_required
+from helpers import set_lowest_price
 
 # get the context of this request
 def get_context(request):
@@ -182,17 +183,17 @@ def remove_listing(request):
     listing.delete()
 
     #set lowest student price, if necessary
-    book = physbook.book
-    if book.lowest_student_price <= listprice:
-        if not Listing.objects.filter(book__book__pk = book.pk):
-            book.lowest_student_price = None
-        else:
-            book.lowest_student_price = 1000000
-            for listing in Listing.objects.filter(book__book__pk = book.pk):
-                print listing.price
-                if listing.price < book.lowest_student_price:
-                    book.lowest_student_price = listing.price
-        book.save()
+    #book = physbook.book
+    #if book.lowest_student_price <= listprice:
+    #    if not Listing.objects.filter(book__book__pk = book.pk):
+    #        book.lowest_student_price = None
+    #    else:
+    #        book.lowest_student_price = 1000000
+    #        for listing in Listing.objects.filter(book__book__pk = book.pk):
+    #            if listing.price < book.lowest_student_price:
+    #                book.lowest_student_price = listing.price
+    #    book.save()
+    set_lowest_price(physbook.book)
 
     return HttpResponseRedirect("/" + physbook.book.isbn + "/")
 
@@ -245,20 +246,7 @@ def searchcourses(request):
     profile = request.user.get_profile()
     context_dict = get_context(request)
     finallist = []
-    #if request.method == 'POST':
-    #    form = AddCourseForm(request.POST)
-    #    if form.is_valid():
-    #        newcourse = form.cleaned_data['course']
-    #        newcourse = Course.objects.get(id=newcourse)
-    #        books = newcourse.books.all()
-    #        profile.course_list.add(newcourse)
-    #        for book in books:
-    #            if not book in profile.books_owned.all():
-    #                if not book in profile.books_selling.all():
-    #                    profile.books_needed.add(book)
-    #        profile.save()
-    #    else:
-    #        return HttpResponse("form error")
+
     if request.GET['q']:
         q = request.GET['q']
         for f in Course.objects.all():
@@ -377,7 +365,7 @@ def removefromneeded(request):
         context_dict['rfn'] = rfn.title
         context_dict['removefromneeded'] = True
         messages.success(request, "Book %s has been removed from books needed" % (rfn.title))
-        return HttpResponseRedirect("/bookshelf")
+    return HttpResponseRedirect("/bookshelf")
 
 @login_required
 def removefromselling(request):
@@ -388,13 +376,22 @@ def removefromselling(request):
     context_dict = get_context(request)
     if request.GET['s']:
         rfs = request.GET['s']
-        rfs = Listing.objects.get(id=rfs)
-        title = rfs.book.book.title
-        rfs.delete()
-        context_dict['rfs'] = title
+        rfs = PhysBook.objects.get(id=rfs)
+        profile.books_selling.remove(rfs)
+        profile.books_owned.add(rfs)
+        profile.save()
+
+        #delete the listing
+        l = rfs.listing_set.get()
+        l.delete()
+
+        context_dict['rfs'] = rfs.book.title
         context_dict['removefromselling'] = True
-        messages.success(request, "Book %s has been removed from books selling" % (title))
-        return HttpResponseRedirect("/bookshelf")
+        messages.success(request, "Book %s has been removed from books selling" % (rfs.book.title))
+
+        set_lowest_price(rfs.book)
+
+    return HttpResponseRedirect("/bookshelf")
 
 @login_required
 def removefromowned(request):
@@ -489,9 +486,7 @@ def coursepage(request, course_dpt, course_num):
     context_dict['course'] = course
 
 
-    return render_to_response('ptonptx2/course_page.html', context_dict,
-                                                             context)
-
+    return render_to_response('ptonptx2/course_page.html', context_dict, context)
 
 
 @login_required
@@ -515,6 +510,7 @@ def buybook(request):
 
     return render_to_response('ptonptx2/confirmpurchase.html', context_dict, context)
 
+#not used
 @login_required
 def sellbook(request, isbn):
     context = RequestContext(request)
@@ -541,6 +537,7 @@ def sellbook(request, isbn):
 	
     return render_to_response('ptonptx2/sellbook.html', context_dict, context)
     
+#not used
 @login_required
 def setpricelisting(request, isbn, physbookid):
     context = RequestContext(request)
@@ -568,8 +565,8 @@ def setpricelisting(request, isbn, physbookid):
     context_dict['physbook'] = physbook
 	
     return render_to_response('ptonptx2/setprice.html', context_dict, context)
-    
-    
+
+
 @login_required
 def confirmbuybook(request):
     context = RequestContext(request)
@@ -592,6 +589,9 @@ def confirmbuybook(request):
     #mark the listing as pending
     listing.sell_status = 'P'
     listing.save()
+
+    #set lowest price, if necessary
+    set_lowest_price(listing.book.book)
     
     transaction = Transaction(buyer = context_dict['user'], seller=listing.owner, price=listing.price, book = listing.book)
     transaction.save()
