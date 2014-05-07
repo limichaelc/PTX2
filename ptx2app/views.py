@@ -363,6 +363,43 @@ def markasowned(request):
         return HttpResponseRedirect("/bookshelf")
 
 @login_required
+<<<<<<< HEAD
+=======
+def removefromneeded(request):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    profile = request.user.get_profile()
+    context_dict = get_context(request)
+    if request.GET['n']:
+        rfn = request.GET['n']
+        rfn = Book.objects.get(id=rfn)
+        profile.books_needed.remove(rfn)
+        profile.save()
+        context_dict['rfn'] = rfn.title
+        context_dict['removefromneeded'] = True
+        messages.success(request, "Book %s has been removed from books needed" % (rfn.title))
+        return HttpResponseRedirect("/bookshelf")
+
+@login_required
+def removefromselling(request):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    profile = request.user.get_profile()
+    context_dict = get_context(request)
+    if request.GET['s']:
+        rfs = request.GET['s']
+        rfs = Book.objects.get(id=rfs)
+        profile.books_selling.remove(rfs)
+        profile.save()
+        context_dict['rfs'] = rfs.title
+        context_dict['removefromselling'] = True
+        messages.success(request, "Book %s has been removed from books selling" % (rfs.title))
+        return HttpResponseRedirect("/bookshelf")
+
+@login_required
+>>>>>>> 4eeeef6f0b2e880c6757e4bbfe719c921619bfca
 def search(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
