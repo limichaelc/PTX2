@@ -13,6 +13,7 @@ from django.core.paginator import Paginator
 from django.core.urlresolvers import resolve
 import re
 from operator import itemgetter
+from django_cas.decorators import login_required
 
 # get the context of this request
 def get_context(request):
@@ -59,6 +60,7 @@ def get_context(request):
     return context_dict
 
 #the main bookshelf page
+@login_required
 def index(request):
 
     context = RequestContext(request)
@@ -81,6 +83,7 @@ def index(request):
 
     return render_to_response('ptonptx2/bookshelf.html', contextdict, context)
 
+@login_required
 def bookpage(request, isbn):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -96,7 +99,7 @@ def bookpage(request, isbn):
     
     return render_to_response('ptonptx2/book_lookup.html', context_dict, context)
     
-
+@login_required
 def about(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -104,6 +107,7 @@ def about(request):
     
     return render_to_response('ptonptx2/about.html', context)
 
+@login_required
 def sell_book(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -153,11 +157,19 @@ def sell_book(request):
     return render_to_response('forms/newlisting.html', context)
 
 #remove the listing with the given id, return the book to the seller's owned books
-def remove_listing(request, listingid):
+@login_required
+def remove_listing(request):
     context = RequestContext(request)
-
+    if not request.POST:
+        return HttpResponseRedirect("/bookshelf")
+    listingid=request.POST['listingid']
+    print listingid
     listing = Listing.objects.get(pk = listingid)
     owner = listing.owner
+    # make sure the person can only remove their own listings
+    if not owner == request.user.profile_set.get():
+        messages.error("You can't remove that listing. Are you trying to break the site?")
+        return HttpResponseRedirect("/bookshelf")
     physbook = listing.book
     owner.books_selling.remove(physbook)
     owner.books_owned.add(physbook)
@@ -181,6 +193,7 @@ def remove_listing(request, listingid):
 
     return HttpResponseRedirect("/" + physbook.book.isbn + "/")
 
+@login_required
 def profile(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -202,6 +215,7 @@ def profile(request):
         
     return render_to_response('forms/profilemodel.html', context_dict, context)
     
+@login_required
 def history(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -220,6 +234,7 @@ def history(request):
     context_dict['history'] = past_transactions
     return render_to_response('ptonptx2/history.html', context_dict, context)
 
+@login_required
 def searchcourses(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -227,20 +242,20 @@ def searchcourses(request):
     profile = request.user.get_profile()
     context_dict = get_context(request)
     finallist = []
-    if request.method == 'POST':
-        form = AddCourseForm(request.POST)
-        if form.is_valid():
-            newcourse = form.cleaned_data['course']
-            newcourse = Course.objects.get(id=newcourse)
-            books = newcourse.books.all()
-            profile.course_list.add(newcourse)
-            for book in books:
-                if not book in profile.books_owned.all():
-                    if not book in profile.books_selling.all():
-                        profile.books_needed.add(book)
-            profile.save()
-        else:
-            return HttpResponse("form error")
+    #if request.method == 'POST':
+    #    form = AddCourseForm(request.POST)
+    #    if form.is_valid():
+    #        newcourse = form.cleaned_data['course']
+    #        newcourse = Course.objects.get(id=newcourse)
+    #        books = newcourse.books.all()
+    #        profile.course_list.add(newcourse)
+    #        for book in books:
+    #            if not book in profile.books_owned.all():
+    #                if not book in profile.books_selling.all():
+    #                    profile.books_needed.add(book)
+    #        profile.save()
+    #    else:
+    #        return HttpResponse("form error")
     if request.GET['q']:
         q = request.GET['q']
         for f in Course.objects.all():
@@ -264,6 +279,7 @@ def searchcourses(request):
     
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
 
+@login_required
 def addcourse(request):
     context = RequestContext(request)
     profile = request.user.get_profile()
@@ -279,7 +295,6 @@ def addcourse(request):
                     if not book in profile.books_selling.all():
                         profile.books_needed.add(book)
             profile.save()
-            print request.path
             try:
                 return HttpResponseRedirect(request.POST['prevpage'])
             except:
@@ -292,6 +307,7 @@ def addcourse(request):
         return HttpResponseRedirect("/bookshelf")
 
 
+@login_required
 def removecourse(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -321,6 +337,7 @@ def removecourse(request):
     return HttpResponseRedirect("/bookshelf")
     #return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
+@login_required
 def markasowned(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -342,6 +359,7 @@ def markasowned(request):
         messages.success(request, "Book %s has been marked as owned" % (m.title))
         return HttpResponseRedirect("/bookshelf")
 
+@login_required
 def search(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -375,6 +393,7 @@ def search(request):
         return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
     return render_to_response('ptonptx2/booksearchpage.html', context_dict, context)
 
+@login_required
 def selling(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -386,6 +405,7 @@ def selling(request):
 
     return render_to_response('ptonptx2/selling.html', context_dict, context)
 
+@login_required
 def scrape(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -400,6 +420,7 @@ def scrape(request):
 
     return render_to_response('ptonptx2/scrape.html', {'form': None}, context)
     
+@login_required
 def coursepage(request, course_dpt, course_num):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -419,11 +440,18 @@ def coursepage(request, course_dpt, course_num):
 
 
 
-def buybook(request, isbn, listingid):
+@login_required
+def buybook(request):
     context = RequestContext(request)
     
     if not request.user.is_authenticated():
         return redirect('/login/')
+
+    if not request.POST:
+        return HttpResponseRedirect("/bookshelf")
+
+    listingid = request.POST['listingid']
+    isbn = request.POST['isbn']
     
     context_dict = get_context(request)
 
@@ -433,6 +461,7 @@ def buybook(request, isbn, listingid):
 
     return render_to_response('ptonptx2/confirmpurchase.html', context_dict, context)
 
+@login_required
 def sellbook(request, isbn):
     context = RequestContext(request)
     
@@ -458,6 +487,7 @@ def sellbook(request, isbn):
 	
     return render_to_response('ptonptx2/sellbook.html', context_dict, context)
     
+@login_required
 def setpricelisting(request, isbn, physbookid):
     context = RequestContext(request)
     
@@ -486,6 +516,7 @@ def setpricelisting(request, isbn, physbookid):
     return render_to_response('ptonptx2/setprice.html', context_dict, context)
     
     
+@login_required
 def confirmbuybook(request, isbn, listingid):
     context = RequestContext(request)
     
@@ -506,6 +537,7 @@ def confirmbuybook(request, isbn, listingid):
 
     return render_to_response('ptonptx2/afterpurchase.html', context_dict, context)
     
+@login_required
 def pendingtransaction(request, id):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -534,6 +566,7 @@ def pendingtransaction(request, id):
 
     return render_to_response('ptonptx2/pendingtransaction.html', context_dict, context)
     
+@login_required
 def pending(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():

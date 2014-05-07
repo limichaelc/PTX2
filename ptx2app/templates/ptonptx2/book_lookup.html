@@ -51,13 +51,25 @@
             <tr bgcolor="#ddeeff">
                 <td>${{ listing.price|floatformat:2 }}</td>
                 <td>{% if listing.comment %}{{ listing.comment }}{% else %}<span class="text-muted">None.</span>{% endif %}</td>
-                <td><a href="{% url 'ptx2app.views.remove_listing' listingid=listing.id %}">Remove listing?</a></td>
+                {%comment%}<td><a href="{% url 'ptx2app.views.remove_listing' listingid=listing.id %}">Remove listing?</a></td>{%endcomment%}
+                <td><form class="form" action="/remove_listing/" method="POST"> {% csrf_token %}
+                        <button class="btn btn-default" type="submit">Remove listing?</button>
+                        <input type="hidden" name="listingid" value="{{listing.id}}">
+                    </form>
+                </td>
+
             </tr>
             {% else %}
             <tr>
                 <td>${{ listing.price|floatformat:2 }}</td>
                 <td>{% if listing.comment %}{{ listing.comment }}{% else %}<span class="text-muted">None.</span>{% endif %}</td>
-                <td><a href="{% url 'ptx2app.views.buybook' isbn=book.isbn listingid=listing.id %}">Buy</a></td>
+                {%comment%}<td><a href="{% url 'ptx2app.views.buybook' isbn=book.isbn listingid=listing.id %}">Buy</a></td>{%endcomment%}
+                <td><form class="form-inline" action="/buybook/" method="POST"> {% csrf_token %} <!--replacing url args with form-->
+                        <button class="btn btn-default" type="submit">Buy</button>
+                        <input type="hidden" name="isbn" value="{{book.isbn}}">
+                        <input type="hidden" name="listingid" value="{{listing.id}}">
+                    </form>
+                </td>
             </tr>
             {% endif %}
             {% endfor %}
