@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<div class="modal-header"><h5 class="modal-title" id="myModalLabel">Mark <i>{{book.title}}</i> as owned?</h5></div>
 			<div class="modal-body">
-				<div align="right"><form name="markasowned" method="get">
+				<div align="right"><form name="markasowned" method="get" action="/markasowned">
 					<input type="hidden" name="m" value="{{book.id}}"></input>
                     <input type="hidden" name="oldpage" value=""></input>
 					<input name="Mark as owned" type="submit" class="btn btn-danger"></input>
