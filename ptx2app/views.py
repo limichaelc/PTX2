@@ -200,7 +200,7 @@ def profile(request):
         form = ProfileForm(instance = profile)
     context_dict['form'] = form
         
-    return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
+    return render_to_response('forms/profilemodel.html', context_dict, context)
     
 def history(request):
     context = RequestContext(request)
