@@ -36,10 +36,7 @@
         <a href="{{ BASE_URL }}/history">My History</a>
         </li>
         <li>
-        {% if {{ num_pending }} != 0 %}
-        <a href="{{ BASE_URL }}/pending"><span class="badge pull-right" style="background-color:red;">{{ num_pending }}</span>Pending</a>
-        {% else %}
-        <a href="{{ BASE_URL }}/pending"><span class="badge pull-right">{{ num_pending }}</span>Pending</a>{% endif %}
+        <a href="{{ BASE_URL }}/pending"><span class="badge pull-right" {% if num_pending != 0 %} style="background-color:red;" {% endif %}>{{ num_pending }}</span>Pending</a>
         </li>
 	<li>
 	<a href="{{ BASE_URL }}/help">Help</a>
