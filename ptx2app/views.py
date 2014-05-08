@@ -445,6 +445,7 @@ def search(request):
         thiscourse = None
         deptcourses = []
         numcourses = []
+        namecourses = []
         for f in Course.objects.all():
             if q == (f.dept + f.num):
                 thiscourse = f
@@ -453,10 +454,13 @@ def search(request):
                     deptcourses.append(f)
                 if q == f.num:
                     numcourses.append(f)
+            if f.name.upper().replace(" ","").find(q) != -1:
+                namecourses.append(f)
 
         deptcourses.sort(key = lambda course: course.num)
         numcourses.sort(key = lambda course: course.dept)
-        courses = deptcourses + numcourses
+        namecourses.sort(key = lambda course: course.name)
+        courses = deptcourses + numcourses + namecourses
 
         #the user has searched for a course
         if thiscourse != None:
