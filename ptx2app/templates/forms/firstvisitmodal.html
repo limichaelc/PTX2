@@ -2,11 +2,11 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="firstvisitmodal">Welcome!</h4>
+                <h4 class="modal-title" id="firstvisitmodal">Welcome to PTX2!</h4>
             </div>
             <div class="modal-body">
-                <div>This appears to be your first visit.<br><br>
-                First, please fill out your name and preferred meeting place. These will be sent in emails to people you buy from and sell to in order to smooth out the transaction process.<br><br>
+                <div>This appears to be your first visit to our site.<br><br>
+                To get started, please fill out your name and preferred meeting place. These will be sent in emails to people you buy from and sell to in order to smooth out the transaction process.<br><br>
                     <form action="/profile/" method="POST" id="editprofile">{% csrf_token %}
                         <div class="form-group">
                             <label for="id_first_name">First name:</label>
@@ -35,4 +35,22 @@
 </div>
 <script type="text/javascript">
     $('#firstvisitmodal').on('shown.bs.modal', function() {$('#id_first_name').focus()});
+    $(document).ready(function() {
+    $_POST = array();
+    var elements = document.getElementsByTagName("INPUT");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].oninvalid = function(e) {
+            e.target.setCustomValidity("");
+            if (!e.target.validity.valid) {
+                e.target.setCustomValidity("This field can't be blank");
+
+            }
+        };
+        elements[i].oninput = function(e) {
+            e.target.setCustomValidity("");
+
+        };
+    }
+})
 </script>
+
