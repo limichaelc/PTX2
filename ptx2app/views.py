@@ -56,7 +56,7 @@ def get_context(request):
                     'books' : books,
                     'num_needed' : len(profile.books_needed.all()),
                     'num_owned' : len(profile.books_owned.all()),
-                    'num_selling' : len(profile.books_selling.all()),
+                    'num_selling' : len(Listing.objects.filter(owner = profile)),
                     'num_total' : num_total,
                     'num_pending' : len(Transaction.objects.filter(Q(buyer = profile)|Q(seller=profile), Q(buyerreview=None) | Q(sellerreview=None))),
                     'nums_by_course' : nums_by_course,
