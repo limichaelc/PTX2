@@ -427,31 +427,59 @@ def search(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
         return redirect('/login/')
+
     profile = request.user.get_profile()
     context_dict = get_context(request)
+
     if request.GET['q']:
         q = request.GET['q']
         context_dict['query'] = q
+        #we'll only entertain queries that are at least 3 characters long
         if len(q) < 3:
             context_dict['too_short'] = True
             return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
+
         q = q.upper().replace(" ", "")
         finallist = []
+        
         thiscourse = None
+        deptcourses = []
+        numcourses = []
+        namecourses = []
         for f in Course.objects.all():
-            if q.upper().replace(" ", "") == (f.dept + f.num):
+            if q == (f.dept + f.num):
                 thiscourse = f
+            elif len(q) == 3:
+                if q == f.dept:
+                    deptcourses.append(f)
+                if q == f.num:
+                    numcourses.append(f)
+            if f.name.upper().replace(" ","").find(q) != -1:
+                namecourses.append(f)
+
+        deptcourses.sort(key = lambda course: course.num)
+        numcourses.sort(key = lambda course: course.dept)
+        namecourses.sort(key = lambda course: course.name)
+        courses = deptcourses + numcourses + namecourses
+
+        #the user has searched for a course
         if thiscourse != None:
             finallist = thiscourse.books.all()
             context_dict['book_dict'] = finallist
+            context_dict['courses'] = [thiscourse]
             return render_to_response('ptonptx2/booksearchpage.html', context_dict, context)
+
         for f in Book.objects.all():
             booktitle = f.title.upper().replace(" ", "")
-            if re.search(q, booktitle) != None:
+            #if re.search(q, booktitle) != None:
+            if booktitle.find(q) != -1:
                 finallist.append(f)
-        if len(finallist) == 0:
+
+        if len(finallist) == 0 and len(courses) == 0:
             return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
         context_dict['book_dict'] = sorted(finallist, key=lambda book: book['title'])
+        context_dict['courses'] = courses
+
     else:
         return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
     return render_to_response('ptonptx2/booksearchpage.html', context_dict, context)
