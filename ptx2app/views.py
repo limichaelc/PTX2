@@ -745,6 +745,8 @@ def pending(request):
             buyer = transaction.buyer
             seller = transaction.seller
             buyer.books_owned.add(book)
+            seller = transaction.seller
+            seller.books_selling.remove(book)
             listing.delete()
 
         return HttpResponseRedirect("/pending")
