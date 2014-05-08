@@ -11,4 +11,4 @@
 	</div>
 </nav>
 
-{% include 'forms/profilemodel.html' %}
+{% include 'forms/profilemodel.html' with first_name=user.first_name last_name=user.last_name pref_place=user.preferred_meetingplace %}

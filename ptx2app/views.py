@@ -205,23 +205,15 @@ def profile(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
         return redirect('/login/')
-    profile = request.user.get_profile()
-    context_dict = get_context(request)
+    if request.POST:
+        profile = request.user.profile_set.get()
+        profile.first_name = request.POST['first_name']
+        profile.last_name = request.POST['last_name']
+        profile.preferred_meetingplace = request.POST['pref_meeting_place']
+        profile.save()
+        messages.success(request, "Profile updated")
+    return HttpResponseRedirect("/bookshelf")
 
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, instance = profile)
-        if form.is_valid():
-            
-            link = form.save()    
-            return index(request)
-        else:
-            print form.errors
-    else:
-        form = ProfileForm(instance = profile)
-    context_dict['form'] = form
-        
-    return render_to_response('forms/profilemodel.html', context_dict, context)
-    
 @login_required
 def history(request):
     context = RequestContext(request)
