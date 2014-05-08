@@ -62,6 +62,7 @@ def get_context(request):
                     'nums_by_course' : nums_by_course,
                     'user_selling': Listing.objects.filter(owner = profile),
                     'first_visit': first,
+                    'user_transactions': Transaction.objects.filter(buyer = profile)
                     }
     return context_dict
 
