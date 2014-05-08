@@ -1,5 +1,4 @@
 <div class="modal fade profilemodal" tabindex="-1" role="dialog" aria-labelledby="profilemodal" aria-hidden="true" id="profilemodal">
-<<<<<<< HEAD
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,17 +9,17 @@
                     <form name="profilemodal" method="post" action="/profile/">{% csrf_token %}
                         <div class="form-group">
                             <label for="id_first_name">First name:</label>
-                            <div class="input-group">
+                            <div class="input-group inline-form">
                                 <input id="id_first_name" name="first_name" value="{{first_name}}" type="text" class="form-control" required>
                             </div>
                             <br>
                             <label for="id_last_name">Last name:</label>
-                            <div class="input-group">
+                            <div class="input-group inline-form">
                                 <input id="id_last_name" name="last_name" value="{{last_name}}" type="text" class="form-control" required>
                             </div>
                             <br>
                             <label for="id_pref_meeting_place">Preferred meeting place:</label>
-                            <div class="input-group">
+                            <div class="input-group inline-form">
                                 <input id="id_pref_meeting_plac" name="pref_meeting_place" value="{{pref_place}}" type="text" class="form-control" required>
                             </div>
                             <div align="right">
