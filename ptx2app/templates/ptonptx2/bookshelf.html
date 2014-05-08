@@ -49,6 +49,13 @@
 					<p>
 						{% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
 					</p>
+						{% for transaction in transaction.objects.all %}
+						{% if transaction.buyer = user and transaction.book = book %}
+						<p>
+							<button class="btn btn-primary btn-xs full-width" disabled="disabled" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Currently buying</button>
+						</p>
+						{% endif %}
+						{% endfor %}
 					<p>
 						<button class="btn btn-primary btn-xs full-width" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Already owned?</button>
 					</p>
