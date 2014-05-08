@@ -13,9 +13,9 @@
         </div>
         <div class="col-xs-6">
             <p>
-                Author: {{book.authors}}<br>
-                ISBN: {{book.isbn}}<br>
-                ISBN10: {{book.isbn10}}<br>
+                <strong>Author:</strong> {{book.authors}}<br>
+                <strong>ISBN:</strong> {{book.isbn}}<br>
+                <strong>ISBN10:</strong> {{book.isbn10}}<br>
                 Used in {% for course in courses %}<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>{% if forloop.revcounter0 != 0 %}{% if forloop.revcounter0 = 1 %} and {% else %}, {% endif %}{% endif %}{% endfor %}
                 <p>
                 {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
