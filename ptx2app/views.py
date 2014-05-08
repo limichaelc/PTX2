@@ -211,7 +211,6 @@ def profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance = profile)
         if form.is_valid():
-            
             link = form.save()    
             return index(request)
         else:

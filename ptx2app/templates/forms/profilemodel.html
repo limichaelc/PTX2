@@ -6,12 +6,12 @@
 				<form action="/profile/" method="POST" id="profilemodal">{% csrf_token %}
                     <div class="form-group">
                         <label for="id_first_name">First name:</label><div class="input-group">
-                            <input id="id_first_name" name="first_name" type="text" class="form-control">
+                            <input id="id_first_name" name="first_name" type="text" class="form-control" placeholder={{ user.first_name}}>
                         </div><br>
                         <label for="id_last_name">Last name:</label><div class="input-group">
-                            <input id="id_last_name" name="last_name" type="text" class="form-control">
+                            <input id="id_last_name" name="last_name" type="text" class="form-control" placeholder={{ user.last_name}}>
                         </div><br>
-                        <label for="id_preferred_meetingplace">Preferred meeting place:</label><input type="textarea" name="comment" id="id_preferred_meetingplace" maxlength="500" class="form-control" rows="1" /><br>
+                        <label for="id_preferred_meetingplace">Preferred meeting place:</label><input type="textarea" name="comment" id="id_preferred_meetingplace" maxlength="500" class="form-control" rows="1" placeholder={{ user.preferred_meetingplace}}/><br>
                         <div align="right">
                             <input type="submit" name="Submit" class="btn btn-primary">
                             <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
