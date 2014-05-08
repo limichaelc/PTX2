@@ -81,8 +81,9 @@
 					<p>Selling for ${{ listing.price }}<br style="color:red">
 						{% if listing.sell_status == 'P' %}
 						Offer made!<br>
-						{% endif %}
+					<button class="full-width btn btn-primary btn-xs" href="/pending/"> Pending Transaction </button>
 					</p>
+{% else %}
 					<p>
 						<button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#editlistingmodal{{listing.pk}}">Edit listing?</button>
 					</p>
@@ -90,6 +91,7 @@
 						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromsellingmodal{{listing.id}}">Remove listing?</button>
 
 					</p>
+{% endif %}
 				</div>
 			</div>
 		</div>
