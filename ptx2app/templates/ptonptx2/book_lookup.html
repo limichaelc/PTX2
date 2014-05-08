@@ -12,27 +12,16 @@
            <img src={{ book.picture_link }} width="130">
         </div>
         <div class="col-xs-6">
-        Used in {% for course in courses %}<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>{% if forloop.revcounter0 != 0 %}{% if forloop.revcounter0 = 1 %} and {% else %}, {% endif %}{% endif %}{% endfor %}
-            <!--<p><i><a href="/courses/{{ book.course_usedin.dept }}/{{ book.course_usedin.course_code }}"> {{ book.course_usedin.dept }} {{ book.course_usedin.course_code }}</a></i><br>
-                {% if person.book.owned %}
-                {% if person.book.selling %}
-                Selling for ${{ person.book.sell_price }}<br>
-                {% else %}
-                Owned.
-                <a href="#" data-toggle="modal" data-target="#newlistingmodal"> Sell?</a>
-                {% endif %} 
-                {% else %}
-            </p>
+        <p>
+            Author: {{book.author}}<br>
+            ISBN: {{book.isbn}}<br>
+            ISBN10: {{book.isbn10}}<br>
+            Used in {% for course in courses %}<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>{% if forloop.revcounter0 != 0 %}{% if forloop.revcounter0 = 1 %} and {% else %}, {% endif %}{% endif %}{% endfor %}
             <p>
-	      <a href="http://www.labyrinthbooks.com/all_detail.aspx?isbn={{book.isbn}}" target="_blank">
-                <img src="http://www.labyrinthbooks.com/favicon.ico" height="12"; width="12"> ${{ book.labyrinth_price }}<br> </a>
-              <a href="http://www.amazon.com/gp/product/{{ book.isbn10 }}" target="_blank">  
-	      <img src="http://www.amazon.com/favicon.ico" height="12"; width="12"> ${{ book.amazon_price }}<br></a>
-      </p>-->
-      <p>
-      {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
-      </p>
-      {% endif %}
+                {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
+            </p>
+            {% endif %}
+        </p>
             <button class="btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button>
             {% include 'forms/newlisting.html' with title=book.title pk=0 bookpk=book.pk labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
             {% if not book in user.books_needed.all %}
@@ -60,11 +49,14 @@
                 {%comment%}<td><a href="{% url 'ptx2app.views.remove_listing' listingid=listing.id %}">Remove listing?</a></td>{%endcomment%}
                 <td><form class="form-inline no-pad" action="/remove_listing/" method="POST"> {% csrf_token %}
                         <button class="btn btn-default btn-xs" type="submit">Remove listing?</button>
+						<button class="btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#editlistingmodal{{listing.pk}}">Edit listing?</button>
                         <input type="hidden" name="listingid" value="{{listing.id}}">
                     </form>
+
                 </td>
 
             </tr>
+            {% include 'forms/editlisting.html' with curprice=listing.price curcomm=listing.comment listingpk=listing.pk next=book.isbn title=listing.book.book.title pk=book.pk bookpk=listing.book.book.pk labprice=listing.book.book.labyrinth_price amazprice=listing.book.book.amazon_price lowstud=listing.book.book.lowest_student_price isbn=listing.book.book.isbn isbn10=listing.book.book.isbn10 %}
             {% else %}
             <tr>
                 <td>${{ listing.price|floatformat:2 }}</td>

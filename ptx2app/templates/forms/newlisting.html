@@ -3,15 +3,13 @@
         <div class="modal-content">
             <div class="modal-content">
                 <div class="modal-header">
-                    <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <button class="close glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true" ></button>-->
                     <h4 class="modal-title" id="myModalLabel">Selling "{{ title }}"</h4>
                 </div>
                 <div class="modal-body">
                     <p>Just as a reminder, the prices this book is currently going for are:</p>
-                        <p>
-                            {% include 'forms/price_widget.html' with labprice=labprice amazprice=amazprice lowstud=lowstud isbn=isbn isbn10=isbn10 inc_PU=True%}
-                        </p>
+                    <p>
+                    {% include 'forms/price_widget.html' with labprice=labprice amazprice=amazprice lowstud=lowstud isbn=isbn isbn10=isbn10 inc_PU=True%}
+                    </p>
                     <form action="/sellbook/" method="POST" id="sellbookform">{% csrf_token %}
                         <div class="form-group">
                             <label for="id_price">Price:</label><div class="input-group">

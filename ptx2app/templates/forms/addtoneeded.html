@@ -1,16 +1,18 @@
 <div class="modal fade addtoneededmodal" tabindex="-1" role="dialog" aria-labelledby="addtoneededmodal" aria-hidden="true" id="addtoneededmodal{{book.id}}">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header"><h5 class="modal-title" id="myModalLabel">Add <i>{{book.title}}</i> to needed?</h5></div>
-			<div class="modal-body">
-				<div align="right"><form name="addtoneeded" method="get" action="/addtoneeded">
-					<input type="hidden" name="m" value="{{book.id}}"></input>
-                    <input type="hidden" name="oldpage" value=""></input>
-					<input name="Add to needed" type="submit" class="btn btn-danger"></input>
-					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>          
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Add <i>{{book.title}}</i> to needed?</h4>
+            </div>
+            <div class="modal-body">
+                <div align="right">
+                    <form name="addtoneeded" method="get" action="/addtoneeded/">
+                        <input type="hidden" name="m" value="{{book.id}}"></input>
+                        <input name="Add to needed" type="submit" class="btn btn-danger"></input>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>          
 </div>
