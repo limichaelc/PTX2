@@ -47,12 +47,14 @@
                 <td>{% if listing.comment %}{{ listing.comment }}{% else %}<span class="text-muted">None.</span>{% endif %}</td>
                 {%comment%}<td><a href="{% url 'ptx2app.views.remove_listing' listingid=listing.id %}">Remove listing?</a></td>{%endcomment%}
                 <td><form class="form-inline no-pad" action="/remove_listing/" method="POST"> {% csrf_token %}
+                        <button class="btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#editlistingmodal{listing.pk}}">Edit listing?</button>
                         <button class="btn btn-default btn-xs" type="submit">Remove listing?</button>
                         <input type="hidden" name="listingid" value="{{listing.id}}">
                     </form>
                 </td>
 
             </tr>
+            {% include 'forms/editlisting.html' with curprice=listing.price curcomm=listing.comment listingpk=listing.pk next=book.isbn title=listing.book.book.title pk=book.pk bookpk=listing.book.book.pk labprice=listing.book.book.labyrinth_price amazprice=listing.book.book.amazon_price lowstud=listing.book.book.lowest_student_price isbn=listing.book.book.isbn isbn10=listing.book.book.isbn10 %}
             {% else %}
             <tr>
                 <td>${{ listing.price|floatformat:2 }}</td>
