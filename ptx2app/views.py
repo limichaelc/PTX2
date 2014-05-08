@@ -20,21 +20,22 @@ from django.core.mail import send_mail
 # get the context of this request
 def get_context(request):
     context = RequestContext(request)
+    first=False
     try:
         user = request.user
     except:
         HttpResponseRedirect("/login/")
     try:
-        profile = request.user.get_profile()
+        #profile = request.user.get_profile()
+        profile = request.user.profile_set.get()
     except:
         profile = Profile.objects.create(user = user)
-        messages.success(request, 
-            '<strong>Welcome!</strong> This appears to be your first visit. You can get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.')
-
+        #messages.success(request, 
+            #'<strong>Welcome!</strong> This appears to be your first visit. You can get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.')
+        first=True
         profile.save()
     books = Book.objects.all()
     transaction = Transaction.objects.all()
-    form = SellBookForm() #this is not the right approach
 
     nums_by_course = {}
     for course in profile.course_list.all():
@@ -52,7 +53,6 @@ def get_context(request):
     num_total = len(profile.books_needed.all()) + len(profile.books_owned.all()) + len(profile.books_selling.all())
 
     context_dict = {'user' : profile,
-                    #'form'  : form,
                     'books' : books,
                     'num_needed' : len(profile.books_needed.all()),
                     'num_owned' : len(profile.books_owned.all()),
@@ -61,7 +61,9 @@ def get_context(request):
                     'num_pending' : len(Transaction.objects.filter(Q(buyer = profile)|Q(seller=profile), Q(buyerreview=None) | Q(sellerreview=None))),
                     'nums_by_course' : nums_by_course,
                     'user_selling': Listing.objects.filter(owner = profile),
-                    'first_visit': len(profile.course_list.all()) == 0 and num_total == 0 }
+                    'first_visit': first,
+                    }
+    print first 
     return context_dict
 
 #the main bookshelf page
@@ -83,10 +85,10 @@ def index(request):
                 num += 1
         nums_by_course[course] = num
 
-    contextdict = get_context(request)
+    #contextdict = get_context(request)
 
 
-    return render_to_response('ptonptx2/bookshelf.html', contextdict, context)
+    return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
 @login_required
 def bookpage(request, isbn):
@@ -262,8 +264,8 @@ def searchcourses(request):
                 if re.search(q.upper().replace(" ",""), f.name.upper().replace(" ","")) != None:
                     finallist.append(f)
     
-    sortedbydept = sorted(finallist, key=lambda course: course['dept'])
-    sortedbydeptandnum = sorted(sortedbydept, key=lambda course: course['num'])
+    sortedbynum = sorted(finallist, key=lambda course: course['num'])
+    sortedbydeptandnum = sorted(sortedbynum, key=lambda course: course['dept'])
     context_dict = get_context(request)
     context_dict['query'] = q
     context_dict['course_dict'] = sortedbydeptandnum
