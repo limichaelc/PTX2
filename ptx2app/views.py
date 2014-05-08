@@ -63,7 +63,6 @@ def get_context(request):
                     'user_selling': Listing.objects.filter(owner = profile),
                     'first_visit': first,
                     }
-    print first 
     return context_dict
 
 #the main bookshelf page
@@ -120,6 +119,26 @@ def sell_book(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     if request.method == 'POST':
+        try:
+            pk = request.POST['listingpk']
+            listing = Listing.objects.get(pk = pk)
+            price = int(request.POST['price'])
+            listing.price = price
+            listing.comment = request.POST['comment']
+            listing.save()
+            
+            #set lowest student price
+            book = listing.book.book
+            lowstud = book.lowest_student_price
+            if not lowstud or price < lowstud:
+                book.lowest_student_price = price
+                book.save()
+
+            return HttpResponseRedirect("/"+request.POST['next'])
+        except Exception, e:
+            print e
+            
+
         listing = Listing()
         user = request.user.profile_set.get()
         book = Book.objects.get(pk = request.POST['bookpk'])
