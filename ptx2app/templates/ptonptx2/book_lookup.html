@@ -7,19 +7,19 @@
 {% block main %}
 <div class="col-xs-9 column">
     <div class="row clearfix">
-    <h4>{{ book.title }}</h4>
+        <h4>{{ book.title }}</h4>
         <div class="col-xs-2">
-           <img src={{ book.picture_link }} width="130">
+            <img src={{ book.picture_link }} width="130">
         </div>
         <div class="col-xs-6">
             <p>
-                <strong>Author:</strong> {{book.authors}}<br>
-                <strong>ISBN:</strong> {{book.isbn}}<br>
-                <strong>ISBN10:</strong> {{book.isbn10}}<br>
-                Used in {% for course in courses %}<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>{% if forloop.revcounter0 != 0 %}{% if forloop.revcounter0 = 1 %} and {% else %}, {% endif %}{% endif %}{% endfor %}
-                <p>
-                {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
-                </p>
+            <strong>Author:</strong> {{book.authors}}<br>
+            <strong>ISBN:</strong> {{book.isbn}}<br>
+            <strong>ISBN10:</strong> {{book.isbn10}}<br>
+            Used in {% for course in courses %}<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>{% if forloop.revcounter0 != 0 %}{% if forloop.revcounter0 = 1 %} and {% else %}, {% endif %}{% endif %}{% endfor %}
+            <p>
+            {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
+            </p>
             </p>
             <button class="btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button>
             {% include 'forms/newlisting.html' with title=book.title pk=0 bookpk=book.pk labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
@@ -47,14 +47,13 @@
                 <td>{% if listing.comment %}{{ listing.comment }}{% else %}<span class="text-muted">None.</span>{% endif %}</td>
                 {%comment%}<td><a href="{% url 'ptx2app.views.remove_listing' listingid=listing.id %}">Remove listing?</a></td>{%endcomment%}
                 <td><form class="form-inline no-pad" action="/remove_listing/" method="POST"> {% csrf_token %}
-                        <button class="btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#editlistingmodal{listing.pk}}">Edit listing?</button>
+                    <button class="btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#editlistingmodal{{listing.pk}}">Edit listing?</button>
                         <button class="btn btn-default btn-xs" type="submit">Remove listing?</button>
                         <input type="hidden" name="listingid" value="{{listing.id}}">
                     </form>
+            {% include 'forms/editlisting.html' with curprice=listing.price curcomm=listing.comment listingpk=listing.pk next=listing.book.book.isbn title=listing.book.book.title bookpk=listing.book.book.pk labprice=listing.book.book.labyrinth_price amazprice=listing.book.book.amazon_price lowstud=listing.book.book.lowest_student_price isbn=listing.book.book.isbn isbn10=listing.book.book.isbn10 %}
                 </td>
-
             </tr>
-            {% include 'forms/editlisting.html' with curprice=listing.price curcomm=listing.comment listingpk=listing.pk next=book.isbn title=listing.book.book.title pk=book.pk bookpk=listing.book.book.pk labprice=listing.book.book.labyrinth_price amazprice=listing.book.book.amazon_price lowstud=listing.book.book.lowest_student_price isbn=listing.book.book.isbn isbn10=listing.book.book.isbn10 %}
             {% else %}
             <tr>
                 <td>${{ listing.price|floatformat:2 }}</td>
@@ -79,8 +78,3 @@
 {% include 'forms/watchlist.html' %}
 {% endblock %}
 
-jQuery(document).ready(function($) {
-      $(".clickableRow").click(function() {
-            window.document.location = $(this).attr("href");
-      });
-});
