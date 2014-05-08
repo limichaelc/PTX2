@@ -50,13 +50,13 @@ def get_context(request):
                     current_course.append(book.book)
         nums_by_course[course] = len(current_course)
 
-    num_total = len(profile.books_needed.all()) + len(profile.books_owned.all()) + len(profile.books_selling.all())
+    num_total = len(profile.books_needed.all()) + len(profile.books_owned.all()) + len(Listing.objects.filter(owner = profile))
 
     context_dict = {'user' : profile,
                     'books' : books,
                     'num_needed' : len(profile.books_needed.all()),
                     'num_owned' : len(profile.books_owned.all()),
-                    'num_selling' : len(profile.books_selling.all()),
+                    'num_selling' : len(Listing.objects.filter(owner = profile)),
                     'num_total' : num_total,
                     'num_pending' : len(Transaction.objects.filter(Q(buyer = profile)|Q(seller=profile), Q(buyerreview=None) | Q(sellerreview=None))),
                     'nums_by_course' : nums_by_course,
@@ -709,7 +709,7 @@ def pendingtransaction(request, id):
                 buyer = transaction.buyer
                 seller = transaction.seller
             	buyer.books_owned.add(book)
-            	buyer.books_needed.remove(book)
+            	buyer.books_needed.remove(book.book)
                 listing.delete()
             return HttpResponseRedirect("/bookshelf")
         else:
@@ -745,6 +745,8 @@ def pending(request):
             buyer = transaction.buyer
             seller = transaction.seller
             buyer.books_owned.add(book)
+            seller = transaction.seller
+            seller.books_selling.remove(book)
             listing.delete()
 
         return HttpResponseRedirect("/pending")
