@@ -12,11 +12,15 @@
            <img src={{ book.picture_link }} width="130">
         </div>
         <div class="col-xs-6">
-        Author: {{book.author}}<br>
-        Used in {% for course in courses %}<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>{% if forloop.revcounter0 != 0 %}{% if forloop.revcounter0 = 1 %} and {% else %}, {% endif %}{% endif %}{% endfor %}
-      <p>
-      {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
-      </p>
+            <p>
+                Author: {{book.authors}}<br>
+                ISBN: {{book.isbn}}<br>
+                ISBN10: {{book.isbn10}}<br>
+                Used in {% for course in courses %}<i><a href="/courses/{{ course.dept }}/{{ course.num }}">{{ course.dept }} {{ course.num }}</a></i>{% if forloop.revcounter0 != 0 %}{% if forloop.revcounter0 = 1 %} and {% else %}, {% endif %}{% endif %}{% endfor %}
+                <p>
+                {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
+                </p>
+            </p>
             <button class="btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button>
             {% include 'forms/newlisting.html' with title=book.title pk=0 bookpk=book.pk labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
             {% if not book in user.books_needed.all %}
