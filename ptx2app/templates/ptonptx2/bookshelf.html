@@ -84,8 +84,8 @@
 						{% endif %}
 					</p>
 					<p>
-						{% include 'forms/markasowned.html' %}
-						<button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{listing.book.id}}">Edit listing?</button>
+						{% include 'forms/editlisting.html' %}
+						<button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#editlistingmodal{{listing.pk}}">Edit listing?</button>
 					</p>
 					<p>
 						{% include 'forms/removefromselling.html' %}

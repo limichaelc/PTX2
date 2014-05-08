@@ -1,0 +1,35 @@
+<div class="modal fade editlistingmodal" tabindex="-1" role="dialog" aria-labelledby="editlistingmodal" aria-hidden="true" id="editlistingmodal{{listing.pk}}">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button class="close glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true" ></button>-->
+                    <h4 class="modal-title" id="myModalLabel">Selling "{{ title }}"</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Just as a reminder, the prices this book is currently going for are:</p>
+                        <p>
+                            {% include 'forms/price_widget.html' with labprice=labprice amazprice=amazprice lowstud=lowstud isbn=isbn isbn10=isbn10 inc_PU=True%}
+                        </p>
+                    <form action="/sellbook/" method="POST" id="sellbookform">{% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_price">Price:</label><div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input id="id_price" name="price" step="1" type="number" class="form-control">
+                                <span class="input-group-addon">.00</span>
+                            </div><br>
+                            <label for="id_comment">Comment:</label><input type="textarea" name="comment" id="id_comment" maxlength="500" class="form-control" rows="3" /><br>
+                            <div align="right">
+                                <input type="submit" name="Submit" class="btn btn-primary">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                            </div>
+                        </div>
+                        <input type="hidden" name="pk" value="{{ pk }}">
+                        <input type="hidden" name="bookpk" value="{{ bookpk }}">
+                    </form>
+                </div>
+            </div>          
+        </div>
+    </div>
+</div>

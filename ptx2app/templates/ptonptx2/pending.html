@@ -27,10 +27,11 @@
 	  <td> {{transaction.buyer.user.username}}</td>
 	  <td>  {{transaction.book.book.title}} </td>
 	  <td> {{transaction.price}}</td>
-{% if (transaction.buyer.user == user and transaction.buyerreview == None) or (transaction.seller.user == user and transaction.sellerreview == None) %}
-		<td><a href="{% url 'ptx2app.views.pendingtransaction' id=transaction.id %}">Review and Confirm</a></td>
+{% if transaction.buyer == user and transaction.buyerreview == None or transaction.seller == user and transaction.sellerreview == None %}
+	<td><a href="{% url 'ptx2app.views.pendingtransaction' id=transaction.id %}">Review and Confirm</a></td>
 {% else %}
 		<td> Confirmed </td>
+{% endif %}
 	</tr>
 	{% endfor %}
 </tbody>
