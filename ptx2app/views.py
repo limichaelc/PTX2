@@ -725,6 +725,28 @@ def pending(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     context_dict = get_context(request)
+
+    # the user has confirmed a transaction
+    if request.POST:
+        transaction = Transaction.objects.get(pk = request.POST['pk'])
+        if transaction.buyer == context_dict['user']:
+             transaction.buyerreview = "1"
+        if transaction.seller == context_dict['user']:
+            transaction.sellerreview = "1"
+        transaction.save()
+
+        #if both the seller and buyer have confirmed, remove the listing
+        if transaction.sellerreview != None and transaction.buyerreview != None:
+
+            book = transaction.book
+            listing = Listing.objects.get(book = book)
+            buyer = transaction.buyer
+            seller = transaction.seller
+            buyer.books_owned.add(book)
+            listing.delete()
+
+        return HttpResponseRedirect("/pending")
+
     
     transactions = Transaction.objects.filter(Q(buyer = context_dict['user'])|Q(seller=context_dict['user']), Q(buyerreview=None) | Q(sellerreview=None))
     

@@ -28,7 +28,12 @@
 	  <td>  {{transaction.book.book.title}} </td>
 	  <td> {{transaction.price}}</td>
 {% if transaction.buyer == user and transaction.buyerreview == None or transaction.seller == user and transaction.sellerreview == None %}
-	<td><a href="{% url 'ptx2app.views.pendingtransaction' id=transaction.id %}">Review and Confirm</a></td>
+<td>
+    <form action="/pending/" method="POST">
+        <button class="btn btn-primary btn-xs">Confirm</button>
+        <input type="hidden" name="pk" value={{transaction.pk}}>
+    </form>
+</td>
 {% else %}
 		<td> Confirmed </td>
 {% endif %}
