@@ -23,8 +23,6 @@ class SellBookForm(forms.ModelForm):
         exclude = ['book', 'owner', 'sell_status']
         
 class ProfileForm(forms.ModelForm):
-
-	
 	class Meta:
 		model = Profile
 		exclude = ['reviews', 'user']
