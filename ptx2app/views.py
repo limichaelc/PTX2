@@ -229,7 +229,8 @@ def history(request):
             if profile == instance.buyer:
                 past_transactions.append(instance)
             if profile == instance.seller:
-                past_transactions.append(instance)        
+                past_transactions.append(instance)
+    past_transactions.sort(key=lambda tr: tr.pk)
     context_dict['history'] = past_transactions
     return render_to_response('ptonptx2/history.html', context_dict, context)
 
