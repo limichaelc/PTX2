@@ -51,11 +51,11 @@
 					</p>
 						{% for transaction in transaction.objects.all %}
 						{% if transaction.buyer == user %}
-						{% if transaction.book == book %}
-						<p>
-							<button class="btn btn-primary btn-xs full-width" disabled="disabled" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Currently buying</button>
-						</p>
-						{% endif %}
+							{% if transaction.book == book %}
+							<p>
+								<button class="btn btn-primary btn-xs full-width" disabled="disabled" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Currently buying</button>
+							</p>
+							{% endif %}
 						{% endif %}
 						{% endfor %}
 					<p>
