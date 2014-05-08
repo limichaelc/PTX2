@@ -73,7 +73,8 @@ class Listing(models.Model):
         ('P', 'Sale pending'),
     )
     sell_status = models.CharField(max_length=1, choices=SELL_STATUSES, default='O')
-    price = models.DecimalField(max_digits = 100, decimal_places = 2)
+    #price = models.DecimalField(max_digits = 100, decimal_places = 2)
+    price = models.IntegerField()
     comment = models.CharField(max_length = 500, blank=True)
     def __unicode__(self):
         return self.book.book.title + " for $" + str(self.price)
