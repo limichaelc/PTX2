@@ -2,7 +2,7 @@
 	<div class="container">
 		<a class="navbar-brand" href="/bookshelf">PTX 2</a>
 		<form class="navbar-form navbar-left" role="search" action="/search/" method="get">
-			<input type="text" class="form-control" placeholder="Search for books by course (e.g. 'COS 333') or title" style="width: 250%" name="q">
+			<input type="text" class="form-control" placeholder="Search for books or courses by title or course name (e.g. 'COS 333')" style="width: 300%" name="q">
 		</form>
 		<p class="navbar-text navbar-right"><a href="/logout" class="navbar-link">Logout</a></p>
 		
@@ -11,4 +11,4 @@
 	</div>
 </nav>
 
-{% include 'forms/profilemodel.html' %}
+{% include 'forms/profilemodel.html' with first_name=user.first_name last_name=user.last_name pref_place=user.preferred_meetingplace %}

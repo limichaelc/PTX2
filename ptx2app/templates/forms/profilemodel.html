@@ -1,24 +1,38 @@
 <div class="modal fade profilemodal" tabindex="-1" role="dialog" aria-labelledby="profilemodal" aria-hidden="true" id="profilemodal">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header"><h5 class="modal-title" id="myModalLabel">Change your profile details</h5></div>
-			<div class="modal-body">
-				<form action="/profile/" method="POST" id="profilemodal">{% csrf_token %}
-                    <div class="form-group">
-                        <label for="id_first_name">First name:</label><div class="input-group">
-                            <input id="id_first_name" name="first_name" type="text" class="form-control">
-                        </div><br>
-                        <label for="id_last_name">Last name:</label><div class="input-group">
-                            <input id="id_last_name" name="last_name" type="text" class="form-control">
-                        </div><br>
-                        <label for="id_preferred_meetingplace">Preferred meeting place:</label><input type="textarea" name="comment" id="id_preferred_meetingplace" maxlength="500" class="form-control" rows="1" /><br>
-                        <div align="right">
-                            <input type="submit" name="Submit" class="btn btn-primary">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Change your profile details</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form name="profilemodal" method="post" action="/profile/">{% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_first_name">First name:</label>
+                            <div class="input-group">
+                                <input id="id_first_name" name="first_name" value="{{first_name}}" type="text" class="form-control" required>
+                            </div>
+                            <br>
+                            <label for="id_last_name">Last name:</label>
+                            <div class="input-group">
+                                <input id="id_last_name" name="last_name" value="{{last_name}}" type="text" class="form-control" required>
+                            </div>
+                            <br>
+                            <label for="id_pref_meeting_place">Preferred meeting place:</label>
+                            <div class="input-group">
+                                <input id="id_pref_meeting_plac" name="pref_meeting_place" value="{{pref_place}}" type="text" class="form-control" required>
+                            </div>
+                            <div align="right">
+                                <input type="submit" name="Submit" class="btn btn-primary">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
-			</div>
-		</div>
-	</div>
-</div>          
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<script type="text/javascript">
+    $('#profilemodal').on('shown.bs.modal', function() {$('#id_first_name').focus()});
+</script>

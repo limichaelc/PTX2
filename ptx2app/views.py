@@ -62,8 +62,8 @@ def get_context(request):
                     'nums_by_course' : nums_by_course,
                     'user_selling': Listing.objects.filter(owner = profile),
                     'first_visit': first,
+                    'user_transactions': Transaction.objects.filter(buyer = profile)
                     }
-    print first 
     return context_dict
 
 #the main bookshelf page
@@ -120,6 +120,26 @@ def sell_book(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     if request.method == 'POST':
+        try:
+            pk = request.POST['listingpk']
+            listing = Listing.objects.get(pk = pk)
+            price = int(request.POST['price'])
+            listing.price = price
+            listing.comment = request.POST['comment']
+            listing.save()
+            
+            #set lowest student price
+            book = listing.book.book
+            lowstud = book.lowest_student_price
+            if not lowstud or price < lowstud:
+                book.lowest_student_price = price
+                book.save()
+
+            return HttpResponseRedirect("/"+request.POST['next'])
+        except Exception, e:
+            print e
+            
+
         listing = Listing()
         user = request.user.profile_set.get()
         book = Book.objects.get(pk = request.POST['bookpk'])
@@ -205,23 +225,15 @@ def profile(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
         return redirect('/login/')
-    profile = request.user.get_profile()
-    context_dict = get_context(request)
+    if request.POST:
+        profile = request.user.profile_set.get()
+        profile.first_name = request.POST['first_name']
+        profile.last_name = request.POST['last_name']
+        profile.preferred_meetingplace = request.POST['pref_meeting_place']
+        profile.save()
+        messages.success(request, "Profile updated")
+    return HttpResponseRedirect("/bookshelf")
 
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, instance = profile)
-        if form.is_valid():
-            
-            link = form.save()    
-            return index(request)
-        else:
-            print form.errors
-    else:
-        form = ProfileForm(instance = profile)
-    context_dict['form'] = form
-        
-    return render_to_response('forms/profilemodel.html', context_dict, context)
-    
 @login_required
 def history(request):
     context = RequestContext(request)
@@ -237,7 +249,8 @@ def history(request):
             if profile == instance.buyer:
                 past_transactions.append(instance)
             if profile == instance.seller:
-                past_transactions.append(instance)        
+                past_transactions.append(instance)
+    past_transactions.sort(key=lambda tr: tr.pk)
     context_dict['history'] = past_transactions
     return render_to_response('ptonptx2/history.html', context_dict, context)
 
@@ -435,31 +448,59 @@ def search(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
         return redirect('/login/')
+
     profile = request.user.get_profile()
     context_dict = get_context(request)
+
     if request.GET['q']:
         q = request.GET['q']
         context_dict['query'] = q
+        #we'll only entertain queries that are at least 3 characters long
         if len(q) < 3:
             context_dict['too_short'] = True
             return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
+
         q = q.upper().replace(" ", "")
         finallist = []
+        
         thiscourse = None
+        deptcourses = []
+        numcourses = []
+        namecourses = []
         for f in Course.objects.all():
-            if q.upper().replace(" ", "") == (f.dept + f.num):
+            if q == (f.dept + f.num):
                 thiscourse = f
+            elif len(q) == 3:
+                if q == f.dept:
+                    deptcourses.append(f)
+                if q == f.num:
+                    numcourses.append(f)
+            if f.name.upper().replace(" ","").find(q) != -1:
+                namecourses.append(f)
+
+        deptcourses.sort(key = lambda course: course.num)
+        numcourses.sort(key = lambda course: course.dept)
+        namecourses.sort(key = lambda course: course.name)
+        courses = deptcourses + numcourses + namecourses
+
+        #the user has searched for a course
         if thiscourse != None:
             finallist = thiscourse.books.all()
             context_dict['book_dict'] = finallist
+            context_dict['courses'] = [thiscourse]
             return render_to_response('ptonptx2/booksearchpage.html', context_dict, context)
+
         for f in Book.objects.all():
             booktitle = f.title.upper().replace(" ", "")
-            if re.search(q, booktitle) != None:
+            #if re.search(q, booktitle) != None:
+            if booktitle.find(q) != -1:
                 finallist.append(f)
-        if len(finallist) == 0:
+
+        if len(finallist) == 0 and len(courses) == 0:
             return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
         context_dict['book_dict'] = sorted(finallist, key=lambda book: book['title'])
+        context_dict['courses'] = courses
+
     else:
         return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
     return render_to_response('ptonptx2/booksearchpage.html', context_dict, context)
@@ -668,7 +709,8 @@ def pendingtransaction(request, id):
                 buyer = transaction.buyer
                 seller = transaction.seller
             	buyer.books_owned.add(book)
-            	listing.delete()
+            	buyer.books_needed.remove(book)
+                listing.delete()
             return HttpResponseRedirect("/bookshelf")
         else:
             print form.errors
@@ -685,6 +727,28 @@ def pending(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     context_dict = get_context(request)
+
+    # the user has confirmed a transaction
+    if request.POST:
+        transaction = Transaction.objects.get(pk = request.POST['pk'])
+        if transaction.buyer == context_dict['user']:
+             transaction.buyerreview = Review()
+        if transaction.seller == context_dict['user']:
+            transaction.sellerreview = Review()
+        transaction.save()
+
+        #if both the seller and buyer have confirmed, remove the listing
+        if transaction.sellerreview != None and transaction.buyerreview != None:
+
+            book = transaction.book
+            listing = Listing.objects.get(book = book)
+            buyer = transaction.buyer
+            seller = transaction.seller
+            buyer.books_owned.add(book)
+            listing.delete()
+
+        return HttpResponseRedirect("/pending")
+
     
     transactions = Transaction.objects.filter(Q(buyer = context_dict['user'])|Q(seller=context_dict['user']), Q(buyerreview=None) | Q(sellerreview=None))
     

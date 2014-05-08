@@ -49,17 +49,24 @@
 					<p>
 						{% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
 					</p>
+						{% for transaction in user_transactions %}
+							{% if transaction.book == book %}
+							<p>
+								<button class="btn btn-primary btn-xs full-width" disabled="disabled" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Currently buying</button>
+							</p>
+							{% endif %}
+						{% endfor %}
 					<p>
-						{% include 'forms/markasowned.html' %}
 						<button class="btn btn-primary btn-xs full-width" href="#" data-toggle="modal" data-target="#markasownedmodal{{book.id}}">Already owned?</button>
 					</p>
 					<p>
-						{% include 'forms/removefromneeded.html' %}
 						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromneededmodal{{book.id}}">Remove from needed?</button>
 					</p>
 				</div>
 			</div>
 		</div>
+						{% include 'forms/markasowned.html' %}
+						{% include 'forms/removefromneeded.html' %}
 		{% endfor %}
 		{% else %}
 		<p class="text-muted">Currently no books needed</p>
@@ -81,20 +88,24 @@
 					<p>Selling for ${{ listing.price }}<br style="color:red">
 						{% if listing.sell_status == 'P' %}
 						Offer made!<br>
-						{% endif %}
+<form action="/pending/">
+					<button class="full-width btn btn-primary btn-xs" type="submit"> Pending Transaction </button>
+</form>
+					</p>
+{% else %}
+					<p>
+						<button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#editlistingmodal{{listing.pk}}">Edit listing?</button>
 					</p>
 					<p>
-						{% include 'forms/markasowned.html' %}
-						<button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#markasownedmodal{{listing.book.id}}">Edit listing?</button>
-					</p>
-					<p>
-						{% include 'forms/removefromselling.html' %}
 						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromsellingmodal{{listing.id}}">Remove listing?</button>
 
 					</p>
+{% endif %}
 				</div>
 			</div>
 		</div>
+						{% include 'forms/editlisting.html' with curprice=listing.price curcomm=listing.comment listingpk=listing.pk next="bookshelf" title=listing.book.book.title pk=book.pk bookpk=listing.book.book.pk labprice=listing.book.book.labyrinth_price amazprice=listing.book.book.amazon_price lowstud=listing.book.book.lowest_student_price isbn=listing.book.book.isbn isbn10=listing.book.book.isbn10 %}
+						{% include 'forms/removefromselling.html' %}
 		{% endfor %}
 		{% else %}
 		<p class="text-muted">Currently not selling any books</p>
@@ -118,7 +129,6 @@
                         <!--<a href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</a>-->
 					</p>
 					<p>
-						{% include 'forms/removefromowned.html' %}
                         <button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button>
                     </p>
                     <p>
@@ -128,6 +138,7 @@
 			</div>
         </div>
         {% include 'forms/newlisting.html' with title=book.book.title pk=book.pk bookpk=book.book.pk labprice=book.book.labyrinth_price amazprice=book.book.amazon_price lowstud=book.book.lowest_student_price isbn=book.book.isbn isbn10=book.book.isbn10 %}
+						{% include 'forms/removefromowned.html' %}
 		{% endfor %}
 		{% else %}
 		<p class="text-muted">Currently no books owned</p>

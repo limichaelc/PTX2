@@ -6,7 +6,51 @@
 
 {% block main %}
 <div class="col-xs-8 column">
-	<h4>Search results for "{{ query }}"</h4>
+    {% if courses %}
+    <h4>Courses matching "{{ query }}":</h4>
+	<div class="row clearfix">
+	{% for course in courses %}
+    <div display="inline-block">
+        {% if course in user.course_list.all %}
+        <div class="form-group">
+            <script type="text/javascript">
+                document.write("<span class=\"glyphicon glyphicon-ok\" title=\"Added\"></span>");
+                </script>
+                <noscript>
+                    <button type="submit" class="btn btn-default btn-xs" disabled="disabled">Added</button>
+                </noscript>
+                <s><a href="/courses/{{ course.dept }}/{{ course.num }}">{{course.dept}} {{course.num}} ({{course.name}})</a></s>
+                <!--<button type="submit" class="btn btn-default btn-xs btn-link" disabled="disabled">Already added</button>-->
+            </div>
+            {% else %}
+            <form class="form-inline" name="searchcourses" action="/addcourse/" method="post" id="form{{course.id}}">{% csrf_token %}
+                <div class="form-group">
+                    <script>
+                        document.write("<span class=\"glyphicon glyphicon-plus btn-link\" title=\"Add course?\" onclick=\"document.getElementById('form{{course.id}}').submit()\"></span>")
+                    </script>
+                    <noscript>
+                        <button type="submit" class="btn btn-default btn-xs">Add?</button>
+                    </noscript>
+                    <a href="/courses/{{ course.dept }}/{{ course.num }}">
+                        {{course.dept}} {{course.num}} ({{course.name}})</a>
+                    <input type="hidden" name="course" value="{{course.id}}">
+                    {% if course_dict|length = 1 %}
+                    <input type="hidden" name="prevpage" value="/bookshelf">
+                    {% else %}
+                    <input type="hidden" name="prevpage" value="/search/?q={{query}}">
+                    {% endif %}
+                    <!--<button type="submit" class="btn btn-default btn-xs btn-link"><span class="glyphicon glyphicon-plus">Add</span></button>-->
+                </div>
+            </form>
+            {% endif %}
+        </div>
+
+    {% endfor %}
+    </div>
+
+    {% endif %}
+    {% if book_dict %}
+	<h4>Books matching "{{ query }}":</h4>
 	<div class="row clearfix">
 	{% for book in book_dict %}
 		<div class="col-xs-3">
@@ -34,7 +78,8 @@
 				</div>
 			</div>
 			{% endfor %}
-    </div>
+        </div>
+        {% endif %}
 </div>
 {% include 'forms/newcourse.html' %}
 {% endblock %}
