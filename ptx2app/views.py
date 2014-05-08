@@ -708,7 +708,7 @@ def pendingtransaction(request, id):
                 buyer = transaction.buyer
                 seller = transaction.seller
             	buyer.books_owned.add(book)
-            	buyer.books_needed.remove(book)
+            	buyer.books_needed.remove(book.book)
                 listing.delete()
             return HttpResponseRedirect("/bookshelf")
         else:
