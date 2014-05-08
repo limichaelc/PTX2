@@ -474,6 +474,15 @@ def help(request):
     return render_to_response('ptonptx2/helppage.html', context_dict, context)
 
 @login_required
+def faq(request):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+        return redirect('/login/')
+    profile = request.user.get_profile()
+    context_dict = get_context(request)
+    return render_to_response('ptonptx2/faqpage.html', context_dict, context)
+
+@login_required
 def selling(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
