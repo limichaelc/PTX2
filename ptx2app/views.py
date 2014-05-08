@@ -263,10 +263,10 @@ def searchcourses(request):
                     finallist.append(f)
     
     sortedbydept = sorted(finallist, key=lambda course: course['dept'])
-    sortedbydeptandnum = sorted(sortedbydept, key=lambda course: course['num'])
+    # sortedbydeptandnum = sorted(sortedbydept, key=lambda course: course['num'])
     context_dict = get_context(request)
     context_dict['query'] = q
-    context_dict['course_dict'] = sortedbydeptandnum
+    context_dict['course_dict'] = sortedbydept
 
     
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
