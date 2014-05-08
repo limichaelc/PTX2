@@ -3,8 +3,23 @@
 		<div class="modal-content">
 			<div class="modal-header"><h5 class="modal-title" id="myModalLabel">Change your profile details</h5></div>
 			<div class="modal-body">
-				<div align="right"><form name="profilemodal" method="post" action="/profile/">{% csrf_token %}
-{{ form.as_p }}
+				<form action="/profile/" method="POST" id="profilemodal">{% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_first_name">First name:</label><div class="input-group">
+                                <input id="id_first_name" name="first_name" type="text" class="form-control">
+                            </div><br>
+                            <label for="id_last_name">Last name:</label><div class="input-group">
+                                <input id="id_last_name" name="last_name" type="text" class="form-control">
+                            </div><br>
+                            <label for="id_preferred_meetingplace">Preferred meeting place:</label><input type="textarea" name="comment" id="id_preferred_meetingplace" maxlength="500" class="form-control" rows="1" /><br>
+                            <div align="right">
+                                <input type="submit" name="Submit" class="btn btn-primary">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                            </div>
+                        </div>
+                        <input type="hidden" name="pk" value="{{ pk }}">
+                        <input type="hidden" name="bookpk" value="{{ bookpk }}">
+                    </form>
                     <input type="hidden" name="oldpage" value=""></input>
 					<input name="Change" type="submit" class="btn btn-danger" value="Change"></input>
 					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
