@@ -29,7 +29,7 @@
 	  <td> {{transaction.price}}</td>
 {% if transaction.buyer == user and transaction.buyerreview == None or transaction.seller == user and transaction.sellerreview == None %}
 <td>
-    <form action="/pending/" method="POST">
+    <form action="/pending/" method="POST">{% csrf_token %}
         <button class="btn btn-primary btn-xs">Confirm</button>
         <input type="hidden" name="pk" value={{transaction.pk}}>
     </form>
