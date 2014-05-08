@@ -622,6 +622,12 @@ def confirmbuybook(request):
     
     transaction = Transaction(buyer = context_dict['user'], seller=listing.owner, price=listing.price, book = listing.book)
     transaction.save()
+    buyer = transaction.buyer
+    seller = transaction.seller
+    sellermessage = "Hi! \n\n Someone has bought your book on PTX2. The user's details are: \n Name:" + buyer.first_name + " " + buyer.last_name + "\n Buyer email: " + buyer.user.username +"@princeton.edu \n Preferred meeting place: " + buyer.preferred_meetingplace + "\n\n Thanks, \n\n PTX2"
+    buyermessage = "Hi! \n You have bought someone else's book on PTX2. The user's details are: \n Name:" + seller.first_name + " " + seller.last_name + "\n Seller email: " + seller.user.username +"@princeton.edu \n Preferred meeting place: " +seller.preferred_meetingplace + "\n\n Thanks, \n\n PTX2"
+    send_mail('Pending transaction', sellermessage, 'princetonptx2@gmail.com', [seller.user.username + '@princeton.edu'], fail_silently=False)
+    send_mail('Pending transaction', buyermessage, 'princetonptx2@gmail.com', [buyer.user.username + '@princeton.edu'], fail_silently=False)
 
     return render_to_response('ptonptx2/afterpurchase.html', context_dict, context)
     
@@ -651,10 +657,6 @@ def pendingtransaction(request, id):
                 buyer = transaction.buyer
                 seller = transaction.seller
             	buyer.books_owned.add(book)
-                sellermessage = "Hi! \n\n Someone has bought your book on PTX2. The user's details are: \n Name:" + buyer.first_name + " " + buyer.last_name + "\n Buyer email: " + buyer.user.username +"@princeton.edu \n Preferred meeting place: " + buyer.preferred_meetingplace + "\n\n Thanks, \n\n PTX2"
-            	buyermessage = "Hi! \n You have bought someone else's book on PTX2. The user's details are: \n Name:" + seller.first_name + " " + seller.last_name + "\n Seller email: " + seller.user.username +"@princeton.edu \n Preferred meeting place: " +seller.preferred_meetingplace + "\n\n Thanks, \n\n PTX2"
-            	send_mail('Pending transaction', sellermessage, 'princetonptx2@gmail.com', [seller.user.username + '@princeton.edu'], fail_silently=False)
-            	send_mail('Pending transaction', buyermessage, 'princetonptx2@gmail.com', [buyer.user.username + '@princeton.edu'], fail_silently=False)
             	listing.delete()
             return HttpResponseRedirect("/bookshelf")
         else:
