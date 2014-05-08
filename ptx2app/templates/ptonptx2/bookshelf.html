@@ -7,7 +7,10 @@
 {% block main %}
 <div class="col-xs-8 column">
     <div class="alert alert-warning text-center" id="jswarning">
-        It looks like you have Javascript disabled. Please enable Javascript to ensure that the site works properly.
+        It looks like you have Javascript disabled. Some aspects of the site may not work properly.
+        {% if first_visit %}
+        <!--<button id="showfirst_nojs" class="btn btn-link" href="#" data-toggle="modal" data-target="#firstvisitmodal">Click here to get started.</button> THIS WON'T WORK BECAUSE MODALS ARE JAVASCRIPT-->
+        {% endif %}
     </div>
     <script type="text/javascript">
         document.getElementById("jswarning").hidden=true;
@@ -15,6 +18,13 @@
     {% for message in messages %}
     <div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} text-center">{{message|safe}}</div>
     {% endfor %}
+    {% if first_visit %}
+    {% include 'forms/firstvisitmodal.html' %}
+    <button id="showfirst" hidden="true" href="#" data-toggle="modal" data-target="#firstvisitmodal"></button>
+    <script type="text/javascript">
+        document.getElementById("showfirst").click();
+    </script>
+    {% endif %}
 	<div class="row clearfix">
 	<a class="anchor" id="needtobuy"></a>
 		<h4 padding-left="5px"> Books Needed </h4>

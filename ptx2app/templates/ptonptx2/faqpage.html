@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}PTX2 | Help {% endblock %}
+
+{% block main %}
+<div class="col-xs-6 column">
+	<div class="row clearfix">
+	  <h1>Frequently Asked Questions</h1>
+	  <p> 1. Why is my course not showing when I search for it? </p>
+	  <p> We've only scraped the data for the Spring 2014 courses so far. The registrar should be putting up the Fall 2014 data in September so stay tuned for that! </p>
+	  </div>
+</div>
+{% include 'forms/newlisting.html' %}
+{% include 'forms/newcourse.html' %}
+{% include 'forms/sellbook.html' %}
+{% endblock %}

@@ -1,27 +1,38 @@
-<div class="modal fade firstvisitmodal" tabindex="-1" role="dialog" aria-labelledby="firstvisitmodal" aria-hidden="true" id="firstvisitmodal">
+<div class="modal fade firstvisitmodal" tabindex="-1" role="dialog" aria-labelledby="firstvisitmodal" aria-hidden="true" id="firstvisitmodal" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <div class="modal-header"><h5 class="modal-title" id="firstvisitmodal">Welcome!</h5></div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="firstvisitmodal">Welcome!</h5>
+            </div>
             <div class="modal-body">
                 <div><strong>Welcome!</strong> This appears to be your first visit.<br>
-                First, please fill out your name and preferred meeting place. These will be sent in emails to people you buy from and sell to in order to smooth out the transaction process.<br>
-                <form action="/profile/" method="POST" id="editprofile">{% csrf_token %}
-                    <div class="form-group">
-                        <label for="id_first_name">First name:</label>
-                        <div class="input-group"><input id="id_first_name" name="first_name" type="text" class="form-control"></div>
-                        <br>
-                        <label for="id_last_name">Last name:</label>
-                        <div class="input-group"><input id="id_last_name" name="last_name" type="text" class="form-control"></div>
-                        <br>
-                        <label for="id_pref_meeting_place">Preferred meeting place:</label>
-                        <div class="input-group"><input id="id_pref_meeting_plac" name="pref_meeting_plac" type="text" class="form-control"></div>
-                        <div align="right">
-                            <input type="submit" name="Submit" class="btn btn-primary">
+                    First, please fill out your name and preferred meeting place. These will be sent in emails to people you buy from and sell to in order to smooth out the transaction process.<br>
+                    <form action="/profile/" method="POST" id="editprofile">{% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_first_name">First name:</label>
+                            <div class="input-group">
+                                <input id="id_first_name" name="first_name" type="text" class="form-control" required>
+                            </div>
+                            <br>
+                            <label for="id_last_name">Last name:</label>
+                            <div class="input-group">
+                                <input id="id_last_name" name="last_name" type="text" class="form-control" required>
+                            </div>
+                            <br>
+                            <label for="id_pref_meeting_place">Preferred meeting place:</label>
+                            <div class="input-group">
+                                <input id="id_pref_meeting_plac" name="pref_meeting_plac" type="text" class="form-control" required>
+                            </div>
+                            <div align="right">
+                                <input type="submit" name="Submit" class="btn btn-primary">
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
                 </div>
             </div>
         </div>          
     </div>
 </div>
+<script type="text/javascript">
+    $('#firstvisitmodal').on('shown.bs.modal', function() {$('#id_first_name').focus()});
+</script>
