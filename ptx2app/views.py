@@ -732,9 +732,9 @@ def pending(request):
     if request.POST:
         transaction = Transaction.objects.get(pk = request.POST['pk'])
         if transaction.buyer == context_dict['user']:
-             transaction.buyerreview = "1"
+             transaction.buyerreview = Review()
         if transaction.seller == context_dict['user']:
-            transaction.sellerreview = "1"
+            transaction.sellerreview = Review()
         transaction.save()
 
         #if both the seller and buyer have confirmed, remove the listing

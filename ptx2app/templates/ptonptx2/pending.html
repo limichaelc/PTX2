@@ -30,7 +30,7 @@
 {% if transaction.buyer == user and transaction.buyerreview == None or transaction.seller == user and transaction.sellerreview == None %}
 <td>
     <form action="/pending/" method="POST">{% csrf_token %}
-        <button class="btn btn-primary btn-xs">Confirm</button>
+        <button class="btn btn-primary btn-xs no-pad">Confirm</button>
         <input type="hidden" name="pk" value={{transaction.pk}}>
     </form>
 </td>
