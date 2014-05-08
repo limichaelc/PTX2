@@ -81,7 +81,9 @@
 					<p>Selling for ${{ listing.price }}<br style="color:red">
 						{% if listing.sell_status == 'P' %}
 						Offer made!<br>
-					<button class="full-width btn btn-primary btn-xs" href="/pending/"> Pending Transaction </button>
+<form action="/pending/">
+					<button class="full-width btn btn-primary btn-xs" type="submit"> Pending Transaction </button>
+</form>
 					</p>
 {% else %}
 					<p>
