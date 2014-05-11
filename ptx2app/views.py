@@ -764,10 +764,11 @@ def canceltransaction(request, id):
     context_dict = get_context(request)
     
     if request.POST:
+        id = request.POST['transactionid']
+        transaction = Transaction.objects.get(id=id)
         listing = Listing.objects.get(book = transaction.book)
         listing.SELL_STATUSES = 'O'
         listing.save()
-        transaction = Transaction.objects.get(id=id)
         transaction.delete()
         return HttpResponseredirect("/bookshelf/")
    
