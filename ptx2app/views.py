@@ -774,6 +774,6 @@ def canceltransaction(request, transactionid):
    
    	transaction = Transaction.objects.get(id=transactionid)
    	context_dict['transaction'] = transaction
-   	print context_dict['transaction']
+   	print transaction.id
    	
     return render_to_response('ptonptx2/canceltransaction.html', context_dict, context)
