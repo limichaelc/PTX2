@@ -20,7 +20,6 @@ from django.core.mail import send_mail
 # get the context of this request
 def get_context(request):
     context = RequestContext(request)
-    first=False
     try:
         user = request.user
     except:
@@ -32,8 +31,8 @@ def get_context(request):
         profile = Profile.objects.create(user = user)
         #messages.success(request, 
             #'<strong>Welcome!</strong> This appears to be your first visit. You can get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.')
-        first=True
         profile.save()
+    first = (not profile.first_name)
     books = Book.objects.all()
     transaction = Transaction.objects.all()
 
@@ -709,7 +708,7 @@ def pendingtransaction(request, id):
                 buyer = transaction.buyer
                 seller = transaction.seller
             	buyer.books_owned.add(book)
-            	buyer.books_needed.remove(book)
+            	buyer.books_needed.remove(book.book)
                 listing.delete()
             return HttpResponseRedirect("/bookshelf")
         else:
@@ -745,6 +744,8 @@ def pending(request):
             buyer = transaction.buyer
             seller = transaction.seller
             buyer.books_owned.add(book)
+            seller = transaction.seller
+            seller.books_selling.remove(book)
             listing.delete()
 
         return HttpResponseRedirect("/pending")
