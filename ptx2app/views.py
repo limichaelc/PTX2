@@ -769,8 +769,8 @@ def canceltransaction(request, id):
         listing.save()
         transaction = Transaction.objects.get(id=id)
         transaction.delete()
-   	    return HttpResponseredirect("/bookshelf/")
-   	
+        return HttpResponseredirect("/bookshelf/")
+   
    	transaction = Transaction.objects.get(id=id)
    	context_dict['transaction'] = transaction
    	
