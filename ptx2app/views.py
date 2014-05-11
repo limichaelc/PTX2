@@ -758,6 +758,7 @@ def pending(request):
     return render_to_response('ptonptx2/pending.html', context_dict, context)
     
 def canceltransaction(request, transactionid):
+    print transactionid
     context = RequestContext(request)
     if not request.user.is_authenticated():
    	    return redirect('/login/')
