@@ -771,7 +771,7 @@ def canceltransaction(request, transactionid):
         listing.SELL_STATUSES = 'O'
         listing.save()
         transaction.delete()
-        return HttpResponseredirect("/bookshelf/")
+        return HttpResponseRedirect("/bookshelf/")
     else:
         transaction = Transaction.objects.get(id=transactionid)
         context_dict['id'] = str(transaction.id)
