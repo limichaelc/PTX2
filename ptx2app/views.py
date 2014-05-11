@@ -20,7 +20,6 @@ from django.core.mail import send_mail
 # get the context of this request
 def get_context(request):
     context = RequestContext(request)
-    first=False
     try:
         user = request.user
     except:
@@ -32,8 +31,8 @@ def get_context(request):
         profile = Profile.objects.create(user = user)
         #messages.success(request, 
             #'<strong>Welcome!</strong> This appears to be your first visit. You can get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.')
-        first=True
         profile.save()
+    first = (not profile.first_name)
     books = Book.objects.all()
     transaction = Transaction.objects.all()
 
@@ -120,10 +119,13 @@ def sell_book(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     if request.method == 'POST':
-        try:
+        price = int(float(request.POST['price']))
+
+        # if this is an edit, the POST will contain a 'listingpk' field
+
+        if 'listingpk' in request.POST:
             pk = request.POST['listingpk']
             listing = Listing.objects.get(pk = pk)
-            price = int(request.POST['price'])
             listing.price = price
             listing.comment = request.POST['comment']
             listing.save()
@@ -136,14 +138,11 @@ def sell_book(request):
                 book.save()
 
             return HttpResponseRedirect("/"+request.POST['next'])
-        except Exception, e:
-            print e
-            
 
+        # if this field doesn't exist, it's a new listing
         listing = Listing()
         user = request.user.profile_set.get()
         book = Book.objects.get(pk = request.POST['bookpk'])
-        price = int(request.POST['price'])
 
         #if there is already a physbook, use it. If not, check to see if the user has any of this book
         #marked as owned. If not, make a new physbook
@@ -173,7 +172,7 @@ def sell_book(request):
         listing.book = physbook
         listing.owner = user
         listing.sell_status = 'O'
-        listing.price = request.POST['price']
+        listing.price = price
         listing.comment = request.POST['comment']
         listing.save()
         return HttpResponseRedirect('/bookshelf/')
