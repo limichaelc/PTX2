@@ -772,10 +772,11 @@ def canceltransaction(request, transactionid):
         listing.save()
         transaction.delete()
         return HttpResponseredirect("/bookshelf/")
-   
-   	transaction = Transaction.objects.get(id=transactionid)
-   	print "second" + transaction.id
-   	context_dict['id'] = transaction.id
-   	print "third" + context_dict['id']
+    else:    
+        print "why" + transactionid
+   	    transaction = Transaction.objects.get(id=transactionid)
+   	    print "second" + transaction.id
+   	    context_dict['id'] = transaction.id
+   	    print "third" + context_dict['id']
    	
     return render_to_response('ptonptx2/canceltransaction.html', context_dict, context)
