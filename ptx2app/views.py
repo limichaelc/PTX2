@@ -773,7 +773,7 @@ def canceltransaction(request, transactionid):
         return HttpResponseredirect("/bookshelf/")
    
    	transaction = Transaction.objects.get(id=transactionid)
-   	if transaction.id == 60:
+   	if transactionid == 60:
    	    return HttpResponseRedirect("/bookshelf/")
    	context_dict['id'] = transaction.id
    	
