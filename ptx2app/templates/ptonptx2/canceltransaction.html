@@ -9,7 +9,7 @@
 <p>Are you sure you want to cancel this transaction? If you do, your transaction will be put back in the list of active listings.</p>
         <form action="" method="GET"> {% csrf_token %}
             <button class="btn btn-primary btn-lg active" type="submit">Cancel transaction</button>
-            <input type="hidden" name="transactionid" value="{{id}}">
+            <input type="hidden" name="transactionid" value="{{ id }}">
         </form>
 {% include 'forms/newlisting.html' %}
 {% include 'forms/watchlist.html' %}
