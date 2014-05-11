@@ -774,7 +774,7 @@ def canceltransaction(request, transactionid):
         return HttpResponseredirect("/bookshelf/")
     else:  
         print "why" + transactionid
-   	    transaction = Transaction.objects.get(id=transactionid)
+        transaction = Transaction.objects.get(id=transactionid)
    	    print "second" + transaction.id
    	    context_dict['id'] = transaction.id
    	    print "third" + context_dict['id']
