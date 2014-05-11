@@ -45,7 +45,7 @@ urlpatterns = patterns('',
     url(r'^addcourse/', 'ptx2app.views.addcourse'),
     url(r'^remove_listing/$', 'ptx2app.views.remove_listing'),
     url(r'^buybook/$', 'ptx2app.views.buybook'),
-    url(r'^pending/cancel/(?P<id>\d+)/$', 'ptx2app.views.canceltransaction'),
+    url(r'^pending/cancel/(?P<transactionid>\d+)/$', 'ptx2app.views.canceltransaction'),
     #url(r'^sellbook/', 'ptx2app.views.sell_book', name = 'sell_book'),
     
 	#url(r'^courses/(?P<dept>\w+)/(?P<num>\d+)/$', 'ptx2app.templates.coursepage'),
