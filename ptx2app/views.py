@@ -764,8 +764,8 @@ def canceltransaction(request, transactionid):
    	    return redirect('/login/')
     context_dict = get_context(request)
     
-    if request.method == 'GET':
-        id = request.GET['transactionid']
+    if request.method == 'POST':
+        id = request.POST['transactionid']
         transaction = Transaction.objects.get(id=id)
         listing = Listing.objects.get(book = transaction.book)
         listing.SELL_STATUSES = 'O'
@@ -776,6 +776,6 @@ def canceltransaction(request, transactionid):
    	transaction = Transaction.objects.get(id=transactionid)
    	print transactionid
    	print transaction.id
-   	context_dict['transaction'] = transaction
+   	context_dict['id'] = transaction.id
    	
     return render_to_response('ptonptx2/canceltransaction.html', context_dict, context)
