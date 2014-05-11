@@ -764,7 +764,7 @@ def canceltransaction(request, transactionid):
    	    return redirect('/login/')
     context_dict = get_context(request)
     
-    if request.GET:
+    if request.method == 'GET':
         id = request.GET['transactionid']
         transaction = Transaction.objects.get(id=id)
         listing = Listing.objects.get(book = transaction.book)
