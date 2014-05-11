@@ -772,7 +772,7 @@ def canceltransaction(request, transactionid):
         listing.save()
         transaction.delete()
         return HttpResponseredirect("/bookshelf/")
-    else:    
+    else:  
         print "why" + transactionid
    	    transaction = Transaction.objects.get(id=transactionid)
    	    print "second" + transaction.id
