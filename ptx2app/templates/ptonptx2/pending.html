@@ -39,6 +39,7 @@
 {% else %}
 		<td> Confirmed </td>
 {% endif %}
+	<td> <a href="{% url 'ptx2app.views.canceltransaction' id=transaction.id %}">Cancel transaction</a>
 	</tr>
 	{% endfor %}
 </tbody>

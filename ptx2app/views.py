@@ -755,3 +755,22 @@ def pending(request):
     context_dict['transactions'] = transactions
     
     return render_to_response('ptonptx2/pending.html', context_dict, context)
+    
+def canceltransaction(request, id):
+    context = RequestContext(request)
+    if not request.user.is_authenticated():
+   	    return redirect('/login/')
+    context_dict = get_context(request)
+    
+    if request.POST:
+        listing = Listing.objects.get(book = transaction.book)
+        listing.SELL_STATUSES = 'O'
+        listing.save()
+        transaction = Transaction.objects.get(id=id)
+        transaction.delete()
+   	    return HttpResponseredirect("/bookshelf/")
+   	
+   	transaction = Transaction.objects.get(id=id)
+   	context_dict['transaction'] = transaction
+   	
+    return render_to_response('ptonptx2/canceltransaction.html', context_dict, context)
