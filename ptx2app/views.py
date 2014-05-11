@@ -758,7 +758,7 @@ def pending(request):
     return render_to_response('ptonptx2/pending.html', context_dict, context)
     
 def canceltransaction(request, transactionid):
-    print transactionid
+    print "first" transactionid
     context = RequestContext(request)
     if not request.user.is_authenticated():
    	    return redirect('/login/')
@@ -774,8 +774,8 @@ def canceltransaction(request, transactionid):
         return HttpResponseredirect("/bookshelf/")
    
    	transaction = Transaction.objects.get(id=transactionid)
-   	print transaction.id
+   	print "second" transaction.id
    	context_dict['id'] = transaction.id
-   	print context_dict['id']
+   	print "third" context_dict['id']
    	
     return render_to_response('ptonptx2/canceltransaction.html', context_dict, context)
