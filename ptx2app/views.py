@@ -767,7 +767,7 @@ def canceltransaction(request, transactionid):
     if request.method == 'POST':
         id = request.POST['transactionid']
         transaction = Transaction.objects.get(id=id)
-        listings = Listing.objects.get(book = transaction.book)
+        listing = Listing.objects.get(book = transaction.book)
         listing.sell_status = 'O'
         listing.save()
         transaction.delete()
