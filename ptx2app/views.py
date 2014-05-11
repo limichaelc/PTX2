@@ -773,7 +773,8 @@ def canceltransaction(request, transactionid):
         return HttpResponseredirect("/bookshelf/")
    
    	transaction = Transaction.objects.get(id=transactionid)
-   	context_dict['transaction'] = transaction
+   	print transactionid
    	print transaction.id
+   	context_dict['transaction'] = transaction
    	
     return render_to_response('ptonptx2/canceltransaction.html', context_dict, context)
