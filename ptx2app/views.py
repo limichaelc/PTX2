@@ -187,13 +187,15 @@ def remove_listing(request):
     if not request.POST:
         return HttpResponseRedirect("/bookshelf")
     listingid=request.POST['listingid']
-    print listingid
     listing = Listing.objects.get(pk = listingid)
     owner = listing.owner
     # make sure the person can only remove their own listings
     if not owner == request.user.profile_set.get():
-        messages.error("You can't remove that listing. Are you trying to break the site?")
+        messages.error(request, "You can't remove that listing. Are you trying to break the site?")
         return HttpResponseRedirect("/bookshelf")
+    if listing.sell_status == 'P':
+        messages.error(request, "Sorry, someone has already purchased this book. You may cancel the transaction if you'd like.")
+        return HttpResponseRedirect("/bookshelf/")
     physbook = listing.book
     owner.books_selling.remove(physbook)
     owner.books_owned.add(physbook)
@@ -381,8 +383,6 @@ def removefromneeded(request):
         rfn = Book.objects.get(id=rfn)
         profile.books_needed.remove(rfn)
         profile.save()
-        context_dict['rfn'] = rfn.title
-        context_dict['removefromneeded'] = True
         messages.success(request, "Book %s has been removed from books needed" % (rfn.title))
     return HttpResponseRedirect("/bookshelf")
 
@@ -396,16 +396,19 @@ def removefromselling(request):
     if request.GET['s']:
         rfs = request.GET['s']
         rfs = PhysBook.objects.get(id=rfs)
+
+
+        #delete the listing if it's not pending
+        l = rfs.listing_set.get()
+        if l.sell_status == 'P':
+            messages.error(request, "Sorry, someone has already purchased this book. You may cancel the transaction if you'd like.")
+            return HttpResponseRedirect("/bookshelf/")
+        l.delete()
+
         profile.books_selling.remove(rfs)
         profile.books_owned.add(rfs)
         profile.save()
 
-        #delete the listing
-        l = rfs.listing_set.get()
-        l.delete()
-
-        context_dict['rfs'] = rfs.book.title
-        context_dict['removefromselling'] = True
         messages.success(request, "Book %s has been removed from books selling" % (rfs.book.title))
 
         set_lowest_price(rfs.book)
@@ -424,8 +427,6 @@ def removefromowned(request):
         rfo = PhysBook.objects.get(id=rfo)
         title = rfo.book.title
         rfo.delete()
-        context_dict['rfo'] = title
-        context_dict['removefromowned'] = True
         messages.success(request, "Book %s has been removed from books owned" % (title))
         return HttpResponseRedirect("/bookshelf")
 
@@ -564,6 +565,10 @@ def buybook(request):
 
     listing = Listing.objects.get(id=listingid)
 
+    if listing.sell_status == 'P':
+        messages.error(request, "Sorry, it looks like someone already bought that book. Please choose another listing.")
+        return HttpResponseRedirect("/bookshelf")
+
     context_dict['listing'] = listing
 
     return render_to_response('ptonptx2/confirmpurchase.html', context_dict, context)
@@ -637,45 +642,6 @@ def confirmbuybook(request):
     return render_to_response('ptonptx2/afterpurchase.html', context_dict, context)
     
 @login_required
-def pendingtransaction(request):
-    return
-    context = RequestContext(request)
-    if not request.user.is_authenticated():
-        return redirect('/login/')
-    context_dict = get_context(request)
-    context_dict['id'] = id
-
-    if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-
-            form = form.save()    
-            transaction = Transaction.objects.get(id=id)
-            if transaction.buyer == context_dict['user']:
-                 transaction.buyerreview = form
-            if transaction.seller == context_dict['user']:
-                transaction.sellerreview = form
-            transaction.save()
-            if transaction.sellerreview != None and transaction.buyerreview != None:
-
-                book = transaction.book
-                listing = Listing.objects.get(book = book)
-                buyer = transaction.buyer
-                seller = transaction.seller
-            	buyer.books_owned.add(book)
-            	buyer.books_needed.remove(book.book)
-                listing.delete()
-            return HttpResponseRedirect("/bookshelf")
-        else:
-            print form.errors
-    else:
-        form = ReviewForm()
-    context_dict['form'] = form
-        
-
-    return render_to_response('ptonptx2/pendingtransaction.html', context_dict, context)
-    
-@login_required
 def pending(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -728,28 +694,3 @@ def pending(request):
     context_dict['transactions'] = transactions
     
     return render_to_response('ptonptx2/pending.html', context_dict, context)
-    
-def canceltransaction(request, transactionid):
-    return
-    print "first" + transactionid
-    context = RequestContext(request)
-    if not request.user.is_authenticated():
-   	    return redirect('/login/')
-    context_dict = get_context(request)
-    
-    if request.method == 'POST':
-        id = request.POST['transactionid']
-        transaction = Transaction.objects.get(id=id)
-        listing = Listing.objects.get(book = transaction.book)
-        listing.sell_status = 'O'
-        listing.save()
-        transaction.delete()
-        set_lowest_price(listing.book.book)
-        sellermessage = "Hello,\n\nThe transaction for your copy of" + transaction.book.book.title + " on PTX2 has been cancelled. Your listing has been readded to the system.\nIf you no longer wish to sell this book, you can remove the listing on your bookshelf.\n\nThank you for using PTX2!"
-    	buyermessage = "Hello,\n\nThe transaction for " + transaction.book.book.title + " on PTX2 has been cancelled. You can search for another offer on your bookshelf.\n\nThank you for using PTX2!"
-        return HttpResponseRedirect("/bookshelf/")
-    else:
-        transaction = Transaction.objects.get(id=transactionid)
-        context_dict['id'] = str(transaction.id)
-   	
-    return render_to_response('ptonptx2/canceltransaction.html', context_dict, context)
