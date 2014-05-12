@@ -225,7 +225,7 @@ def profile(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     if request.POST:
-        if len(request.POST['first_name']) == 0 or len(request.POST['last_name']) == 0 or len(request['pref_meeting_place']) == 0:
+        if len(request.POST['first_name']) == 0 or len(request.POST['last_name']) == 0 or len(request.POST['pref_meeting_place']) == 0:
             messages.error(request, "Invalid form. No action taken.")
         else:
             profile = request.user.profile_set.get()
