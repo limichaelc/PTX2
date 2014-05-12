@@ -119,10 +119,13 @@ def sell_book(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     if request.method == 'POST':
-        try:
+        price = int(float(request.POST['price']))
+
+        # if this is an edit, the POST will contain a 'listingpk' field
+
+        if 'listingpk' in request.POST:
             pk = request.POST['listingpk']
             listing = Listing.objects.get(pk = pk)
-            price = int(request.POST['price'])
             listing.price = price
             listing.comment = request.POST['comment']
             listing.save()
@@ -135,14 +138,11 @@ def sell_book(request):
                 book.save()
 
             return HttpResponseRedirect("/"+request.POST['next'])
-        except Exception, e:
-            print e
-            
 
+        # if this field doesn't exist, it's a new listing
         listing = Listing()
         user = request.user.profile_set.get()
         book = Book.objects.get(pk = request.POST['bookpk'])
-        price = int(request.POST['price'])
 
         #if there is already a physbook, use it. If not, check to see if the user has any of this book
         #marked as owned. If not, make a new physbook
@@ -172,7 +172,7 @@ def sell_book(request):
         listing.book = physbook
         listing.owner = user
         listing.sell_status = 'O'
-        listing.price = request.POST['price']
+        listing.price = price
         listing.comment = request.POST['comment']
         listing.save()
         return HttpResponseRedirect('/bookshelf/')
