@@ -33,4 +33,22 @@ $(window).load(function() {
         evenPics("img-responsive");
         equalizeThumbs(".thumbnail");
     }
-    });
+
+    //validate();
+});
+
+//make sure that the validity of forms is checked (because safari doesn't prevent form submission)
+function validate(){
+    var forms = document.getElementsByTagName('form');
+    for (var i = 0; i < forms.length; i++) {
+        forms[i].noValidate = true;
+
+        forms[i].addEventListener('submit', function(event) {
+            //Prevent submission if checkValidity on the form returns false.
+            if (!event.target.checkValidity()) {
+                event.preventDefault();
+                //Implement you own means of displaying error messages to the user here.
+            }
+        }, false);
+    }
+}

@@ -117,7 +117,18 @@ def sell_book(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     if request.method == 'POST':
-        price = int(float(request.POST['price']))
+
+        if len(request.POST['price']) == 0:
+            messages.error(request, 'No price given. Please try again.')
+            return HttpResponseRedirect("/bookshelf/")
+        try:
+            price = int(float(request.POST['price']))
+        except:
+            messages.error(request, "Invalid price given. Please use only numbers.")
+            return HttpResponseRedirect("/bookshelf/")
+        if price < 1:
+            messages.error(request, "Invalid price given. Price must be greater than $1.")
+            return HttpResponseRedirect("/bookshelf/")
 
         # if this is an edit, the POST will contain a 'listingpk' field
 
@@ -214,12 +225,15 @@ def profile(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     if request.POST:
-        profile = request.user.profile_set.get()
-        profile.first_name = request.POST['first_name']
-        profile.last_name = request.POST['last_name']
-        profile.preferred_meetingplace = request.POST['pref_meeting_place']
-        profile.save()
-        messages.success(request, "Profile updated")
+        if len(request.POST['first_name']) == 0 or len(request.POST['last_name']) == 0 or len(request['pref_meeting_place']) == 0:
+            messages.error(request, "Invalid form. No action taken.")
+        else:
+            profile = request.user.profile_set.get()
+            profile.first_name = request.POST['first_name']
+            profile.last_name = request.POST['last_name']
+            profile.preferred_meetingplace = request.POST['pref_meeting_place']
+            profile.save()
+            messages.success(request, "Profile updated")
     return HttpResponseRedirect("/bookshelf")
 
 @login_required

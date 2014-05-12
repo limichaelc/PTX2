@@ -16,8 +16,9 @@
         document.getElementById("jswarning").hidden=true;
     </script>
     {% for message in messages %}
-    <div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} text-center">{{message|safe}}</div>
+    <div class="alert {% if message.tags %} {% if 'error' in message.tags %} alert-danger {% else %} alert-{{message.tags}} {% endif %}{% endif %} text-center">{{message|safe}}</div>
     {% endfor %}
+
     {% if first_visit %}
     {% include 'forms/firstvisitmodal.html' %}
     <button id="showfirst" hidden="true" href="#" data-toggle="modal" data-target="#firstvisitmodal"></button>
