@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}PTX2 | Cancel Transaction {% endblock %}
+
+{% block main %}
+<h3>Cancel transaction</h3>
+<p>Are you sure you want to cancel this transaction? If you do, your transaction will be put back in the list of active listings.</p>
+        <form action="" method="POST"> {% csrf_token %}
+            <button class="btn btn-primary btn-lg active" type="submit">Cancel transaction</button>
+            <input type="hidden" name="transactionid" value="{{ id }}">
+        </form>
+{% include 'forms/newlisting.html' %}
+{% include 'forms/watchlist.html' %}
+{% endblock %}
+
+jQuery(document).ready(function($) {
+      $(".clickableRow").click(function() {
+            window.document.location = $(this).attr("href");
+      });
+});
