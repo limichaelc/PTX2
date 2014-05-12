@@ -771,6 +771,9 @@ def canceltransaction(request, transactionid):
         listing.sell_status = 'O'
         listing.save()
         transaction.delete()
+        set_lowest_price(listing.book.book)
+        sellermessage = "Hello,\n\nThe transaction for your copy of" + transaction.book.book.title + " on PTX2 has been cancelled. Your listing has been readded to the system.\nIf you no longer wish to sell this book, you can remove the listing on your bookshelf.\n\nThank you for using PTX2!"
+    	buyermessage = "Hello,\n\nThe transaction for " + transaction.book.book.title + " on PTX2 has been cancelled. You can search for another offer on your bookshelf.\n\nThank you for using PTX2!"
         return HttpResponseRedirect("/bookshelf/")
     else:
         transaction = Transaction.objects.get(id=transactionid)
