@@ -28,19 +28,22 @@
 	  <td>  {{transaction.book.book.title}} </td>
 	  <td> {{transaction.price}}</td>
 {% if transaction.buyer == user and transaction.buyerreview == None or transaction.seller == user and transaction.sellerreview == None %}
-<td><a href="{% url 'ptx2app.views.pendingtransaction' id=transaction.id %}">Review and Confirm</a></td>
-{% comment %}
-    <form action="/pending/" method="POST" class="form-inline">{% csrf_token %}
-        <button class="btn btn-primary btn-xs no-pad">Confirm</button>
+{%comment%}<td><a href="{% url 'ptx2app.views.pendingtransaction' id=transaction.id %}">Review and Confirm</a></td>{%endcomment%}
+<td>
+    <form action="/pending/" method="POST" class="form-inline no-pad">{% csrf_token %}
+        <button class="btn btn-primary btn-xs no-pad" href="#" data-toggle="modal" data-target="#review{{transaction.pk}}">Review and Confirm</button>
+        <button class="btn btn-default btn-xs no-pad" name="action" value="cancel">Cancel Transaction</button>
         <input type="hidden" name="pk" value={{transaction.pk}}>
     </form>
-    {%endcomment %}
+
 </td>
 {% else %}
 		<td> Confirmed </td>
 {% endif %}
-	<td> <a href="{% url 'ptx2app.views.canceltransaction' transactionid=transaction.id %}">Cancel transaction</a>
+{%comment%}<td> <a href="{% url 'ptx2app.views.canceltransaction' transactionid=transaction.id %}">Cancel transaction</a></td>{%endcomment%}
+
 	</tr>
+    {% include 'forms/review.html' with pk=transaction.pk %}
 	{% endfor %}
 </tbody>
 </table>

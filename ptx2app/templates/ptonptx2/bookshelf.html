@@ -87,21 +87,22 @@
 					<h5><a href="/{{listing.book.book.isbn}}"> {{ listing.book.book.title }}</a></h5>
 					<p>Selling for ${{ listing.price }}<br style="color:red">
 						{% if listing.sell_status == 'P' %}
-						Offer made!<br>
-<form action="/pending/">
-					<button class="full-width btn btn-primary btn-xs" type="submit"> Pending Transaction </button>
-</form>
-					</p>
-{% else %}
-					<p>
-						<button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#editlistingmodal{{listing.pk}}">Edit listing?</button>
-					</p>
-					<p>
-						<button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromsellingmodal{{listing.id}}">Remove listing?</button>
+                        Offer made!<br>
+                        <form action="/pending/">
+                            <button class="full-width btn btn-primary btn-xs" type="submit"> Pending Transaction </button>
+                        </form>
+                        </p>
+                        {% else %}
+                        Lowest price: ${{listing.book.book.lowest_student_price}}
+                        <p>
+                        <button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#editlistingmodal{{listing.pk}}">Edit listing?</button>
+                        </p>
+                        <p>
+                        <button class="full-width btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#removefromsellingmodal{{listing.id}}">Remove listing?</button>
 
-					</p>
-{% endif %}
-				</div>
+                        </p>
+                        {% endif %}
+                    </div>
 			</div>
 		</div>
 						{% include 'forms/editlisting.html' with curprice=listing.price curcomm=listing.comment listingpk=listing.pk next="bookshelf" title=listing.book.book.title pk=book.pk bookpk=listing.book.book.pk labprice=listing.book.book.labyrinth_price amazprice=listing.book.book.amazon_price lowstud=listing.book.book.lowest_student_price isbn=listing.book.book.isbn isbn10=listing.book.book.isbn10 %}
@@ -124,10 +125,10 @@
                         <img src="{{book.book.picture_link}}" class="img-responsive img-owned" alt="">
                     </a>
 					<h5><a href="/{{book.book.isbn}}"> {{ book.book.title }}</a></h5>
-					<p>
+                    {%comment%}<p>
 						Owned<br>
                         <!--<a href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</a>-->
-					</p>
+                        </p>{%endcomment%}
 					<p>
                         <button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button>
                     </p>

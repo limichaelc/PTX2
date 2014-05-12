@@ -29,8 +29,6 @@ def get_context(request):
         profile = request.user.profile_set.get()
     except:
         profile = Profile.objects.create(user = user)
-        #messages.success(request, 
-            #'<strong>Welcome!</strong> This appears to be your first visit. You can get started by <a href="#" data-toggle="modal" data-target="#newcoursemodal" class="alert-link">adding a new course</a>.')
         profile.save()
     first = (not profile.first_name)
     books = Book.objects.all()
@@ -204,17 +202,6 @@ def remove_listing(request):
     listprice = listing.price
     listing.delete()
 
-    #set lowest student price, if necessary
-    #book = physbook.book
-    #if book.lowest_student_price <= listprice:
-    #    if not Listing.objects.filter(book__book__pk = book.pk):
-    #        book.lowest_student_price = None
-    #    else:
-    #        book.lowest_student_price = 1000000
-    #        for listing in Listing.objects.filter(book__book__pk = book.pk):
-    #            if listing.price < book.lowest_student_price:
-    #                book.lowest_student_price = listing.price
-    #    book.save()
     set_lowest_price(physbook.book)
 
     return HttpResponseRedirect("/" + physbook.book.isbn + "/")
@@ -540,14 +527,16 @@ def scrape(request):
     if not request.user.is_authenticated():
         return redirect('/login/')
     if request.method == 'POST':
-        #pagewriter.write('page.txt')
-        #scrape.scrape('page.txt')
-        scrape_funcs.save()
+        if request.POST['action'] == 'scrape':
+            pagewriter.write('page.txt')
+            scrape.scrape('page.txt')
+        else:
+            scrape_funcs.save()
+
+        return HttpResponse("Your request has been processed. Shine on you crazy diamond.")
 
     else:
-        pass
-
-    return render_to_response('ptonptx2/scrape.html', {'form': None}, context)
+        return render_to_response('ptonptx2/scrape.html', context)
     
 @login_required
 def coursepage(request, course_dpt, course_num):
@@ -614,36 +603,6 @@ def sellbook(request, isbn):
     context_dict['form'] = form
 	
     return render_to_response('ptonptx2/sellbook.html', context_dict, context)
-    
-#not used
-@login_required
-def setpricelisting(request, isbn, physbookid):
-    context = RequestContext(request)
-    
-    if not request.user.is_authenticated():
-        return redirect('/login/')
-    
-    context_dict = get_context(request)
-    physbook = PhysBook.objects.get(id=physbookid)
-    if request.method == 'POST':
-        form = ListingForm(request.POST)
-        if form.is_valid():
-            
-            form = form.save(commit=False)    
-            form.book = physbook
-            form.owner = request.user.get_profile()
-            form.sell_status = 'O'
-            form.save()
-            return index(request)
-        else:
-            print form.errors
-    else:
-        form = ListingForm()
-    context_dict['form'] = form
-    context_dict['physbook'] = physbook
-	
-    return render_to_response('ptonptx2/setprice.html', context_dict, context)
-
 
 @login_required
 def confirmbuybook(request):
@@ -683,7 +642,8 @@ def confirmbuybook(request):
     return render_to_response('ptonptx2/afterpurchase.html', context_dict, context)
     
 @login_required
-def pendingtransaction(request, id):
+def pendingtransaction(request):
+    return
     context = RequestContext(request)
     if not request.user.is_authenticated():
         return redirect('/login/')
@@ -728,12 +688,14 @@ def pending(request):
     context_dict = get_context(request)
 
     # the user has confirmed a transaction
-    if request.POST:
+    if request.POST and request.POST['action'] == 'review':
+        rev = Review(comment=request.POST['review'])
+        rev.save()
         transaction = Transaction.objects.get(pk = request.POST['pk'])
         if transaction.buyer == context_dict['user']:
-             transaction.buyerreview = Review()
+             transaction.buyerreview = rev
         if transaction.seller == context_dict['user']:
-            transaction.sellerreview = Review()
+            transaction.sellerreview = rev
         transaction.save()
 
         #if both the seller and buyer have confirmed, remove the listing
@@ -749,8 +711,17 @@ def pending(request):
             listing.delete()
 
         return HttpResponseRedirect("/pending")
+    elif request.POST and request.POST['action'] == 'cancel':
+        transaction = Transaction.objects.get(pk = request.POST['pk'])
+        listing = Listing.objects.get(book = transaction.book)
+        listing.sell_status = 'O'
+        listing.save()
+        transaction.delete()
+        set_lowest_price(listing.book.book)
+        messages.success(request, "Transaction cancelled.")
+        return HttpResponseRedirect("/bookshelf/")
 
-    
+
     transactions = Transaction.objects.filter(Q(buyer = context_dict['user'])|Q(seller=context_dict['user']), Q(buyerreview=None) | Q(sellerreview=None))
     
     context_dict['transactions'] = transactions
@@ -758,6 +729,7 @@ def pending(request):
     return render_to_response('ptonptx2/pending.html', context_dict, context)
     
 def canceltransaction(request, transactionid):
+    return
     print "first" + transactionid
     context = RequestContext(request)
     if not request.user.is_authenticated():

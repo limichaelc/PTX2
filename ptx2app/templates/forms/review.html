@@ -1,0 +1,23 @@
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="reviewmodal" aria-hidden="true" id="review{{pk}}">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">How did your transaction go?</h4>
+            </div>
+            <div class="modal-body">
+                <div align="right">
+                    <form name="review" method="post" action="/pending/">{%csrf_token%}
+                        <input type="hidden" name="pk" value="{{pk}}">
+                        <input type="hidden" name="action" value="review">
+                        <input type="text" class="form-control" name="review" id="input{{pk}}"><br>
+                        <input name="submit" type="submit" class="btn btn-danger">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>          
+</div>
+<script type="text/javascript">
+    $('#review{{pk}}').on('shown.bs.modal', function() {$('#input{{pk}}').focus()});
+</script>
