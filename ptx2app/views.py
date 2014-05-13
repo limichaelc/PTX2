@@ -342,8 +342,8 @@ def removecourse(request):
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    if request.GET['r']:
-        r = request.GET['r']
+    if request.method == "POST":
+        r = request.POST['r']
         r = Course.objects.get(id=r)
         booklist = r.books.all()
         profile.course_list.remove(r)
@@ -373,8 +373,8 @@ def markasowned(request):
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    if request.GET['m']:
-        m = request.GET['m']
+    if request.method == "POST":
+        m = request.POST['m']
         m = Book.objects.get(id=m)
         profile.books_needed.remove(m)
         physbook = PhysBook()
@@ -396,8 +396,8 @@ def addtoneeded(request):
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    if request.GET['m']:
-        m = request.GET['m']
+    if request.method == "POST":
+        m = request.POST['m']
         m = Book.objects.get(id=m)
         profile.books_needed.add(m)
         profile.save()
@@ -414,8 +414,8 @@ def removefromneeded(request):
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    if request.GET['n']:
-        rfn = request.GET['n']
+    if request.method == "POST":
+        rfn = request.POST['n']
         rfn = Book.objects.get(id=rfn)
         profile.books_needed.remove(rfn)
         profile.save()
@@ -430,8 +430,8 @@ def removefromselling(request):
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    if request.GET['s']:
-        rfs = request.GET['s']
+    if request.method == "POST":
+        rfs = request.POST['s']
         rfs = PhysBook.objects.get(id=rfs)
 
 
@@ -460,8 +460,8 @@ def removefromowned(request):
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    if request.GET['o']:
-        rfo = request.GET['o']
+    if request.method == "POST":
+        rfo = request.POST['o']
         rfo = PhysBook.objects.get(id=rfo)
         title = rfo.book.title
         rfo.delete()
