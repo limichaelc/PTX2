@@ -31,7 +31,7 @@
                     <button class="btn btn-primary btn-xs full-width" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.id}}">Sell?</button>
                     </p>
                     {% if not book in user.books_needed.all %}
-                    <button class="btn btn-default btn-xs full-width" href="#" data-toggle="modal" data-target="#addtoneededmodal{{book.pk}}">Add to needed?</button>
+                    <button class="btn btn-primary btn-xs full-width" href="#" data-toggle="modal" data-target="#addtoneededmodal{{book.pk}}">Add to needed?</button>
                     {% include 'forms/addtoneeded.html' with book=book %}
                     {% else %}
                     <button class="btn btn-default btn-xs full-width" href="#" data-toggle="modal" data-target="#removefromneededmodal{{book.pk}}">Remove from needed?</button>
