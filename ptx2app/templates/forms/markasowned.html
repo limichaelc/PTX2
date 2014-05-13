@@ -6,7 +6,7 @@
             </div>
             <div class="modal-body">
                 <div align="right">
-                    <form name="markasowned" method="get" action="/markasowned">
+                    <form name="markasowned" method="post" action="/markasowned/"> {% csrf_token %}
                         <input type="hidden" name="m" value="{{book.id}}"></input>
                         <input name="Mark as owned" type="submit" class="btn btn-danger"></input>
                         <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
