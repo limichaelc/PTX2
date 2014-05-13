@@ -233,7 +233,7 @@ def profile(request):
             profile.last_name = request.POST['last_name']
             profile.preferred_meetingplace = request.POST['pref_meeting_place']
             profile.save()
-            messages.success(request, "Profile updated")
+            messages.success(request, "Profile updated.")
     return HttpResponseRedirect("/bookshelf")
 
 @login_required
@@ -347,7 +347,7 @@ def removecourse(request):
     context_dict['dept'] = r.dept
     context_dict['num'] = r.num
     context_dict['just_removed'] = True
-    messages.success(request, "Course %s %s (%s) has been removed" % (r.dept, r.num, r.name))
+    messages.success(request, "Course %s %s (%s) has been removed." % (r.dept, r.num, r.name))
     return HttpResponseRedirect("/bookshelf")
     #return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
@@ -370,7 +370,7 @@ def markasowned(request):
         profile.save()
         context_dict['m'] = m.title
         context_dict['markedasowned'] = True
-        messages.success(request, "Book %s has been marked as owned" % (m.title))
+        messages.success(request, "Book %s has been marked as owned." % (m.title))
         return HttpResponseRedirect("/bookshelf")
 
 @login_required
@@ -387,7 +387,7 @@ def addtoneeded(request):
         profile.save()
         context_dict['m'] = m.title
         context_dict['addedtoneeded'] = True
-        messages.success(request, "Book %s has been added to needed" % (m.title))
+        messages.success(request, "Book %s has been added to needed." % (m.title))
         return HttpResponseRedirect("/bookshelf")
 
 @login_required
@@ -402,7 +402,7 @@ def removefromneeded(request):
         rfn = Book.objects.get(id=rfn)
         profile.books_needed.remove(rfn)
         profile.save()
-        messages.success(request, "Book %s has been removed from books needed" % (rfn.title))
+        messages.success(request, "Book %s has been removed from books needed." % (rfn.title))
     return HttpResponseRedirect("/bookshelf")
 
 @login_required
@@ -428,7 +428,7 @@ def removefromselling(request):
         profile.books_owned.add(rfs)
         profile.save()
 
-        messages.success(request, "Book %s has been removed from books selling" % (rfs.book.title))
+        messages.success(request, "Book %s has been removed from books selling." % (rfs.book.title))
 
         set_lowest_price(rfs.book)
 
@@ -446,7 +446,7 @@ def removefromowned(request):
         rfo = PhysBook.objects.get(id=rfo)
         title = rfo.book.title
         rfo.delete()
-        messages.success(request, "Book %s has been removed from books owned" % (title))
+        messages.success(request, "Book %s has been removed from books owned." % (title))
         return HttpResponseRedirect("/bookshelf")
 
 @login_required
