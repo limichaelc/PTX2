@@ -280,12 +280,10 @@ def searchcourses(request):
     if 'q' in request.GET:
         q = request.GET['q']
         context_dict['query'] = q
-        if len(q) < 3:
-            context_dict['too_short'] = True
-            return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
-        if q.lower() == "and" or q.lower() == "the":
-            context_dict['too_general'] = True
-            return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
+        q_withspaces = q
+        q = q.upper().replace(" ", "")
+        finallist = []
+        
         thiscourse = None
         deptcourses = []
         numcourses = []
@@ -307,7 +305,7 @@ def searchcourses(request):
         courses = deptcourses + numcourses + namecourses
     else:
         return HttpResponseRedirect("/bookshelf")
-
+    
     context_dict = get_context(request)
     context_dict['query'] = q
     context_dict['course_dict'] = courses
