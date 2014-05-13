@@ -644,8 +644,8 @@ def confirmbuybook(request):
     transaction.save()
     buyer = transaction.buyer
     seller = transaction.seller
-    sellermessage = "Hi!\n\n" + buyer.first_name + " " + buyer.last_name + " (" + buyer.user.username +"@princeton.edu) has bought your copy of" + transaction.book.book.title + " on PTX2 for $" +  str(transaction.price) + ".\nJust to expedite the selling process, " + buyer.first_name + " has suggested meeting at: " + buyer.preferred_meetingplace + ".\n\nSimply reply to this email to talk to " + buyer.first_name + " and figure out when to meet.\n\nAfter you've completed the transaction, be sure to come back and leave a review.\n\nThanks, \n\n PTX2"
-    buyermessage = "Hi!\n\nYou have purchased " + transaction.book.book.title + " on PTX2 for $" +  str(transaction.price) + " from " + seller.first_name + " " + seller.last_name + " (" + seller.user.username +"@princeton.edu).\nJust to expedite the buying process, " + seller.first_name + " has suggested meeting at: " + seller.preferred_meetingplace + ".\n\nSimply reply to this email to talk to " + seller.first_name + " and figure out when to meet.\n\nAfter you've completed the transaction, be sure to come back and leave a review.\n\nThanks, \n\n PTX2"
+    sellermessage = "Hello " + seller.first_name + "!\n\n" + buyer.first_name + " " + buyer.last_name + " (" + buyer.user.username +"@princeton.edu) has bought your copy of" + transaction.book.book.title + " on PTX2 for $" +  str(transaction.price) + ".\nJust to expedite the selling process, " + buyer.first_name + " has suggested meeting at: " + buyer.preferred_meetingplace + ".\n\nSimply reply to this email to talk to " + buyer.first_name + " and figure out when to meet.\n\nAfter you've completed the transaction, be sure to come back and leave a review.\n\nThanks, \n\n PTX2"
+    buyermessage = "Hello " + buyer.first_name + "!\n\nYou have purchased " + transaction.book.book.title + " on PTX2 for $" +  str(transaction.price) + " from " + seller.first_name + " " + seller.last_name + " (" + seller.user.username +"@princeton.edu).\nJust to expedite the buying process, " + seller.first_name + " has suggested meeting at: " + seller.preferred_meetingplace + ".\n\nSimply reply to this email to talk to " + seller.first_name + " and figure out when to meet.\n\nAfter you've completed the transaction, be sure to come back and leave a review.\n\nThanks, \n\n PTX2"
     sellermail = EmailMessage('You sold a book on PTX2!', sellermessage, 'PTX2 <princetonptx2@gmail.com>', [seller.user.username + '@princeton.edu'], headers = {'Reply-To': buyer.user.username + '@princeton.edu'})
     buyermail = EmailMessage('You bought a book on PTX2!', buyermessage, 'PTX2 <princetonptx2@gmail.com>', [buyer.user.username + '@princeton.edu'], headers = {'Reply-To': seller.user.username + '@princeton.edu'})
     sellermail.send(fail_silently=True)
@@ -691,11 +691,11 @@ def pending(request):
         listing = Listing.objects.get(book = transaction.book)
         listing.sell_status = 'O'
         listing.save()
+        seller = transaction.seller
+        buyer = transaction.buyer
         transaction.delete()
         set_lowest_price(listing.book.book)
         messages.success(request, "Transaction cancelled.")
-        seller = transaction.seller
-        buyer=transaction.buyer
         sellermessage = "Hello " + seller.first_name + ",\n\nThe transaction for your copy of " + transaction.book.book.title + " on PTX2 has been cancelled. Your listing has been readded to the system.\nIf you no longer wish to sell this book, you can remove the listing on your bookshelf.\n\nThank you for using PTX2!"
     	buyermessage = "Hello " + buyer.first_name + ",\n\nWe regret to inform you that the transaction for " + transaction.book.book.title + " on PTX2 has been cancelled. You can search for another offer on your bookshelf.\n\nThank you for using PTX2!"
         send_mail('Transaction Cancelled', sellermessage, 'PTX2 <princetonptx2@gmail.com>', [seller.user.username + '@princeton.edu'], fail_silently=False)
