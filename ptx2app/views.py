@@ -301,7 +301,8 @@ def searchcourses(request):
 
         deptcourses.sort(key = lambda course: course.num)
         numcourses.sort(key = lambda course: course.dept)
-        namecourses.sort(key = lambda course: course.name)
+        namecourses.sort(key = lambda course: course.num)
+        namecourses.sort(key = lambda course: course.dept)
         courses = deptcourses + numcourses + namecourses
     else:
         return HttpResponseRedirect("/bookshelf")
@@ -517,7 +518,8 @@ def search(request):
 
         deptcourses.sort(key = lambda course: course.num)
         numcourses.sort(key = lambda course: course.dept)
-        namecourses.sort(key = lambda course: course.name)
+        namecourses.sort(key = lambda course: course.num)
+        namecourses.sort(key = lambda course: course.dept)
         courses = deptcourses + numcourses + namecourses
 
         #the user has searched for a course
