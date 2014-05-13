@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-
+#abstract class of a book- not a physical book, but used to create book pages
 class Book(models.Model):
     isbn = models.CharField(max_length=13)
     isbn10 = models.CharField(max_length=10)
@@ -21,6 +21,7 @@ class Book(models.Model):
     def __getitem__(self, key):
         return getattr(self, key)
         
+#course
 class Course(models.Model):
     name = models.CharField(max_length = 500)
     dept = models.CharField(max_length = 3)
@@ -39,6 +40,7 @@ class Course(models.Model):
     def __getitem__(self, key):
         return getattr(self, key)
 
+#a physical book that you can own or sell
 class PhysBook(models.Model):
     book = models.ForeignKey(Book)
     owner = models.ForeignKey("Profile")
@@ -46,11 +48,13 @@ class PhysBook(models.Model):
     def __unicode__(self):
         return self.book.title + " owned by " + str(self.owner.pk)
 
+# a review
 class Review(models.Model):
     comment = models.CharField(max_length = 500, blank = True)
     def __unicode__(self):
         return self.comment
 
+#a user's profile with extended information
 class Profile(models.Model):
     user = models.ForeignKey(User)
     first_name = models.CharField(max_length=30)
@@ -65,6 +69,7 @@ class Profile(models.Model):
     def __unicode__(self):
         return self.user.username
 
+#a listing that appears in each book page
 class Listing(models.Model):
     book = models.ForeignKey(PhysBook)
     owner = models.ForeignKey(Profile)
@@ -79,6 +84,7 @@ class Listing(models.Model):
     def __unicode__(self):
         return self.book.book.title + " for $" + str(self.price)
 
+# a transaction, current or pending
 class Transaction(models.Model):
     buyer = models.ForeignKey(Profile, related_name = "transaction_buyer")
     seller = models.ForeignKey(Profile, related_name = "transaction_seller")
