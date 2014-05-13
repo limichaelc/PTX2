@@ -279,6 +279,7 @@ def searchcourses(request):
 
     if 'q' in request.GET:
         q = request.GET['q']
+        context_dict['query'] = q
         if len(q) < 3:
             context_dict['too_short'] = True
             return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
