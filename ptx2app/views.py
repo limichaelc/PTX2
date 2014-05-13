@@ -280,7 +280,7 @@ def searchcourses(request):
     if 'q' in request.GET:
         q = request.GET['q']
         context_dict['query'] = q
-        q_withspaces = q
+        q_withspaces = q.upper()
         q = q.upper().replace(" ", "")
         finallist = []
         
@@ -496,7 +496,7 @@ def search(request):
         if q.lower() == "and" or q.lower() == "the":
             context_dict['too_general'] = True
             return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
-        q_withspaces = q
+        q_withspaces = q.upper()
         q = q.upper().replace(" ", "")
         finallist = []
         
