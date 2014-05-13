@@ -40,9 +40,11 @@ TEMPLATE_DIRS = (
 SECRET_KEY = 'f+n&gf!ph09l@9w=vy5%^@zl8lf4bzc12^#d(^s*5bhcou&xub'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+#TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -119,11 +121,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
-
-STATIC_URL = '/static/'
-
 try:
 	HOSTNAME = socket.gethostname()
 except:
@@ -150,5 +147,5 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, '../ptx2app/static'),
 )

@@ -4,6 +4,9 @@
 
         <form action="" method="post">
             {% csrf_token %}
+            <input type="radio" name="action" value="scrape">Scrape<br>
+            <input type="radio" name="action" value="save">Save<br>
+
             <button type="submit">GO GO GO!</button>
         </form>
 

@@ -9,7 +9,7 @@
         <div class="row clearfix">
 	<h4> Pending Transactions</h4>
 	{% if not transactions.all %}
-	<p>Currently no pending transactions.</p>
+	<p class="text-muted">Currently no pending transactions.</p>
 	{% else %}
 	<table class="table table-striped table-bordered">
 	 <thead>
@@ -26,21 +26,28 @@
 	  <td> {{transaction.seller.user.username}}</td>
 	  <td> {{transaction.buyer.user.username}}</td>
 	  <td>  {{transaction.book.book.title}} </td>
-	  <td> {{transaction.price}}</td>
+	  <td> ${{transaction.price}}</td>
 {% if transaction.buyer == user and transaction.buyerreview == None or transaction.seller == user and transaction.sellerreview == None %}
-<td><a href="{% url 'ptx2app.views.pendingtransaction' id=transaction.id %}">Review and Confirm</a></td>
-{% comment %}
-    <form action="/pending/" method="POST" class="form-inline">{% csrf_token %}
-        <button class="btn btn-primary btn-xs no-pad">Confirm</button>
+{%comment%}<td><a href="{% url 'ptx2app.views.pendingtransaction' id=transaction.id %}">Review and Confirm</a></td>{%endcomment%}
+<td>
+    <form action="/pending/" method="POST" class="form-inline no-pad">{% csrf_token %}
+        <button class="btn btn-primary btn-xs no-pad" href="#" data-toggle="modal" data-target="#review{{transaction.pk}}">Review and Confirm</button>
+        {% if transaction.buyerreview or transaction.sellerreview %}
+        <button class="btn btn-default btn-xs no-pad" name="action" value="cancel" disabled="disabled">Can't cancel</button>
+        {% else %}
+        <button class="btn btn-default btn-xs no-pad" name="action" value="cancel">Cancel Transaction</button>
+        {% endif %}
         <input type="hidden" name="pk" value={{transaction.pk}}>
     </form>
-    {%endcomment %}
+
 </td>
 {% else %}
 		<td> Confirmed </td>
 {% endif %}
-	<td> <a href="{% url 'ptx2app.views.canceltransaction' transactionid=transaction.id %}">Cancel transaction</a>
+{%comment%}<td> <a href="{% url 'ptx2app.views.canceltransaction' transactionid=transaction.id %}">Cancel transaction</a></td>{%endcomment%}
+
 	</tr>
+    {% include 'forms/review.html' with pk=transaction.pk %}
 	{% endfor %}
 </tbody>
 </table>
