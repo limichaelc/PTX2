@@ -184,7 +184,6 @@ def sell_book(request):
         #if not lowstud or price < lowstud:
         #    book.lowest_student_price = price
         #    book.save()
-        set_lowest_price(physbook.book)
 
         listing.book = physbook
         listing.owner = user
@@ -192,6 +191,7 @@ def sell_book(request):
         listing.price = price
         listing.comment = request.POST['comment']
         listing.save()
+        set_lowest_price(physbook.book)
         return HttpResponseRedirect('/bookshelf/')
 
     else:

@@ -18,7 +18,7 @@ None
 <br>
 {% if inc_PU|default:False %}
 <img src="http://www.princeton.edu/favicon.ico" height="16"; width="16"> 
-    {% if lowstud|default:None %}
+    {% if lowstud != None|default:None %}
     <a href="/{{ book.isbn }}">${{ lowstud }}.00</a><br>
     {% else %}
     No student offers<br>
