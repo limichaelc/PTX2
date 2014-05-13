@@ -6,6 +6,37 @@
 
 {% block main %}
 <div class="col-xs-8 column">
+    {% if book_dict %}
+    <h4>Books matching "{{ query }}":</h4>
+    <div class="row clearfix">
+    {% for book in book_dict %}
+        <div class="col-xs-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <a href="/{{book.isbn}}">
+                        <img src={{ book.picture_link }} class="img-responsive" alt=""> 
+                    </a>
+                    <h5><a href="/{{ book.isbn }}"> {{ book.title }}</a></h5>
+                        <p>
+                            {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
+                        </p>
+                        <p>
+                        <button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button></p>
+                        <p>
+                        {% if not book in user.books_needed.all %}
+                        <button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#addtoneededmodal{{book.pk}}">Add to needed?</button>
+                        {% else %}
+                        <button class="full-width btn btn-primary btn-xs" disabled="disabled" href="#" data-toggle="modal" data-target="#addtoneededmodal{{book.pk}}">Already needed</button>
+                        {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% include 'forms/newlisting.html' with title=book.title pk=0 bookpk=book.pk labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
+            {% include 'forms/addtoneeded.html' with book=book %}
+            {% endfor %}
+    </div>
+    {% endif %}
     {% if courses %}
     <h4>Courses matching "{{ query }}":</h4>
 	<div class="row clearfix">
@@ -49,37 +80,6 @@
     </div>
 
     {% endif %}
-    {% if book_dict %}
-	<h4>Books matching "{{ query }}":</h4>
-	<div class="row clearfix">
-	{% for book in book_dict %}
-		<div class="col-xs-3">
-			<div class="thumbnail">
-				<div class="caption">
-					<a href="/{{book.isbn}}">
-                        <img src={{ book.picture_link }} class="img-responsive" alt=""> 
-                    </a>
-					<h5><a href="/{{ book.isbn }}"> {{ book.title }}</a></h5>
-						<p>
-	                        {% include 'forms/price_widget.html' with labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 inc_PU=True %}
-						</p>
-						<p>
-                        <button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#newlistingmodal{{book.pk}}">Sell?</button></p>
-                        <p>
-                        {% if not book in user.books_needed.all %}
-			            <button class="full-width btn btn-primary btn-xs" href="#" data-toggle="modal" data-target="#addtoneededmodal{{book.pk}}">Add to needed?</button>
-			            {% else %}
-			            <button class="full-width btn btn-primary btn-xs" disabled="disabled" href="#" data-toggle="modal" data-target="#addtoneededmodal{{book.pk}}">Already needed</button>
-			            {% endif %}
-			            </p>
-                    </div>
-                </div>
-            </div>
-            {% include 'forms/newlisting.html' with title=book.title pk=0 bookpk=book.pk labprice=book.labyrinth_price amazprice=book.amazon_price lowstud=book.lowest_student_price isbn=book.isbn isbn10=book.isbn10 %}
-            {% include 'forms/addtoneeded.html' with book=book %}
-            {% endfor %}
-        </div>
-        {% endif %}
 </div>
 {% include 'forms/newcourse.html' %}
 {% endblock %}
