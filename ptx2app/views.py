@@ -96,6 +96,9 @@ def bookpage(request, isbn):
     
     context_dict = get_context(request)
     book = Book.objects.get(isbn=isbn)
+    if not book:
+        context_dict = get_context(request)
+        return render_to_response('ptonptx2/book_lookup_error.html', context_dict, context)
     listings = Listing.objects.filter(book__book__isbn = isbn, sell_status = 'O')
     
     context_dict['listings'] = listings
