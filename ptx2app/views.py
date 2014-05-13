@@ -282,6 +282,9 @@ def searchcourses(request):
         if len(q) < 3:
             context_dict['too_short'] = True
             return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
+        if q == "and" or q == "the":
+            context_dict['too_general'] = True
+            return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
         for f in Course.objects.all():
             if q.upper().replace(" ", "") == (f.dept + f.num):
                 finallist.append(f)
