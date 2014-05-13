@@ -282,13 +282,12 @@ def searchcourses(request):
         q_upper = q.upper().replace(" ", "")
         finallist = []
         
-        thiscourse = None
         deptcourses = []
         numcourses = []
         namecourses = []
         for f in Course.objects.all():
             if q_upper == (f.dept + f.num):
-                thiscourse = f
+                deptcourses.append(f)
             elif len(q_upper) == 3:
                 if q_upper == f.dept.upper():
                     deptcourses.append(f)
