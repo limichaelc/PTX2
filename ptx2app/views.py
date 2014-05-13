@@ -143,11 +143,12 @@ def sell_book(request):
             listing.save()
             
             #set lowest student price
-            book = listing.book.book
-            lowstud = book.lowest_student_price
-            if not lowstud or price < lowstud:
-                book.lowest_student_price = price
-                book.save()
+            #book = listing.book.book
+            #lowstud = book.lowest_student_price
+            #if not lowstud or price < lowstud:
+            #    book.lowest_student_price = price
+            #    book.save()
+            set_lowest_price(listing.book.book)
 
             return HttpResponseRedirect("/"+request.POST['next'])
 
@@ -176,10 +177,11 @@ def sell_book(request):
         user.save()
 
         #set lowest student price
-        lowstud = book.lowest_student_price
-        if not lowstud or price < lowstud:
-            book.lowest_student_price = price
-            book.save()
+        #lowstud = book.lowest_student_price
+        #if not lowstud or price < lowstud:
+        #    book.lowest_student_price = price
+        #    book.save()
+        set_lowest_price(physbook.book)
 
         listing.book = physbook
         listing.owner = user
