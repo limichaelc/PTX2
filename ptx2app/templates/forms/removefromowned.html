@@ -6,7 +6,7 @@
             </div>
             <div class="modal-body">
                 <div align="right">
-                    <form name="removefromowned" method="get" action="/removefromowned">
+                    <form name="removefromowned" method="post" action="/removefromowned/">
                         <input type="hidden" name="o" value="{{book.id}}"></input>
                         <input name="Mark as owned" type="submit" class="btn btn-danger"></input>
                         <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
