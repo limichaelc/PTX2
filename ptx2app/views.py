@@ -636,6 +636,10 @@ def confirmbuybook(request):
 
     listingid=request.POST['listingid']
     listing = Listing.objects.get(id=listingid)
+    #the purchase has alread been confirmed, but they might resend the form
+    if listing.sell_status == 'P':
+        return render_to_response('ptonptx2/afterpurchase.html', context_dict, context)
+
     sellerprofile = listing.owner
 
     context_dict['listing'] = listing
