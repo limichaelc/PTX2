@@ -492,6 +492,7 @@ def search(request):
         if q.lower() == "and" or q.lower() == "the":
             context_dict['too_general'] = True
             return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
+        q_withspaces = q
         q = q.upper().replace(" ", "")
         finallist = []
         
@@ -507,7 +508,7 @@ def search(request):
                     deptcourses.append(f)
                 if q == f.num:
                     numcourses.append(f)
-            if f.name.upper().find(q) != -1:
+            if f.name.upper().find(q_withspaces) != -1:
                 namecourses.append(f)
 
         deptcourses.sort(key = lambda course: course.num)
