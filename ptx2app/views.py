@@ -342,8 +342,8 @@ def removecourse(request):
         return redirect('/login/')
     profile = request.user.get_profile()
     context_dict = get_context(request)
-    if request.GET['r']:
-        r = request.GET['r']
+    if request.method == "POST":
+        r = request.POST['r']
         r = Course.objects.get(id=r)
         booklist = r.books.all()
         profile.course_list.remove(r)
