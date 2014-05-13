@@ -135,6 +135,9 @@ def sell_book(request):
         if 'listingpk' in request.POST:
             pk = request.POST['listingpk']
             listing = Listing.objects.get(pk = pk)
+            if listing.sell_status == 'P':
+                messages.error(request, "Someone has already made an offer on this book. You can't edit the listing.")
+                return HttpResponseRedirect("/bookshelf")
             listing.price = price
             listing.comment = request.POST['comment']
             listing.save()
