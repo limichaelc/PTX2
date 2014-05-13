@@ -265,8 +265,11 @@ def searchcourses(request):
     context_dict = get_context(request)
     finallist = []
 
-    if request.GET['q']:
+    if 'q' in request.GET:
         q = request.GET['q']
+        if len(q) < 3:
+            context_dict['too_short'] = True
+            return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
         for f in Course.objects.all():
             if q.upper().replace(" ", "") == (f.dept + f.num):
                 finallist.append(f)
@@ -278,6 +281,8 @@ def searchcourses(request):
                     finallist.append()
                 if re.search(q.upper().replace(" ",""), f.name.upper().replace(" ","")) != None:
                     finallist.append(f)
+    else:
+        return HttpResponseRedirect("/bookshelf")
     
     sortedbynum = sorted(finallist, key=lambda course: course['num'])
     sortedbydeptandnum = sorted(sortedbynum, key=lambda course: course['dept'])
@@ -453,7 +458,7 @@ def search(request):
     profile = request.user.get_profile()
     context_dict = get_context(request)
 
-    if request.GET['q']:
+    if 'q' in request.GET:
         q = request.GET['q']
         context_dict['query'] = q
         #we'll only entertain queries that are at least 3 characters long
