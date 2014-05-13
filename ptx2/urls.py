@@ -11,8 +11,8 @@ urlpatterns = patterns('',
     url(r'^admin/scrape/$', 'ptx2app.views.scrape', name = 'scrape'),
     url(r'^admin/', include(admin.site.urls)),
 
-    #everything else
-    url(r'^$', RedirectView.as_view(url='/bookshelf/')),
+    # core pages
+    url(r'^$', RedirectView.as_view(url='/bookshelf/')), # redirect all rogue urls to bookshelf
 	url(r'^bookshelf/', 'ptx2app.views.index'),
 	url(r'^profile/', 'ptx2app.views.profile'),
     url(r'^history/', 'ptx2app.views.history'),
