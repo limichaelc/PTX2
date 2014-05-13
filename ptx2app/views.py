@@ -589,6 +589,9 @@ def coursepage(request, course_dpt, course_num):
     if not request.user.is_authenticated():
         return redirect('/login/')
     course = Course.objects.get(dept=course_dpt, num=course_num)
+    if not course:
+        context_dict = get_context(request)
+        return render_to_response('ptonptx2/course_page_error.html', context_dict, context)
 
     books = course.books
 
