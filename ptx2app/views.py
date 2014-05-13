@@ -88,6 +88,7 @@ def index(request):
     return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
 @login_required
+#loads the page for each book
 def bookpage(request, isbn):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -104,6 +105,7 @@ def bookpage(request, isbn):
     return render_to_response('ptonptx2/book_lookup.html', context_dict, context)
     
 @login_required
+#loads the about page
 def about(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -112,6 +114,7 @@ def about(request):
     return render_to_response('ptonptx2/about.html', context)
 
 @login_required
+#handles the selling the book once user clicks on specific listing
 def sell_book(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -143,11 +146,12 @@ def sell_book(request):
             listing.save()
             
             #set lowest student price
-            book = listing.book.book
-            lowstud = book.lowest_student_price
-            if not lowstud or price < lowstud:
-                book.lowest_student_price = price
-                book.save()
+            #book = listing.book.book
+            #lowstud = book.lowest_student_price
+            #if not lowstud or price < lowstud:
+            #    book.lowest_student_price = price
+            #    book.save()
+            set_lowest_price(listing.book.book)
 
             return HttpResponseRedirect("/"+request.POST['next'])
 
@@ -176,10 +180,11 @@ def sell_book(request):
         user.save()
 
         #set lowest student price
-        lowstud = book.lowest_student_price
-        if not lowstud or price < lowstud:
-            book.lowest_student_price = price
-            book.save()
+        #lowstud = book.lowest_student_price
+        #if not lowstud or price < lowstud:
+        #    book.lowest_student_price = price
+        #    book.save()
+        set_lowest_price(physbook.book)
 
         listing.book = physbook
         listing.owner = user
@@ -223,6 +228,7 @@ def remove_listing(request):
     return HttpResponseRedirect("/" + physbook.book.isbn + "/")
 
 @login_required
+#allows user to edit their profile
 def profile(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -240,6 +246,7 @@ def profile(request):
     return HttpResponseRedirect("/bookshelf")
 
 @login_required
+#loads the user's history of transactions
 def history(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -250,6 +257,7 @@ def history(request):
     past_transactions = []
     
     for instance in transaction:
+    	#if the transaction has both reviews filled make it show up
         if (instance.buyerreview != None) & (instance.sellerreview != None):
             if profile == instance.buyer:
                 past_transactions.append(instance)
@@ -260,6 +268,7 @@ def history(request):
     return render_to_response('ptonptx2/history.html', context_dict, context)
 
 @login_required
+#loads the search page for the search bar
 def searchcourses(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -297,6 +306,7 @@ def searchcourses(request):
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)
 
 @login_required
+#adds a specific course to user's course_list
 def addcourse(request):
     context = RequestContext(request)
     profile = request.user.get_profile()
@@ -325,6 +335,7 @@ def addcourse(request):
 
 
 @login_required
+#removes course from student's course list
 def removecourse(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -355,6 +366,7 @@ def removecourse(request):
     #return render_to_response('ptonptx2/bookshelf.html', context_dict, context)
 
 @login_required
+#mark book as owned
 def markasowned(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -377,6 +389,7 @@ def markasowned(request):
         return HttpResponseRedirect("/bookshelf")
 
 @login_required
+#add book to needed
 def addtoneeded(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -394,6 +407,7 @@ def addtoneeded(request):
         return HttpResponseRedirect("/bookshelf")
 
 @login_required
+#remove book from needed
 def removefromneeded(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -409,6 +423,7 @@ def removefromneeded(request):
     return HttpResponseRedirect("/bookshelf")
 
 @login_required
+#remove book from user's selling
 def removefromselling(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -438,6 +453,7 @@ def removefromselling(request):
     return HttpResponseRedirect("/bookshelf")
 
 @login_required
+#remove book from user's owned
 def removefromowned(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -453,6 +469,7 @@ def removefromowned(request):
         return HttpResponseRedirect("/bookshelf")
 
 @login_required
+#search query
 def search(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -515,6 +532,7 @@ def search(request):
     return render_to_response('ptonptx2/booksearchpage.html', context_dict, context)
 
 @login_required
+#loads help page
 def help(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -524,6 +542,7 @@ def help(request):
     return render_to_response('ptonptx2/helppage.html', context_dict, context)
 
 @login_required
+#loads selling 
 def selling(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -536,6 +555,7 @@ def selling(request):
     return render_to_response('ptonptx2/selling.html', context_dict, context)
 
 @login_required
+#scarpe function
 def scrape(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -553,6 +573,7 @@ def scrape(request):
         return render_to_response('ptonptx2/scrape.html', context)
     
 @login_required
+#loads course page & books for that page
 def coursepage(request, course_dpt, course_num):
     context = RequestContext(request)
     if not request.user.is_authenticated():
@@ -623,6 +644,7 @@ def sellbook(request, isbn):
     return render_to_response('ptonptx2/sellbook.html', context_dict, context)
 
 @login_required
+#confirm that you have bought the book
 def confirmbuybook(request):
     context = RequestContext(request)
 
@@ -668,6 +690,7 @@ def confirmbuybook(request):
     return render_to_response('ptonptx2/afterpurchase.html', context_dict, context)
     
 @login_required
+#loads pending transactionspage
 def pending(request):
     context = RequestContext(request)
     if not request.user.is_authenticated():
