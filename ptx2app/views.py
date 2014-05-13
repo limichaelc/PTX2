@@ -696,10 +696,10 @@ def pending(request):
         messages.success(request, "Transaction cancelled.")
         seller = transaction.seller
         buyer=transaction.buyer
-        sellermessage = "Hello,\n\nThe transaction for your copy of" + transaction.book.book.title + " on PTX2 has been cancelled. Your listing has been readded to the system.\nIf you no longer wish to sell this book, you can remove the listing on your bookshelf.\n\nThank you for using PTX2!"
-    	buyermessage = "Hello,\n\nThe transaction for " + transaction.book.book.title + " on PTX2 has been cancelled. You can search for another offer on your bookshelf.\n\nThank you for using PTX2!"
-        send_mail('Transaction cancelled', sellermessage, 'princetonptx2@gmail.com', [seller.user.username + '@princeton.edu'], fail_silently=False)
-        send_mail('Transaction cancelled', buyermessage, 'princetonptx2@gmail.com', [buyer.user.username + '@princeton.edu'], fail_silently=False)
+        sellermessage = "Hello " + seller.first_name + ",\n\nThe transaction for your copy of " + transaction.book.book.title + " on PTX2 has been cancelled. Your listing has been readded to the system.\nIf you no longer wish to sell this book, you can remove the listing on your bookshelf.\n\nThank you for using PTX2!"
+    	buyermessage = "Hello " + buyer.first_name + ",\n\nWe regret to inform you that the transaction for " + transaction.book.book.title + " on PTX2 has been cancelled. You can search for another offer on your bookshelf.\n\nThank you for using PTX2!"
+        send_mail('Transaction Cancelled', sellermessage, 'PTX2 <princetonptx2@gmail.com>', [seller.user.username + '@princeton.edu'], fail_silently=False)
+        send_mail('Transaction Cancelled', buyermessage, 'PTX2 <princetonptx2@gmail.com>', [buyer.user.username + '@princeton.edu'], fail_silently=False)
         return HttpResponseRedirect("/bookshelf/")
 
 
