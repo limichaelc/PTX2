@@ -286,25 +286,31 @@ def searchcourses(request):
         if q.lower() == "and" or q.lower() == "the":
             context_dict['too_general'] = True
             return render_to_response('ptonptx2/searcherrorpage.html', context_dict, context)
+        thiscourse = None
+        deptcourses = []
+        numcourses = []
+        namecourses = []
         for f in Course.objects.all():
-            if q.upper().replace(" ", "") == (f.dept + f.num):
-                finallist.append(f)
-        if len(finallist) == 0:
-            for f in Course.objects.all():
-                if q.upper().replace(" ", "") == f.dept:
-                    finallist.append(f)
+            if q == (f.dept + f.num):
+                thiscourse = f
+            elif len(q) == 3:
+                if q == f.dept:
+                    deptcourses.append(f)
                 if q == f.num:
-                    finallist.append()
-                if re.search(q.upper().replace(" ",""), f.name.upper().replace(" ","")) != None:
-                    finallist.append(f)
+                    numcourses.append(f)
+            if f.name.upper().find(q_withspaces) != -1:
+                namecourses.append(f)
+
+        deptcourses.sort(key = lambda course: course.num)
+        numcourses.sort(key = lambda course: course.dept)
+        namecourses.sort(key = lambda course: course.name)
+        courses = deptcourses + numcourses + namecourses
     else:
         return HttpResponseRedirect("/bookshelf")
-    
-    sortedbynum = sorted(finallist, key=lambda course: course['num'])
-    sortedbydeptandnum = sorted(sortedbynum, key=lambda course: course['dept'])
+
     context_dict = get_context(request)
     context_dict['query'] = q
-    context_dict['course_dict'] = sortedbydeptandnum
+    context_dict['course_dict'] = courses
 
     
     return render_to_response('ptonptx2/course_page_list.html', context_dict, context)

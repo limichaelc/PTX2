@@ -7,7 +7,7 @@
 {% block main %}
 <div class="col-xs-8 column">
     {% if book_dict %}
-    <h4>Books matching "{{ query }}":</h4>
+    <h4>Books matching "{{ query }}"</h4>
     <div class="row clearfix">
     {% for book in book_dict %}
         <div class="col-xs-3">
@@ -38,7 +38,7 @@
     </div>
     {% endif %}
     {% if courses %}
-    <h4>Courses matching "{{ query }}":</h4>
+    <h4>Courses matching "{{ query }}"</h4>
 	<div class="row clearfix">
 	{% for course in courses %}
     <div display="inline-block">
