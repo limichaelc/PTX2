@@ -279,9 +279,7 @@ def searchcourses(request):
 
     if 'q' in request.GET:
         q = request.GET['q']
-        context_dict['query'] = q
-        q_withspaces = q.upper()
-        q = q.upper().replace(" ", "")
+        q_upper = q.upper().replace(" ", "")
         finallist = []
         
         thiscourse = None
@@ -289,14 +287,14 @@ def searchcourses(request):
         numcourses = []
         namecourses = []
         for f in Course.objects.all():
-            if q == (f.dept + f.num):
+            if q_upper == (f.dept + f.num):
                 thiscourse = f
-            elif len(q) == 3:
-                if q == f.dept:
+            elif len(q_upper) == 3:
+                if q_upper == f.dept.upper():
                     deptcourses.append(f)
-                if q == f.num:
+                if q_upper == f.num:
                     numcourses.append(f)
-            if f.name.upper().find(q_withspaces) != -1:
+            if f.name.upper().find(q.upper()) != -1:
                 namecourses.append(f)
 
         deptcourses.sort(key = lambda course: course.num)
