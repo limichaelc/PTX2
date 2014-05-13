@@ -507,7 +507,7 @@ def search(request):
                     deptcourses.append(f)
                 if q == f.num:
                     numcourses.append(f)
-            if f.name.upper().replace(" ","").find(q) != -1:
+            if f.name.upper().find(q) != -1:
                 namecourses.append(f)
 
         deptcourses.sort(key = lambda course: course.num)
