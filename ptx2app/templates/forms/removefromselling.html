@@ -6,7 +6,7 @@
             </div>
             <div class="modal-body">
                 <div align="right">
-                    <form name="removefromselling" method="post" action="/removefromselling/">
+                    <form name="removefromselling" method="post" action="/removefromselling/"> {% csrf_token %}
                         <input type="hidden" name="s" value="{{listing.book.id}}"></input>
                         <input name="Mark as owned" type="submit" class="btn btn-danger"></input>
                         <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>
