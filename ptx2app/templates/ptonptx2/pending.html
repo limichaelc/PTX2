@@ -32,7 +32,11 @@
 <td>
     <form action="/pending/" method="POST" class="form-inline no-pad">{% csrf_token %}
         <button class="btn btn-primary btn-xs no-pad" href="#" data-toggle="modal" data-target="#review{{transaction.pk}}">Review and Confirm</button>
+        {% if transaction.buyerreview or transaction.sellerreview %}
+        <button class="btn btn-default btn-xs no-pad" name="action" value="cancel" disabled="disabled">Can't cancel</button>
+        {% else %}
         <button class="btn btn-default btn-xs no-pad" name="action" value="cancel">Cancel Transaction</button>
+        {% endif %}
         <input type="hidden" name="pk" value={{transaction.pk}}>
     </form>
 

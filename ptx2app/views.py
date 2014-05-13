@@ -693,6 +693,9 @@ def pending(request):
         return HttpResponseRedirect("/pending")
     elif request.POST and request.POST['action'] == 'cancel':
         transaction = Transaction.objects.get(pk = request.POST['pk'])
+        if transaction.sellerreview or transaction.buyerreview:
+            message.error(request, "This transaction has already been reviewed. You can't cancel it.")
+            return HttpResponseRedirect("/bookshelf")
         listing = Listing.objects.get(book = transaction.book)
         listing.sell_status = 'O'
         listing.save()
