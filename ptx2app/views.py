@@ -95,8 +95,9 @@ def bookpage(request, isbn):
         return redirect('/login/')
     
     context_dict = get_context(request)
-    book = Book.objects.get(isbn=isbn)
-    if not book:
+    try:
+        book = Book.objects.get(isbn=isbn)
+    except:
         context_dict = get_context(request)
         return render_to_response('ptonptx2/book_lookup_error.html', context_dict, context)
     listings = Listing.objects.filter(book__book__isbn = isbn, sell_status = 'O')
@@ -149,11 +150,6 @@ def sell_book(request):
             listing.save()
             
             #set lowest student price
-            #book = listing.book.book
-            #lowstud = book.lowest_student_price
-            #if not lowstud or price < lowstud:
-            #    book.lowest_student_price = price
-            #    book.save()
             set_lowest_price(listing.book.book)
 
             return HttpResponseRedirect("/"+request.POST['next'])
@@ -181,12 +177,6 @@ def sell_book(request):
         #add book to user's list of books for sale
         user.books_selling.add(physbook)
         user.save()
-
-        #set lowest student price
-        #lowstud = book.lowest_student_price
-        #if not lowstud or price < lowstud:
-        #    book.lowest_student_price = price
-        #    book.save()
 
         listing.book = physbook
         listing.owner = user
@@ -591,8 +581,9 @@ def coursepage(request, course_dpt, course_num):
     context = RequestContext(request)
     if not request.user.is_authenticated():
         return redirect('/login/')
-    course = Course.objects.get(dept=course_dpt, num=course_num)
-    if not course:
+    try:
+        course = Course.objects.get(dept=course_dpt, num=course_num)
+    except:
         context_dict = get_context(request)
         return render_to_response('ptonptx2/course_page_error.html', context_dict, context)
 
